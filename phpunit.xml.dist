@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="src/autoload.php" colors="true">
+    <testsuites name="JSKOS-PHP test suite">
+        <directory>tests</directory>
+    </testsuites>
+</phpunit>

@@ -1,0 +1,12 @@
+# temporary files
+.DS_Store
+Thumbs.db
+.php_cs.cache
+
+# PHP files 
+vendor/
+phpunit.xml
+composer.phar
+composer.lock
+
+build/
