@@ -9,4 +9,5 @@ phpunit.xml
 composer.phar
 composer.lock
 
+doc/
 build/

@@ -3,10 +3,16 @@ php:
     - 5.6
     - 7.0
 
-install: composer install
-
-script: composer test
-
 matrix:
     fast_finish: true
+
+install:
+    - composer install
+
+script:
+    - mkdir -p build/logs
+    - composer test
+
+after_script:
+    - php vendor/bin/coveralls
 

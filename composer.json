@@ -17,7 +17,8 @@
     "require-dev": {
         "phpunit/phpunit": "~4.8",
         "jakub-onderka/php-parallel-lint": "~0.9",
-        "jakub-onderka/php-console-highlighter": "~0.3"
+        "jakub-onderka/php-console-highlighter": "~0.3",
+        "satooshi/php-coveralls": "~1.0"
     },
     "scripts": {
         "test-only": [
@@ -25,9 +26,10 @@
         ],
         "test": [
             "vendor/bin/parallel-lint --exclude vendor .",
-            "@test-only"
+            "vendor/bin/phpunit tests --coverage-clover build/logs/clover.xml"
         ],
         "doc": [
+            "rm -rf doc",
             "doxygen"
         ]
     }

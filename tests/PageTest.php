@@ -3,7 +3,7 @@
 namespace JSKOS;
 
 /**
- * @covers Page
+ * @covers \JSKOS\Page
  */
 class PageTest extends \PHPUnit_Framework_TestCase {
     public function testConstructor() {
