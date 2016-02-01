@@ -8,11 +8,12 @@
  *
  * @file
  */
+
 namespace JSKOS;
 
-require_once 'Data.php';
-require_once 'Error.php';
-require_once 'Page.php';
+use JSKOS\Data;
+use JSKOS\Error;
+use JSKOS\Page;
 
 /**
  * Query modifiers as defined by JSKOS API.

@@ -1,12 +1,14 @@
 <?php
-namespace JSKOS;
+/**
+ * @file
+ */
 
-require_once 'API.php';
+namespace JSKOS;
 
 /**
  * JSKOS API Client.
  *
- * @todo
+ * @todo not implemented yet!
  */
 class Client {
 }

@@ -2,7 +2,10 @@
 
 namespace JSKOS;
 
-class CommonFieldsTest extends \PHPUnit_Framework_TestCase {
+/**
+ * @covers \JSKOS\Record
+ */
+class RecordTest extends \PHPUnit_Framework_TestCase {
 
     public function testJsonEncode() {
         $concept = new Concept();
@@ -17,6 +20,15 @@ class CommonFieldsTest extends \PHPUnit_Framework_TestCase {
 
         $concept->modified = $default['modified'] = '2017-01-01';
         $this->assertEquals(json_encode($default),json_encode($concept));
+        $this->assertEquals(json_encode($default),"$concept");
+    }
+
+    public function testCreate() {
+        $concept = new Concept();
+
+        $this->assertEquals($concept, new Concept($concept));
+        $this->assertEquals($concept, new Concept("$concept"));
+        $this->assertEquals($concept, new Concept("{}"));
     }
 }
 

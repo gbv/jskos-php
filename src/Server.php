@@ -1,8 +1,11 @@
 <?php
+/**
+ * @file
+ */
 
 namespace JSKOS;
 
-require_once 'API.php';
+use JSKOS\Service;
 
 /**
  * A JSKOS Server.

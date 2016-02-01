@@ -1,5 +1,5 @@
 {
-    "name": "gbv/JSKOS",
+    "name": "gbv/jskos",
     "description": "PHP library to access and serve JSKOS data and services",
     "keywords": ["SKOS"],
     "homepage": "http://github.io/gbv/jskos-php",
@@ -19,6 +19,16 @@
         "jakub-onderka/php-parallel-lint": "~0.9",
         "jakub-onderka/php-console-highlighter": "~0.3",
         "satooshi/php-coveralls": "~1.0"
+    },
+    "autoload": {
+        "prs-4": {
+            "JSKOS\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "prs-4": {
+            "JSKOS\\": "tests/"
+        }
     },
     "scripts": {
         "test-only": [

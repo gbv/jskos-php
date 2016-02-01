@@ -1,7 +1,13 @@
 <?php
+/**
+ * This file is part of JSKOS package.
+ *
+ * @file
+ */
+
 namespace JSKOS;
 
-require_once 'Data.php';
+use JSKOS\Data;
 
 /**
  * A list of records in a possibly larger result set.

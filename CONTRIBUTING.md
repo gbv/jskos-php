@@ -19,6 +19,10 @@ the current directory:
 This way composer needs to be called via `php composer.phar`. To execute it as
 `composer`, make it executable move it to a directory included in your `PATH`.
 
+Composer may also be available as system package, for instance Ubuntu >= 15.10:
+    
+    $ sudo apt-get install composer
+
 ### Install dependencies
 
 Most development dependencies are listed in `composer.json`. Install them

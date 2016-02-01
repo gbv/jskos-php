@@ -20,6 +20,7 @@
  *
  * @file
  */
+
 namespace JSKOS;
 
 /**
@@ -28,6 +29,7 @@ namespace JSKOS;
  * Can always be serialized as JSON via json_encode.
  */
 abstract class Data implements \JsonSerializable {
+
     /**
      * Returns data which should be serialized to JSON.
      *
@@ -44,44 +46,20 @@ abstract class Data implements \JsonSerializable {
         }
         return $json;
     }
-}
 
-abstract class CommonFields extends Data {
-    public $uri;
-    public $created;
-    public $modified;
-}
+    /**
+     * Serialize to JSON in string context.
+     */
+    public function __toString() {
+        return json_encode($this);
+    }
 
-/**
- * A JSKOS %Concept.
- *
- * @see https://gbv.github.io/jskos/jskos.html#concepts
- */
-class Concept extends CommonFields {
-}
-
-/**
- * A JSKOS %Concept Scheme
- *
- * @see https://gbv.github.io/jskos/jskos.html#concept-schemes
- */
-class ConceptScheme extends CommonFields {
-}
-
-/**
- * A JSKOS %Concept or %Concept Type.
- *
- * @see https://gbv.github.io/jskos/jskos.html#concept-types
- */
-class ConceptType extends CommonFields {
-}
-
-/**
- * A JSKOS %Concept Mapping.
- *
- * @see https://gbv.github.io/jskos/jskos.html#concept-mappings
- */
-class ConceptMapping extends CommonFields {
+    /**
+     * Serialize to pretty-printed JSON.
+     */
+    public function pretty() {
+        return json_encode($this, JSON_PRETTY_PRINT);
+    }
 }
 
 ?>

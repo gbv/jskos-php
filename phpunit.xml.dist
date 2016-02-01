@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="src/JSKOS.php" colors="true">
+<phpunit bootstrap="./vendor/autoload.php" colors="true">
     <testsuites name="JSKOS-PHP test suite">
         <directory>tests</directory>
     </testsuites>

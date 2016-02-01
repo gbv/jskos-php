@@ -1,10 +1,17 @@
 <?php
+/**
+ * This file is part of JSKOS package.
+ * @file
+ */
+
 namespace JSKOS;
 
-require_once 'Data.php';
+use JSKOS\Data;
 
 /**
  * A JSKOS API Error response.
+ *
+ * @see https://gbv.github.io/jskos-api/jskos-api.html#error-responses
  */
 class Error extends Data {
     public $code;
@@ -21,9 +28,10 @@ class Error extends Data {
      * @param string  $message
      * @param string  $description
      * @param string  $uri
+     *
+     * @todo check member constraints: code and error must be set properly
      */
      public function __construct($code, $error, $message, $description, $uri) {
-        // TODO: make sure code and error are set
         $this->code        = $code;
         $this->error       = $error;
         $this->message     = $message;
