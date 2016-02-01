@@ -21,13 +21,8 @@
         "satooshi/php-coveralls": "~1.0"
     },
     "autoload": {
-        "prs-4": {
+        "psr-4": {
             "JSKOS\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "prs-4": {
-            "JSKOS\\": "tests/"
         }
     },
     "scripts": {

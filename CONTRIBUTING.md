@@ -30,6 +30,10 @@ locally:
 
     $ composer install 
 
+You may need to enable PHP extension curl:
+
+    $ sudo apt-get install php5-curl
+
 For optional generation of code documentation and releases and you further
 need [doxygen](http://doxygen.org/). Please install as usual to your operating
 system, for instance on Ubuntu:

@@ -11,50 +11,7 @@
 
 namespace JSKOS;
 
-use JSKOS\Data;
-use JSKOS\Error;
-use JSKOS\Page;
-
-/**
- * Query modifiers as defined by JSKOS API.
- */
-const QueryModifiers = [
-    "properties",
-    "page","limit","unique",
-    "callback",
-];
-
-/**
- * A ServiceDescription or ServiceEndpoint.
- */
-interface Service {
-    /**
-     * @return Response
-     */
-    public function query($request);
-}
-
-/**
- * Description of a JSKOS API Service.
- *
- * This includes pointers to Service Endpoints or embedded Records.
- */
-class ServiceDescription extends Data implements Service {
-    public $jskosapi = '0.0.1';
-    public $title;
-
-    public $concepts;
-    public $types;
-    public $schemes;
-    public $mappings;
-
-    /**
-     * @return ServiceDescription|Error
-     */
-    public function query($response) {
-        return $this;
-    }
-}
+use JSKOS\Service;
 
 /**
  * Receives requests and returns Records.
