@@ -40,13 +40,19 @@ system, for instance on Ubuntu:
 
     $ sudo apt-get install doxygen
 
+### Run static tests
+
+The code is checked with [PHP Parallel Lint](https://github.com/JakubOnderka/PHP-Parallel-Lint) before unit testing.
+
 ### Run unit tests
 
-The code is checked with [PHP Parallel Lint](https://github.com/JakubOnderka/PHP-Parallel-Lint) and [PHPUnit](https://phpunit.de/):
+Unit tests are located in `tests/`, based on [PHPUnit](https://phpunit.de/). Run via:
 
     $ composer test
 
-Unit tests are located in `tests/`.
+To also check code coverage you may need to enable PHP extension xdebug:
+
+    $ sudo apt-get install php5-xdebug
 
 ### Generate documentation
 
@@ -56,3 +62,4 @@ Code documentation can be generated into `doc/` if Doxygen is installed:
 
 The result will in HTML for preview and in XML for further processing.
  
+

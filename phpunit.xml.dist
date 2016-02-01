@@ -4,4 +4,9 @@
     <testsuites name="JSKOS-PHP test suite">
         <directory>tests</directory>
     </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
 </phpunit>
