@@ -22,17 +22,16 @@ This will automatically create `composer.json` for your project (unless it alrea
 require_once __DIR__ . '/vendor/autoload.php'
 
 $concept = new JSKOS\Concept( [ "uri" => "http://example.org" ] );
-echo $concept;
+echo $concept->pretty();
 ~~~
 
-## Manually
+## Manually with autoloading
 
 Download the jskos library directory `src` and put it in a directory of your choice. Then enable autoloading for its classes by pointing to this directory: 
 
 ~~~php
 spl_autoload_register(function($class) {
-    # location of JSKOS library relative to this file
-    static $JSKOS = '../src/';
+    static $JSKOS = '../src/'; # location relative to this file
     $class = explode('\\',$class);
     if ($class[0] == 'JSKOS') {
         require_once __DIR__."/$JSKOS$class[1].php";
@@ -40,7 +39,18 @@ spl_autoload_register(function($class) {
 });
 
 $concept = new JSKOS\Concept( [ "uri" => "http://example.org" ] );
-echo $concept;
+echo $concept->pretty();
+~~~
+
+## Manually without autoloading
+
+Download the jskos library directory `src` and put it in a directory of your choice. Then include file `JSKOS.php` which includes all library files:
+
+~~~php
+require_once 'src/JSKOS.php';
+
+$concept = new JSKOS\Concept( [ "uri" => "http://example.org" ] );
+echo $concept->pretty();
 ~~~
 
 # About
