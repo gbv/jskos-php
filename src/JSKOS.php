@@ -33,7 +33,6 @@ require_once('Error.php');
 require_once('Page.php');
 
 require_once('Service.php');
-require_once('ServiceDescription.php');
 require_once('ServiceEndpoint.php');
 
 require_once('Server.php');

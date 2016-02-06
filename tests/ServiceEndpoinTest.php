@@ -2,6 +2,9 @@
 
 namespace JSKOS;
 
+/**
+ * @covers \JSKOS\ServiceEndpoint
+ */
 class ServiceEndpointTest extends \PHPUnit_Framework_TestCase {
 
     public function testQueryMethod() {

@@ -22,7 +22,7 @@ abstract class Record extends Data {
      *
      * @param String|Array|Object JSON data or record to copy
      */
-    public function __construct( $data=NULL ) {
+    public function __construct( $data = NULL ) {
         if (is_string($data)) {
             $data = json_decode($data);
         }
@@ -33,6 +33,8 @@ abstract class Record extends Data {
                     $this->$key = $value;
                 }
             }
+        } elseif ( $data !== NULL ) {
+            throw new \InvalidArgumentException('argument passed to new Record(...) must be string, array, or object');
         }
     }
     

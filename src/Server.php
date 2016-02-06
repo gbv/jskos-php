@@ -10,12 +10,11 @@ use JSKOS\Service;
 /**
  * A JSKOS Server.
  *
- * Serves a ServiceDescription or a ServiceEndpoint via HTTP.
+ * Serves a ServiceEndpoint via HTTP.
  *
  * Example:
  * @code
- * my $service = new ServiceDescription(...);
- * my $server  = new Server($service);
+ * my $server  = new Server($endpoint);
  * $server->run();
  * @endcode
  */
@@ -24,12 +23,9 @@ class Server {
 
     /**
      * Create a new Server.
-     * @param $service;
+     * @param Service $service
      */
-    function __construct($service) {
-        if (!is_a('Service', $service)) {
-            throw new \InvalidArgumentException('service must be class \JSKOS\Service');
-        }
+    function __construct(Service $service) {
         $this->service = $service;
     }
 
@@ -71,7 +67,6 @@ class Server {
         if ($method == 'GET') {
 
             # TODO: route?
-            # TODO: if ServiceDescription else ServiceEndpoint
             $page = $this->request($params);
 
             // TODO: if unique

@@ -25,7 +25,7 @@ const QueryModifiers = [
 ];
 
 /**
- * A ServiceDescription or ServiceEndpoint.
+ *
  */
 interface Service {
     /**
