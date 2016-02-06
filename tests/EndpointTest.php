@@ -3,26 +3,26 @@
 namespace JSKOS;
 
 /**
- * @covers \JSKOS\ServiceEndpoint
+ * @covers \JSKOS\Service
  */
-class ServiceEndpointTest extends \PHPUnit_Framework_TestCase {
+class ServiceTest extends \PHPUnit_Framework_TestCase {
 
     public function testQueryMethod() {
         $page = new Page();
         $method = function ($q) use ($page) {
             return $page;
         };
-        $service = new ServiceEndpoint($method);
+        $service = new Service($method);
         $this->assertSame($page, $service->query([]));
     }
 
     public function testInvalidQueryMethod() {
         $this->setExpectedException('InvalidArgumentException');
-        $service = new ServiceEndpoint(42);
+        $service = new Service(42);
     }
 
     public function testDefaultQueryMethod() {
-        $service = new ServiceEndpoint();
+        $service = new Service();
         $this->assertInstanceOf('\JSKOS\Page', $service->query([]));
     }
 

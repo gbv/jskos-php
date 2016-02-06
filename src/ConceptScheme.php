@@ -27,14 +27,14 @@ class ConceptScheme extends LabeledRecord {
 
     /**
      * JSKOS API concepts endpoint returning all concepts in this scheme.
-     * @see ServiceEndpoint
+     * @see Service
      * @var URL $concepts
      */
     public $concepts;
 
     /**
      * JSKOS API concepts endpoint returning all types in this scheme.
-     * @see ServiceEndpoint
+     * @see Service
      * @var URL $types
      */
     public $types;

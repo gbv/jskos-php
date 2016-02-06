@@ -10,11 +10,11 @@ use JSKOS\Service;
 /**
  * A JSKOS Server.
  *
- * Serves a ServiceEndpoint via HTTP.
+ * Serves a Service via HTTP.
  *
  * Example:
  * @code
- * my $server  = new Server($endpoint);
+ * my $server  = new Server($service);
  * $server->run();
  * @endcode
  */
