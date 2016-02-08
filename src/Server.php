@@ -14,11 +14,14 @@ use JSKOS\Service;
  *
  * Example:
  * @code
- * my $server  = new Server($service);
+ * $service = new Service();
+ * $server = new Server($service);
  * $server->run();
  * @endcode
  */
 class Server {
+    public static $API_VERSION = '0.0.0';
+
     protected $service; /**< Service */
 
     /**
@@ -75,7 +78,7 @@ class Server {
 
             // TODO: unique
             // TODO: Link header with next/last/first
-            
+            // TODO: Link header with URI template of suppo       
             $response = $page;
 
         } else {
@@ -87,10 +90,19 @@ class Server {
     }
 
     /**
+     * Send standard JSKOS-API headers.
+     * @param integer $code HTTP Status code
+     */
+    protected function sendStandardHeaders($code) {
+        http_response_code($code);
+        header("X-JSKOS-API-Version: $this->API_VERSION");
+    }
+
+    /**
      * Send response to a HTTP OPTIONS request.
      */
     protected function sendOptionsResponse() {
-        http_response_code(200);
+        $this->sendStandardHeaders(200);
         header("Access-Control-Allow-Methods: GET, HEAD, OPTIONS");
         if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) && 
             $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'GET') {
@@ -107,7 +119,7 @@ class Server {
      */
     protected function sendJSONResponse($response, $callback) {
         $code = isa_a('\JSKOS\Error',$response) ? $response->code : 200;
-        http_response_code($code);
+        $this->sendStandardHeaders($code);
 
         if ($callback) {
             header('Content-Type: application/javascript; charset=utf-8');
