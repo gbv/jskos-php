@@ -30,12 +30,14 @@ require_once('ConceptScheme.php');
 require_once('ConceptMapping.php');
 
 require_once('Error.php');
+
 require_once('Page.php');
 
 require_once('Service.php');
+
+require_once('Response.php');
 
 require_once('Server.php');
 require_once('Client.php');
 
 ?>
-

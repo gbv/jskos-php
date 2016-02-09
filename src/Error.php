@@ -31,7 +31,7 @@ class Error extends Data {
      *
      * @todo check member constraints: code and error must be set properly
      */
-     public function __construct($code, $error, $message, $description, $uri) {
+     public function __construct($code, $error, $message, $description=NULL, $uri=NULL) {
         $this->code        = $code;
         $this->error       = $error;
         $this->message     = $message;

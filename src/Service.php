@@ -16,6 +16,7 @@ namespace JSKOS;
  */
 const QueryModifiers = [
     "properties",
+    "expand",
     "page","limit","unique",
     "callback",
 ];

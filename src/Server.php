@@ -20,114 +20,133 @@ use JSKOS\Service;
  * @endcode
  */
 class Server {
+
+    /**
+     * @var string $API_VERSION JSKOS-API Version of this implementation
+     */
     public static $API_VERSION = '0.0.0';
 
-    protected $service; /**< Service */
+    /**
+     * @var Service $service
+     */
+    protected $service;
 
     /**
      * Create a new Server.
      * @param Service $service
      */
-    function __construct(Service $service) {
-        $this->service = $service;
+    function __construct(Service $service = NULL) {
+        $this->service = is_null($service) ? new Service() : $service;
     }
 
     /**
-     * Receive request and send response.
+     * Receive request and send Response.
+     */
+    public function run() {
+       $this->response()->send();
+    }
+
+    /**
+     * Receive request and create a Response.
      *
      * This is the core method implementing basic parts of JSKOS API.
      * The method handles HTTP request method, request headers and 
      * [query modifiers](https://gbv.github.io/jskos-api/#query-modifiers),
-     * passes valid GET requests to Server::request and sends the result
-     * in JSON with appropriate HTTP response headers.
+     * passes valid GET and HEAD requests to the served Service and wraps
+     * the result as Response.
+     *
+     * @return Response
      */
-    public function run() {
-        $method = $_SERVER['REQUEST_METHOD'];
+    public function response() {
+        $method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
         $params = $_GET;
 
         if ($method == 'OPTIONS') {
-            $this->sendOptionsResponse();
-            return;
+            return $this->optionsResponse();
         }
 
         # get query modifiers
-        
         if (isset($params['callback'])) {
-            $callback = $params['callback']; 
-            delete($params['callback']);
+            $callback = $params['callback'];
+            if (!preg_match('/^[$A-Z_][0-9A-Z_$.]*$/i', $callback)) {
+                unset($callback);
+            }
+            unset($params['callback']);
         }
 
         if (isset($params['language'])) {
             $language = $params['language'];
-            delete($params['language']);
-        } else {
-            # TODO: parse and map q's to preference list
+            unset($params['language']);
+        } elseif(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             $language = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+            # TODO: parse and map q's to preference list
         }
 
         // TODO: header: Allow/Authentication
 
-        if ($method == 'GET') {
+        if ($method == 'GET' or $method == 'HEAD') {
 
             # TODO: route?
-            $page = $this->request($params);
+            $page = $this->service->query($params);
 
             // TODO: if unique
-
-            header("X-Total-Count: ".$page->totalCount);
 
             // TODO: unique
             // TODO: Link header with next/last/first
             // TODO: Link header with URI template of suppo       
-            $response = $page;
 
+            $response = $this->basicResponse(200, $page);
+            $response->header['X-Total-Count'] = $page->totalCount;
+
+            if ($method == 'HEAD') {
+                $response->emptyBody = TRUE;
+            }
         } else {
+            error_log("Method not allowed: $method");
             # TODO: HEAD request
-            $response = new Error(405,'Method not allowed');
+            # TODO: clean error object
+            $response = $this->basicResponse(
+                405,
+                [],
+                new Error(405,'','Method not allowed')
+            );
         }
 
-        $this->sendResponse($response, $callback);
+        if (isset($callback)) {
+            $response->callback = $callback;
+        }
+        return $response;
     }
 
     /**
-     * Send standard JSKOS-API headers.
+     * Create a Response object with standard JSKOS-API headers.
      * @param integer $code HTTP Status code
+     * @return Response
      */
-    protected function sendStandardHeaders($code) {
-        http_response_code($code);
-        header("X-JSKOS-API-Version: $this->API_VERSION");
+    protected function basicResponse($code=200, $content=NULL) {
+        return new Response(
+            $code,
+            ['X-JSKOS-API-Version' => self::$API_VERSION ],
+            # TODO: URI Template of this service
+            $content
+        );
     }
 
     /**
-     * Send response to a HTTP OPTIONS request.
+     * Respond to a HTTP OPTIONS request.
+     * @return Response
      */
-    protected function sendOptionsResponse() {
-        $this->sendStandardHeaders(200);
-        header("Access-Control-Allow-Methods: GET, HEAD, OPTIONS");
+    protected function optionsResponse() {
+        $response = $this->basicResponse();
+
+        $response->headers['Access-Control-Allow-Methods'] = 'GET, HEAD, OPTIONS';
         if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) && 
             $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'GET') {
-            header("Access-Control-Allow-Origin: *");
-            header("Acess-Control-Expose-Headers: Link X-Total-Count");
+            $response->headers['Access-Control-Allow-Origin'] = '*';
+            $response->headers['Acess-Control-Expose-Headers'] = 'Link X-Total-Count';
         }
-        return;
-    }
 
-    /**
-     * Send the actual HTTP response in JSON format.
-     * @param Response $response
-     * @param string $callback
-     */
-    protected function sendJSONResponse($response, $callback) {
-        $code = isa_a('\JSKOS\Error',$response) ? $response->code : 200;
-        $this->sendStandardHeaders($code);
-
-        if ($callback) {
-            header('Content-Type: application/javascript; charset=utf-8');
-            echo "/**/$callback(".$response->json.");";
-        } else {
-            header('Content-Type: application/json');
-            echo $response->json;
-        }
+        return $response;
     }
 }
 
