@@ -62,4 +62,10 @@ Code documentation can be generated into `doc/` if Doxygen is installed:
 
 The result will in HTML for preview and in XML for further processing.
  
+### Create examples
+
+Sample JSKOS servers can be placed in `examples/`. You can directly serve the
+directory for testing:
+
+    $ php -S localhost:8080 -t examples/ 
 

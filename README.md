@@ -53,6 +53,12 @@ $concept = new JSKOS\Concept( [ "uri" => "http://example.org" ] );
 echo $concept->pretty();
 ~~~
 
+# Usage
+
+## Examples
+
+* [wikidata.php](https://github.com/gbv/jskos-php/blob/master/examples/wikidata.php) - basic wrapper to Wikidata
+
 # About
 
 ## Requirements
