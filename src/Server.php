@@ -96,7 +96,7 @@ class Server {
             // TODO: Link header with URI template of suppo       
 
             $response = $this->basicResponse(200, $page);
-            $response->header['X-Total-Count'] = $page->totalCount;
+            $response->headers['X-Total-Count'] = $page->totalCount;
 
             if ($method == 'HEAD') {
                 $response->emptyBody = TRUE;
@@ -126,8 +126,10 @@ class Server {
     protected function basicResponse($code=200, $content=NULL) {
         return new Response(
             $code,
-            ['X-JSKOS-API-Version' => self::$API_VERSION ],
-            # TODO: URI Template of this service
+            [
+                'X-JSKOS-API-Version' => self::$API_VERSION,
+                'Link-Template' => '<'.$this->service->uriTemplate().'>; rel="search"',
+            ],
             $content
         );
     }

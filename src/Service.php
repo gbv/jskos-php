@@ -45,29 +45,17 @@ class Service {
             throw new \InvalidArgumentException('queryMethod must be callable');
         }
         $this->queryMethod = $queryMethod;
-
-        $this->supportParameter("uri");
-        $this->supportParameter("type");
+        $this->supportParameter('uri');
     }
 
     /**
      * Perform a query.
-     * @return Page|Record|Error
+     *
+     * @return Page|Error
      */
     public function query($request) {
         $method = $this->queryMethod;
         return $method($request);
-/*
-        try {
-            $response = $method($request);
-        } catch ( \Exception $e ) {
-            // TODO: return Error( ... )
-        }
-        if (!is_a('Response', $response)) {
-            // TODO: return Error( ... )
-        }
-        return $response;
-*/
     }
 
     /**
@@ -80,6 +68,14 @@ class Service {
         }
         $this->supportedParameters[$name] = $name;
     }
-}
 
-?>
+    /**
+     * Get a list of query parameters as URI template.
+     */
+    public function uriTemplate($template='') {
+        foreach ($this->supportedParameters as $name) {
+            $template .= "{?$name}";
+        }
+        return $template;
+    }
+}

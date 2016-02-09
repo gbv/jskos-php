@@ -2,8 +2,7 @@
 /**
  * jskos PHP library include file.
  *
- * This file includes all jskos library file. Please consider to use
- * autoloading instead.
+ * This file includes all jskos library files. Please consider to use autoloading instead.
  *
  * @code
  * <?php
@@ -18,7 +17,6 @@
  *
  * @file
  */
-
 
 require_once('Data.php');
 require_once('Record.php');
@@ -39,5 +37,3 @@ require_once('Response.php');
 
 require_once('Server.php');
 require_once('Client.php');
-
-?>

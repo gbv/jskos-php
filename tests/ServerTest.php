@@ -21,17 +21,18 @@ class ServerTest extends \PHPUnit_Framework_TestCase {
         $_GET = [];
         $response = $server->response(); 
 
-        $this->assertResponse($response, 200, 
-            ['X-JSKOS-API-Version' => '0.0.0'],
-            '[]'
-        );
+        $headers = [
+            'X-JSKOS-API-Version' => '0.0.0', 
+            'X-Total-Count' => 0,
+            'Link-Template' => '<{?uri}>; rel="search"',
+            # TODO: Link: rel="collection" to concept scheme or registry
+        ];
+
+        $this->assertResponse($response, 200, $headers, '[]');
 
         $_GET = ['callback' => 'abc'];
         $response = $server->response(); 
-        $this->assertResponse($response, 200, 
-            ['X-JSKOS-API-Version' => '0.0.0'],
-            '/**/abc([]);'
-        );
+        $this->assertResponse($response, 200, $headers, '/**/abc([]);');
     }
 }
 
