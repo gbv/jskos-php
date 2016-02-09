@@ -1,11 +1,5 @@
 <?php
 /**
- * PHP library to implement JSKOS API.
- *
- * See Client.php for a JSKOS API Client.
- *
- * @see https://gbv.github.io/jskos-api/
- *
  * @file
  */
 
@@ -22,13 +16,32 @@ const QueryModifiers = [
 ];
 
 /**
- * Receives requests and returns Records.
+ * JSKOS API backend class.
  *
- * Either create a subclass or provide a query function on instanciation.
+ * A %Service can be queried with a set of query parameters to return a Page
+ * or Error. To actually implement JSKOS API, create a Server that passes HTTP
+ * requests to the %Service. To implement a %Service, provide a query function
+ * on instanciation or create a subclass that overrides the query method.
  *
+ * @code
+ * $service = new Service(function($query) { ... });
+ * $server = new Server($service);
+ * $server->run();
+ * @endcode
+ *
+ * Each %Service can be configured to support specific query parameters, in 
+ * addition to the mandatory parameter `uri`. The list of supported parameters
+ * can be returned as URI Template.
+ *
+ * @code
+ * $service->supportParameter('notation');
+ * $service->uriTemplate(); # '{?uri}{?notation}'
+ * @endcode
+ *
+ * @see Server
  */
 class Service {
-    private $queryMethod; /**< callable */
+    private $queryFunction; /**< callable */
 
     /**
      * List of supported query parameters.
@@ -36,15 +49,18 @@ class Service {
      */
     protected $supportedParameters = [];
 
-    function __construct($queryMethod=NULL) {
-        if (!isset($queryMethod)) {
-            $queryMethod = function() {
+    /**
+     * Create a new service.
+     */
+    function __construct($queryFunction=NULL) {
+        if (!isset($queryFunction)) {
+            $queryFunction = function() {
                 return new Page();
             };
-        } elseif (!is_callable($queryMethod)) {
-            throw new \InvalidArgumentException('queryMethod must be callable');
+        } elseif (!is_callable($queryFunction)) {
+            throw new \InvalidArgumentException('queryFunction must be callable');
         }
-        $this->queryMethod = $queryMethod;
+        $this->queryFunction = $queryFunction;
         $this->supportParameter('uri');
     }
 
@@ -54,7 +70,8 @@ class Service {
      * @return Page|Error
      */
     public function query($request) {
-        $method = $this->queryMethod;
+        $method = $this->queryFunction;
+        # TODO: check whether result is actually a Page or Error
         return $method($request);
     }
 
@@ -71,6 +88,8 @@ class Service {
 
     /**
      * Get a list of query parameters as URI template.
+     *
+     * @return string
      */
     public function uriTemplate($template='') {
         foreach ($this->supportedParameters as $name) {

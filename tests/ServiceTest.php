@@ -7,7 +7,7 @@ namespace JSKOS;
  */
 class ServiceTest extends \PHPUnit_Framework_TestCase {
 
-    public function testQueryMethod() {
+    public function testQueryFunction() {
         $page = new Page();
         $method = function ($q) use ($page) {
             return $page;
@@ -16,17 +16,29 @@ class ServiceTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame($page, $service->query([]));
     }
 
-    public function testInvalidQueryMethod() {
-        $this->setExpectedException('InvalidArgumentException');
-        $service = new Service(42);
-    }
-
-    public function testDefaultQueryMethod() {
+    public function testDefaultQueryFunction() {
         $service = new Service();
         $this->assertInstanceOf('\JSKOS\Page', $service->query([]));
     }
 
-    // TODO: test supportedParameter(s)
+    public function testInvalidQueryFunction() {
+        $this->setExpectedException('InvalidArgumentException');
+        $service = new Service(42);
+    }
+
+    public function testSupportParameter() {
+        $service = new Service();
+        $this->assertEquals('{?uri}', $service->uriTemplate());
+
+        $service->supportParameter('notation');
+        $this->assertEquals('{?uri}{?notation}', $service->uriTemplate());
+    }
+
+    public function testInvalidSupportParameter() {
+        $this->setExpectedException('DomainException');
+        $service = new Service();
+        $service->supportParameter('callback');
+    }
 }
 
 ?>
