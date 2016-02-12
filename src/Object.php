@@ -8,19 +8,19 @@ namespace JSKOS;
 use JSKOS\Data;
 
 /**
- * A JSKOS record with support of common fields.
+ * A JSKOS object with support of common fields.
  *
  * @todo fields are not validated yet:
  * https://github.com/gbv/jskos-php/issues/2
  *
  * @see https://gbv.github.io/jskos/jskos.html#common-fields
  */
-abstract class Record extends Data {
+abstract class Object extends Data {
 
     /**
-     * Create a new record.
+     * Create a new JSKOS object.
      *
-     * @param String|Array|Object JSON data or record to copy
+     * @param String|Array|Object JSON data to copy
      */
     public function __construct( $data = NULL ) {
         if (is_string($data)) {
@@ -34,13 +34,20 @@ abstract class Record extends Data {
                 }
             }
         } elseif ( $data !== NULL ) {
-            throw new \InvalidArgumentException('argument passed to new Record(...) must be string, array, or object');
+            throw new \InvalidArgumentException('argument passed to Item constructor must be string, array, or object');
         }
     }
-    
+
+    /**
+     * Object types(s).
+     *
+     * @var array $type
+     */
+    public $type;
+
     /**
      * URI if the Concept, ConceptScheme, ConceptType, ConceptMapping
-     * or whatever this record refers to.  
+     * or whatever this object refers to.  
      *
      * @var string $uri
      */

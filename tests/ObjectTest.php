@@ -3,9 +3,9 @@
 namespace JSKOS;
 
 /**
- * @covers \JSKOS\Record
+ * @covers \JSKOS\Object
  */
-class RecordTest extends \PHPUnit_Framework_TestCase {
+class ObjectTest extends \PHPUnit_Framework_TestCase {
 
     public function testJsonEncode() {
         $concept = new Concept();

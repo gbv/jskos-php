@@ -5,16 +5,14 @@
 
 namespace JSKOS;
 
-use JSKOS\Data;
+use JSKOS\Object;
 
 /**
- * JSKOS Concept, ConceptScheme or ConceptType.
+ * JSKOS Concept, ConceptScheme, ConceptType, Registry, or Concordance.
  */
-abstract class LabeledRecord extends Record {
-    public $type;
-    
-    public $identifier;
+abstract class Item extends Object {
     public $url;
+    public $identifier;
     
     public $notation;
 
@@ -28,6 +26,8 @@ abstract class LabeledRecord extends Record {
     public $historyNote;
     public $editorialNote;
     public $changeNote;
+
+    public $subject;
     public $depiction;
 }
 

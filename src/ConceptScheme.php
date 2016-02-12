@@ -5,14 +5,14 @@
 
 namespace JSKOS;
 
-use JSKOS\LabeledRecord;
+use JSKOS\Item;
 
 /**
  * A JSKOS %Concept Scheme
  *
  * @see https://gbv.github.io/jskos/jskos.html#concept-schemes
  */
-class ConceptScheme extends LabeledRecord {
+class ConceptScheme extends Item {
 
     /**
      * Top concepts of the concept scheme.

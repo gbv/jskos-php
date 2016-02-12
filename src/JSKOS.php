@@ -19,13 +19,15 @@
  */
 
 require_once('Data.php');
-require_once('Record.php');
-require_once('LabeledRecord.php');
+require_once('Object.php');
+require_once('Item.php');
 
 require_once('Concept.php');
 require_once('ConceptType.php');
 require_once('ConceptScheme.php');
 require_once('ConceptMapping.php');
+require_once('Concordances.php');
+require_once('Registries.php');
 
 require_once('Error.php');
 

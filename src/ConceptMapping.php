@@ -5,20 +5,19 @@
 
 namespace JSKOS;
 
-use JSKOS\LabeledRecord;
+use JSKOS\Item;
 
 /**
  * A JSKOS %Concept Mapping.
  *
  * @see https://gbv.github.io/jskos/jskos.html#concept-mappings
  */
-class ConceptMapping extends Record {
-    public $mappingType;
-    public $mappingRelevance; // experimental
+class ConceptMapping extends Object {
     public $from;
     public $to;
     public $sourceScheme;
     public $targetScheme;
+    public $mappingRelevance; // experimental
 }
 
 ?>
