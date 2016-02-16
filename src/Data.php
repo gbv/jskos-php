@@ -58,7 +58,7 @@ abstract class Data implements \JsonSerializable {
      * Serialize to pretty-printed JSON.
      */
     public function pretty() {
-        return json_encode($this, JSON_PRETTY_PRINT);
+        return json_encode($this, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     }
 }
 

@@ -12,6 +12,9 @@ class ObjectTest extends \PHPUnit_Framework_TestCase {
         $default = ['@context'=>'https://gbv.github.io/jskos/context.json'];
         $this->assertEquals(json_encode($default),json_encode($concept));
 
+        $options = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES;
+        $this->assertEquals(json_encode($default, $options),$concept->pretty());
+
         $concept->uri = $default['uri'] = 'http://example.org/';
         $this->assertEquals(json_encode($default),json_encode($concept));
 
