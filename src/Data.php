@@ -2,20 +2,6 @@
 /**
  * PHP library to process JSKOS data.
  *
- * This library implements classes for JSKOS Concepts, Concept Schemes,
- * Concept Types, and Concept Mappings.
- *
- * @code
- * <?php
- * require_once('JSKOS/Data.php');
- *
- * my $concept = new \JSKOS\Concept();
- * $concept->uri = "http://example.org/";
- * echo json_encode($concept);
- * ...
- * ?>
- * @endcode
- *
  * @see https://gbv.github.io/jskos/
  *
  * @file
@@ -44,6 +30,7 @@ abstract class Data implements \JsonSerializable {
                 $json[$key] = $value;
             }
         }
+        ksort($json);
         return $json;
     }
 

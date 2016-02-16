@@ -2,13 +2,15 @@
 /**
  * jskos PHP library include file.
  *
+ * @see https://gbv.github.io/jskos/
+ *
  * This file includes all jskos library files. Please consider to use autoloading instead.
  *
  * @code
  * <?php
  * require_once('src/JSKOS.php');
  * 
- * my $concept = new \JSKOS\Concept();
+ * my $concept = new JSKOS\Concept();
  * $concept->uri = "http://example.org/";
  * echo json_encode($concept);
  * ...
