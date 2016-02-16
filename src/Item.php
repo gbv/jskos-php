@@ -28,6 +28,7 @@ abstract class Item extends Object {
     public $changeNote;
 
     public $subject;
+    public $subjectOf;
     public $depiction;
 }
 

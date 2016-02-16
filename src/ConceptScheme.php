@@ -21,6 +21,7 @@ class ConceptScheme extends Item {
     public $topConcepts;
 
     /**
+     * [ConceptSchemes](ConceptScheme) this concept scheme is a version or edition of.
      * @var Set $versionOf
      */
     public $versionOf;
@@ -38,6 +39,13 @@ class ConceptScheme extends Item {
      * @var URL $types
      */
     public $types;
+
+    /**
+     * Supported languages, given as array of language codes.
+     * @var array $languages
+     */
+    public $languages;
+
 }
 
 ?>

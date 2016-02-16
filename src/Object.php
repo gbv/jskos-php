@@ -13,7 +13,7 @@ use JSKOS\Data;
  * @todo fields are not validated yet:
  * https://github.com/gbv/jskos-php/issues/2
  *
- * @see https://gbv.github.io/jskos/jskos.html#common-fields
+ * @see https://gbv.github.io/jskos/jskos.html#jskos-objects
  */
 abstract class Object extends Data {
 
@@ -29,7 +29,7 @@ abstract class Object extends Data {
         if (is_array($data) or is_object($data)) {
             foreach ($data as $key => $value) {
                 if ($key != '@context') {
-                    # deep copy?
+                    # TODO: deep copy?
                     $this->$key = $value;
                 }
             }
@@ -37,13 +37,6 @@ abstract class Object extends Data {
             throw new \InvalidArgumentException('argument passed to Item constructor must be string, array, or object');
         }
     }
-
-    /**
-     * Object types(s).
-     *
-     * @var array $type
-     */
-    public $type;
 
     /**
      * URI if the Concept, ConceptScheme, ConceptType, Mapping
@@ -54,6 +47,13 @@ abstract class Object extends Data {
     public $uri;
     
     /**
+     * Object types(s).
+     *
+     * @var array $type
+     */
+    public $type;
+
+    /**
      * Date of creation.
      *
      * @var date $created
@@ -61,11 +61,40 @@ abstract class Object extends Data {
     public $created;
 
     /**
+     * Date of publication.
+     *
+     * @var date $issued
+     */
+    public $issued;
+
+    /**
      * Date of last modification.
      *
      * @var date $modified
      */
     public $modified;
+
+    /**
+     * Agent primarily responsible for creation of object.
+     *
+     * @var array $creator
+     */
+    public $creator;
+
+    /**
+     * Agent responsible for making contributions to the object.
+     *
+     * @var array $contributor
+     */
+    public $contributor;
+
+    /**
+     * Agent responsible for making the object available.
+     *
+     * @var array $publisher
+     */
+    public $publisher;
+
 }
 
 ?>

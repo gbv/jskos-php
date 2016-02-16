@@ -25,9 +25,10 @@ require_once('Item.php');
 require_once('Concept.php');
 require_once('ConceptType.php');
 require_once('ConceptScheme.php');
+require_once('ConceptBundle.php');
 require_once('Mapping.php');
-require_once('Concordances.php');
-require_once('Registries.php');
+require_once('Concordance.php');
+require_once('Registry.php');
 
 require_once('Error.php');
 

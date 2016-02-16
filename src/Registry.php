@@ -19,6 +19,13 @@ class Registry extends Item {
     public $mappings; 
     public $registries; 
     public $concordances;
+
+    /**
+     * Supported languages, given as array of language codes.
+     * @var array $languages
+     */
+    public $languages;
+
 }
 
 ?>
