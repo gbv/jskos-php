@@ -46,7 +46,7 @@ abstract class Object extends Data {
     public $type;
 
     /**
-     * URI if the Concept, ConceptScheme, ConceptType, ConceptMapping
+     * URI if the Concept, ConceptScheme, ConceptType, Mapping
      * or whatever this object refers to.  
      *
      * @var string $uri

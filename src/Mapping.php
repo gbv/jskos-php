@@ -8,11 +8,11 @@ namespace JSKOS;
 use JSKOS\Item;
 
 /**
- * A JSKOS %Concept Mapping.
+ * A JSKOS %Mapping.
  *
  * @see https://gbv.github.io/jskos/jskos.html#concept-mappings
  */
-class ConceptMapping extends Object {
+class Mapping extends Object {
     public $from;
     public $to;
     public $sourceScheme;
