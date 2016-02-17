@@ -37,13 +37,16 @@ class ConceptBundle extends PrettyJsonSerializable {
     /**
      * Returns data which should be serialized to JSON.
      */
-    public function jsonSerialize() {
-        $json = [ 'members' => $this->members ];
+    public function jsonSerializeRoot($root=TRUE) {
+        $members = [];
+        foreach ($this->members as $m) {
+            $members[] = $m->jsonSerializeRoot(FALSE);
+        }
+        $json = [ 'members' => $members ];
         if ($this->ordered) $json['ordered'] = TRUE;
         if ($this->disjunction) $json['disjunction'] = TRUE;
         return $json;
     }
-
 }
 
 ?>

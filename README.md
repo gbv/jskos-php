@@ -23,7 +23,7 @@ composer require gbv/jskos
 This will automatically create `composer.json` for your project (unless it already exists) and add jskos as dependency. Composer also generates `vendor/autoload.php` to get autoloading of all dependencies: 
 
 ~~~php
-require_once __DIR__ . '/vendor/autoload.php'
+require_once __DIR__ . '/vendor/autoload.php';
 
 $concept = new JSKOS\Concept( [ "uri" => "http://example.org" ] );
 echo $concept->json();

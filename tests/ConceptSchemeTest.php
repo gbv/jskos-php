@@ -14,7 +14,7 @@ class ConceptSchemeTest extends \PHPUnit_Framework_TestCase {
             '@context' => 'https://gbv.github.io/jskos/context.json',
             'types'    => 'http://example.org/types',
         ];
-        $this->assertEquals(json_encode($expect),"$scheme");
+        $this->assertEquals(json_encode($expect, JSON_UNESCAPED_SLASHES),"$scheme");
     }
 }
 

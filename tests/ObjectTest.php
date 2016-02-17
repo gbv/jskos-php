@@ -6,7 +6,7 @@ namespace JSKOS;
  * @covers \JSKOS\Object
  */
 class ObjectTest extends \PHPUnit_Framework_TestCase {
-
+    
     public function testJsonEncode() {
         $concept = new Concept();
         $expect = ['@context'=>'https://gbv.github.io/jskos/context.json'];
@@ -26,15 +26,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase {
         ksort($expect);
         $this->assertEquals(json_encode($expect),json_encode($concept));
         $this->assertEquals(json_encode($expect),json_encode($concept));
-        $this->assertEquals(json_encode($expect),"$concept");
-    }
-
-    public function testCreate() {
-        $concept = new Concept();
-
-        $this->assertEquals($concept, new Concept($concept));
-        $this->assertEquals($concept, new Concept("$concept"));
-        $this->assertEquals($concept, new Concept("{}"));
+        $this->assertEquals(json_encode($expect, JSON_UNESCAPED_SLASHES),"$concept");
     }
 }
 
