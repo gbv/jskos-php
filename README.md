@@ -6,6 +6,10 @@
 
 **jskos** is a PHP library for easy processing of knowledge organization systems (KOS) as classifications, thesauri, and authority files given in [JSKOS data format](http://gbv.github.io/jskos/). JSKOS is a JSON format based on [Simple Knowledge Organisation System (SKOS)](http://www.w3.org/TR/skos-reference).
 
+# Requirements
+
+JSKOS-PHP works with PHP 5.6 or above. No additional libraries are required.
+
 # Installation
 
 ## With composer
@@ -55,29 +59,25 @@ echo $concept->json();
 
 # Usage
 
+API documentation is published at <http://gbv.github.io/jskos-php/>.
+
 ## Examples
 
 * [wikidata.php](https://github.com/gbv/jskos-php/blob/master/examples/wikidata.php) - basic wrapper to Wikidata
 
-# About
+# Contributung
 
-## Requirements
+See `CONTRIBUTUNG.md` for technical details.
 
-* JSKOS-PHP works with PHP 5.6 or above.
+Bugs and feature request are [tracked on GitHub](https://github.com/gbv/jskos-php/issues).
 
-## Submitting bugs and feature requests
-
-Bugs and feature request are tracked on [GitHub](https://github.com/gbv/jskos-php/issues)
-
-## Author
+# Author and License
 
 Jakob Voß <jakob.voss@gbv.de>
 
-## License
-
 JSKOS-PHP is licensed under the LGPL license - see `LICENSE.md` for details.
 
-## See alse
+# See alse
 
 JSKOS is created as part of project coli-conc: <https://coli-conc.gbv.de/>.
 
