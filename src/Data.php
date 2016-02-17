@@ -10,9 +10,7 @@
 namespace JSKOS;
 
 /**
- * Any JSON based object in JSKOS or JSKOS API.
- *
- * Can always be serialized as JSON via json_encode.
+ * Adds consistent JSON serializing via `json_encode` and `->json()`. 
  */
 abstract class Data implements \JsonSerializable {
 
@@ -20,6 +18,7 @@ abstract class Data implements \JsonSerializable {
      * Returns data which should be serialized to JSON.
      *
      * The default data contains all non-null members and `@context`.
+     * Keys are sorted by Unicode codepoint.
      */
     public function jsonSerialize() {
         $json = [
@@ -44,7 +43,7 @@ abstract class Data implements \JsonSerializable {
     /**
      * Serialize to pretty-printed JSON.
      */
-    public function pretty() {
+    public function json() {
         return json_encode($this, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     }
 }

@@ -87,7 +87,7 @@ class Response {
         if ($this->callback) {
             return "/**/".$this->callback."(".$this->content.");";
         } else {
-            return (string)$this->content->pretty();
+            return (string)$this->content->json();
         }
     }
 

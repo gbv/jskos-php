@@ -13,7 +13,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(json_encode($expect),json_encode($concept));
 
         $options = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES;
-        $this->assertEquals(json_encode($expect, $options),$concept->pretty());
+        $this->assertEquals(json_encode($expect, $options),$concept->json());
 
         $concept->uri = $expect['uri'] = 'http://example.org/';
         $this->assertEquals(json_encode($expect),json_encode($concept));
