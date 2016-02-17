@@ -22,7 +22,7 @@ This will automatically create `composer.json` for your project (unless it alrea
 require_once __DIR__ . '/vendor/autoload.php'
 
 $concept = new JSKOS\Concept( [ "uri" => "http://example.org" ] );
-echo $concept->pretty();
+echo $concept->json();
 ~~~
 
 ## Manually with autoloading
@@ -39,7 +39,7 @@ spl_autoload_register(function($class) {
 });
 
 $concept = new JSKOS\Concept( [ "uri" => "http://example.org" ] );
-echo $concept->pretty();
+echo $concept->json();
 ~~~
 
 ## Manually without autoloading
@@ -50,7 +50,7 @@ Download the jskos library directory `src` and put it in a directory of your cho
 require_once 'src/JSKOS.php';
 
 $concept = new JSKOS\Concept( [ "uri" => "http://example.org" ] );
-echo $concept->pretty();
+echo $concept->json();
 ~~~
 
 # Usage

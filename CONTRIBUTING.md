@@ -60,12 +60,26 @@ Code documentation can be generated into `doc/` if Doxygen is installed:
 
     $ composer doc
 
-The result will in HTML for preview and in XML for further processing.
- 
+The result will in HTML for preview and in XML for further processing. To
+publish the HTML documentation at GitHub pages, create an additional worktree:
+
+    $ rm -rf gh-pages
+    $ git worktree add -f gh-pages gh-pages
+
+To commit changes to the `gh-pages` branch:
+
+    $ cd gh-pages && git add -A && git commit -m "Update documentation" && cd ..
+
 ### Create examples
 
 Sample JSKOS servers can be placed in `examples/`. You can directly serve the
 directory for testing:
 
     $ php -S localhost:8080 -t examples/ 
+
+### Releases
+
+Change the version numbers in `Doxyfile` and tag a commit like this:
+
+    git tag `grep ^PROJECT_NUMBER Doxyfile | sed 's/.*=\s*//'`
 

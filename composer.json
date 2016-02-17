@@ -34,8 +34,11 @@
             "vendor/bin/phpunit tests --coverage-clover build/logs/clover.xml"
         ],
         "doc": [
-            "rm -rf doc",
-            "doxygen"
+            "rm -rf doc/*",
+            "doxygen",
+            "mkdir -p gh-pages",
+            "rm -rf gh-pages/*",
+            "cp -r doc/html/* gh-pages"
         ]
     }
 }
