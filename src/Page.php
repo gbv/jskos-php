@@ -7,12 +7,12 @@
 
 namespace JSKOS;
 
-use JSKOS\Data;
+use JSKOS\PrettyJsonSerializable;
 
 /**
  * A list of records in a possibly larger result set.
  */
-class Page extends Data {
+class Page extends PrettyJsonSerializable {
     public $records;    /**< array */
     public $pageNum;    /**< integer */
     public $pageSize;   /**< integer */

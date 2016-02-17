@@ -5,7 +5,7 @@
 
 namespace JSKOS;
 
-use JSKOS\Data;
+use JSKOS\PrettyJsonSerializable;
 
 /**
  * A JSKOS object with support of common fields.
@@ -15,7 +15,7 @@ use JSKOS\Data;
  *
  * @see https://gbv.github.io/jskos/jskos.html#jskos-objects
  */
-abstract class Object extends Data {
+abstract class Object extends PrettyJsonSerializable {
 
     /**
      * Create a new JSKOS object.

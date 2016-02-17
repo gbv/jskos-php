@@ -6,14 +6,14 @@
 
 namespace JSKOS;
 
-use JSKOS\Data;
+use JSKOS\PrettyJsonSerializable;
 
 /**
  * A JSKOS API Error response.
  *
  * @see https://gbv.github.io/jskos-api/jskos-api.html#error-responses
  */
-class Error extends Data {
+class Error extends PrettyJsonSerializable {
     public $code;
     public $error;
     public $message;

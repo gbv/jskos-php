@@ -12,7 +12,7 @@ namespace JSKOS;
 /**
  * Adds consistent JSON serializing via `json_encode` and `->json()`. 
  */
-abstract class Data implements \JsonSerializable {
+abstract class PrettyJsonSerializable implements \JsonSerializable {
 
     /**
      * Returns data which should be serialized to JSON.

@@ -5,7 +5,7 @@
 
 namespace JSKOS;
 
-use JSKOS\Service;
+use JSKOS\PrettyJsonSerializable;
 
 /**
  * A HTTP Response with JSON/JSONP data.
@@ -40,7 +40,7 @@ class Response {
     /**
      * Create a new response.
      */
-    public function __construct($status=200, $headers=[], Data $content=NULL, $callback=NULL) {
+    public function __construct($status=200, $headers=[], PrettyJsonSerializable $content=NULL, $callback=NULL) {
         $this->status = $status;
         $this->headers = $headers;
         $this->content = $content;

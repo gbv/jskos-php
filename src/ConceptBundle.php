@@ -5,7 +5,7 @@
 
 namespace JSKOS;
 
-use JSKOS\Item;
+use JSKOS\PrettyJsonSerializable;
 
 /**
  * A JSKOS %Concept Bundle.
@@ -14,7 +14,7 @@ use JSKOS\Item;
  *
  * @see https://gbv.github.io/jskos/jskos.html#concept-bundles
  */
-class ConceptBundle extends Data {
+class ConceptBundle extends PrettyJsonSerializable {
 
     /**
      * Concepts in this bundle.
