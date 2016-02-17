@@ -83,7 +83,7 @@ $wrapper = function($query) {
             $snak = $statement->mainsnak;
             if ($snak->datatype == "wikibase-item") {
                 $id = $snak->datavalue->value->{'numeric-id'};
-                $concept->broader[] = new Concept(["uri" => "http://www.wikidata.org/entity/$id"]);
+                $concept->broader[] = new Concept(["uri" => "http://www.wikidata.org/entity/Q$id"]);
             }
         }
     }

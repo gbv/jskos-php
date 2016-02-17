@@ -40,6 +40,15 @@ abstract class PrettyJsonSerializable implements \JsonSerializable {
             if (isset($value)) {
                 if (is_a($value,'JSKOS\PrettyJsonSerializable')) {
                     $value = $value->jsonSerializeRoot(FALSE);
+                } elseif (is_array($value) and !count(array_filter(array_keys($value),'is_string'))) {
+                    $a = [];
+                    foreach($value as $m) {
+                        if (is_a($m,'JSKOS\PrettyJsonSerializable')) {
+                            $m = $m->jsonSerializeRoot(FALSE);
+                        }
+                        $a[] = $m;
+                    }
+                    $value = $a;
                 } 
                 $json[$key] = $value;
             }
