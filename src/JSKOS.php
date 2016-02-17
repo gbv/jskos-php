@@ -20,7 +20,7 @@
  * @file
  */
 
-require_once('PrettyJsonSerializable');
+require_once('PrettyJsonSerializable.php');
 require_once('Object.php');
 require_once('Item.php');
 

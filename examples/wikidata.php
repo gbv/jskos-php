@@ -65,6 +65,7 @@ $wrapper = function($query) {
     
     # TODO: more claims
 
+    # depiction
     if (isset($data->claims->P18)) {
         # TODO: only use "truthy" statements
         foreach ($data->claims->P18 as $statement) {
@@ -75,7 +76,19 @@ $wrapper = function($query) {
             }
         }
     }
-    
+
+    # subclass of (TODO: reverse)
+    if (isset($data->claims->P279)) {
+        foreach ($data->claims->P279 as $statement) {
+            $snak = $statement->mainsnak;
+            if ($snak->datatype == "wikibase-item") {
+                $id = $snak->datavalue->value->{'numeric-id'};
+                $concept->broader[] = new Concept(["uri" => "http://www.wikidata.org/entity/$id"]);
+            }
+        }
+    }
+
+
     # TODO: sitelinks
 
     return new Page([$concept]); # TODO: support returning a single Concept

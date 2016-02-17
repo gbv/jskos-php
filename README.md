@@ -61,6 +61,10 @@ echo $concept->json();
 
 API documentation is published at <http://gbv.github.io/jskos-php/>.
 
+The `examples/` directory contains some examples to start with. To quickly run them as server scripts call:
+
+    $ php -S localhost:8080 -t examples/
+
 ## Examples
 
 * [wikidata.php](https://github.com/gbv/jskos-php/blob/master/examples/wikidata.php) - basic wrapper to Wikidata
