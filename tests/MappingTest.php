@@ -20,7 +20,16 @@ class MappingTest extends \PHPUnit_Framework_TestCase {
         $mapping->to->members[] = new Concept(['uri'=>'x:1']);
         $expect['to']['members'][] = ['uri'=>'x:1'];
         $this->assertEquals(json_encode($expect),json_encode($mapping));
-        #$this->assertEquals('{}',json_encode($mapping->jsonSerializeRoot()));
+        
+        $validTypes = [
+            'mappingRelation','closeMatch','exactMatch','broadMatch','narrowMatch','relatedMatch'
+        ];
+        foreach ($validTypes as $type) {
+            $type = "http://www.w3.org/2004/02/skos/core#$type";
+            $mapping->type  = [$type];
+            $expect['type'] = [$type];
+            $this->assertEquals(json_encode($expect),json_encode($mapping));
+        }
     }
 }
 

@@ -15,6 +15,11 @@ use JSKOS\Item;
 class Concept extends Item {
 
     /**
+     * Default type URI of all concepts.
+     */
+    const TYPE_URI = 'http://www.w3.org/2004/02/skos/core#Concept'; 
+
+    /**
      * Narrower concepts.
      * @var Set $narrower
      */

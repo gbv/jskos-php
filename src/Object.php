@@ -5,6 +5,12 @@
 
 namespace JSKOS;
 
+/**
+ * JSKOS Specification version aligned with.
+ */
+const JSKOS_SPEC_VERSION = '0.0.25';
+
+
 use JSKOS\PrettyJsonSerializable;
 
 /**
@@ -16,7 +22,7 @@ use JSKOS\PrettyJsonSerializable;
  * @see https://gbv.github.io/jskos/jskos.html#jskos-objects
  */
 abstract class Object extends PrettyJsonSerializable {
-
+ 
     /**
      * Create a new JSKOS object.
      *
@@ -28,7 +34,9 @@ abstract class Object extends PrettyJsonSerializable {
         }
         if (is_array($data) or is_object($data)) {
             foreach ($data as $key => $value) {
-                if ($key != '@context') {
+                if ($key == '@context') {
+                    // ignore
+               } else {
                     # TODO: deep copy?
                     $this->$key = $value;
                 }

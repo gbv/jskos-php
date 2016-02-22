@@ -15,6 +15,11 @@ use JSKOS\Item;
 class ConceptScheme extends Item {
 
     /**
+     * Default type URI of all concept schemes.
+     */
+    const TYPE_URI = 'http://www.w3.org/2004/02/skos/core#ConceptScheme'; 
+
+    /**
      * Top concepts of the concept scheme.
      * @var Set $topConcepts
      */

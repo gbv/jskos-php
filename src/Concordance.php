@@ -16,7 +16,7 @@ class Concordance extends Item {
     public $mappings;
     public $schemes;
 
-    public $fromSchem;
+    public $fromScheme;
     public $toScheme;
 }
 

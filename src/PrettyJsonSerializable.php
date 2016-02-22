@@ -14,6 +14,15 @@ namespace JSKOS;
  */
 abstract class PrettyJsonSerializable implements \JsonSerializable {
 
+    const TYPE_URI = null;
+
+    /**
+     * Check whether a given list of types is valid for this class.
+     */
+    public static function validType($type) {
+        return $type[0] == static::TYPE_URI;
+    }
+
     /**
      * Returns data which should be serialized to JSON.
      *
@@ -33,9 +42,7 @@ abstract class PrettyJsonSerializable implements \JsonSerializable {
      */
     public function jsonSerializeRoot($root=TRUE) {
         $json = [ ];
-        if ($root) {
-            $json['@context'] = 'https://gbv.github.io/jskos/context.json';
-        }
+
         foreach ($this as $key => $value) {
             if (isset($value)) {
                 if (is_a($value,'JSKOS\PrettyJsonSerializable')) {
@@ -53,6 +60,20 @@ abstract class PrettyJsonSerializable implements \JsonSerializable {
                 $json[$key] = $value;
             }
         }
+
+        if ($root) {
+            $json['@context'] = 'https://gbv.github.io/jskos/context.json';
+            if (static::TYPE_URI) {
+                if (isset($json['type'])) {
+                    if (!static::validType($json['type'])) {
+                        array_unshift($json['type'], static::TYPE_URI);
+                    }
+                } else {
+                    $json['type'] = [static::TYPE_URI];
+                }
+            }
+        }
+
         ksort($json);
         return $json;
          

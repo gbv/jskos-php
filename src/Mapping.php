@@ -14,6 +14,15 @@ use JSKOS\Item;
  */
 class Mapping extends Object {
     
+    const TYPE_URI = 'http://www.w3.org/2004/02/skos/core#mappingRelation';
+
+    /**
+     * Check whether a given list of types is valid for this class.
+     */
+    public static function validType($type) {
+        return preg_match('/^http:\/\/www\.w3\.org\/2004\/02\/skos\/core#(mappingRelation|(close|exact|broad|narrow|related)Match)$/',$type[0]);
+    }
+
     public $from;
     public $to;
 
@@ -29,12 +38,6 @@ class Mapping extends Object {
      */
     public function __construct( $data = NULL ) {
         parent::__construct($data);
-
-        if ($this->type) {
-            // TODO: check constraints!
-        } else {
-            $this->type = ['http://www.w3.org/2004/02/skos/core#mappingRelation'];
-        }
 
         if (!$this->from) {
             $this->from = new ConceptBundle();

@@ -9,7 +9,10 @@ class ObjectTest extends \PHPUnit_Framework_TestCase {
     
     public function testJsonEncode() {
         $concept = new Concept();
-        $expect = ['@context'=>'https://gbv.github.io/jskos/context.json'];
+        $expect = [
+            '@context' => 'https://gbv.github.io/jskos/context.json',
+            'type'     => ['http://www.w3.org/2004/02/skos/core#Concept']
+        ];
         $this->assertEquals(json_encode($expect),json_encode($concept));
 
         $options = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES;
