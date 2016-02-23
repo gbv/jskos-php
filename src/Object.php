@@ -8,7 +8,7 @@ namespace JSKOS;
 /**
  * JSKOS Specification version aligned with.
  */
-const JSKOS_SPEC_VERSION = '0.0.25';
+const JSKOS_SPECIFICATION = '0.1.25';
 
 
 use JSKOS\PrettyJsonSerializable;
@@ -85,24 +85,30 @@ abstract class Object extends PrettyJsonSerializable {
     /**
      * Agent primarily responsible for creation of object.
      *
-     * @var array $creator
+     * @var Set $creator
      */
     public $creator;
 
     /**
      * Agent responsible for making contributions to the object.
      *
-     * @var array $contributor
+     * @var Set $contributor
      */
     public $contributor;
 
     /**
      * Agent responsible for making the object available.
      *
-     * @var array $publisher
+     * @var Set $publisher
      */
     public $publisher;
 
+    /**
+     * Resources which this object is part of.
+     * 
+     * @var Set $partOf
+     */
+    public $partOf;
 }
 
 ?>

@@ -17,13 +17,14 @@ use JSKOS\PrettyJsonSerializable;
 class ConceptBundle extends PrettyJsonSerializable {
 
     /**
-     * Concepts in this bundle.
+     * %Set of concepts in this bundle.
+     *
      * @var Set $members
      */
     public $members = [];
 
     /**
-     * Whether the concept in this bundle are ordered (list) or not (set).
+     * Whether the concepts in this bundle are ordered (list) or not (set).
      * @var boolean $ordered
      */
     public $ordered = FALSE;

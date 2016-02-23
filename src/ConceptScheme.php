@@ -51,6 +51,12 @@ class ConceptScheme extends Item {
      */
     public $languages;
 
+    /**
+     * License which the concept scheme is published under.
+     *
+     * @var URI $license
+     */
+    public $license;
 }
 
 ?>
