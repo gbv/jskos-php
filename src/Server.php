@@ -6,6 +6,9 @@
 namespace JSKOS;
 
 use JSKOS\Service;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\NullLogger;
 
 /**
  * A JSKOS Server.
@@ -19,8 +22,13 @@ use JSKOS\Service;
  * $server->run();
  * @endcode
  */
-class Server
+class Server implements LoggerAwareInterface
 {
+    /**
+     * PRS-3 compliant LoggerInterface for logging. 
+     * @var LoggerInterface $logger
+     */
+    protected $logger;
 
     /**
      * @var string $API_VERSION JSKOS-API Version of this implementation
@@ -39,7 +47,30 @@ class Server
     public function __construct(Service $service = null)
     {
         $this->service = is_null($service) ? new Service() : $service;
+        $this->logger = new NullLogger();
     }
+
+    /**
+     * Sets a logger for the server.
+     *
+     * @param LoggerInterface $logger
+     * @return null
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    /**
+     * Returns the current logger.
+     *
+     * @return LoggerInterface
+     */
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+
 
     /**
      * Receive request and send Response.
@@ -66,10 +97,11 @@ class Server
         $params = $_GET;
 
         if ($method == 'OPTIONS') {
+            $this->logger->info("Received HTTP OPTIONS request");
             return $this->optionsResponse();
         }
 
-        # get query modifiers
+        # get query modifier: callback
         if (isset($params['callback'])) {
             $callback = $params['callback'];
             if (!preg_match('/^[$A-Z_][0-9A-Z_$.]*$/i', $callback)) {
@@ -78,6 +110,7 @@ class Server
             unset($params['callback']);
         }
 
+        # get query modifier: language
         if (isset($params['language'])) {
             $language = $params['language'];
             unset($params['language']);
@@ -86,29 +119,31 @@ class Server
             # TODO: parse and map q's to preference list
         }
 
-        // TODO: header: Allow/Authentication
+        # TODO: more query modifiers
+
+        # TODO: header: Allow/Authentication
 
         if ($method == 'GET' or $method == 'HEAD') {
+            $this->logger->info("Received HTTP $method request", $params);
 
-            # TODO: route?
+            # TODO: route to another service?
             $page = $this->service->query($params);
 
             // TODO: if unique
 
-            // TODO: unique
-            // TODO: Link header with next/last/first
-            // TODO: Link header with URI template of suppo       
-
             $response = $this->basicResponse(200, $page);
+            
+            // TODO: Add Link header with next/last/first
+
             $response->headers['X-Total-Count'] = $page->totalCount;
 
             if ($method == 'HEAD') {
                 $response->emptyBody = true;
             }
         } else {
-            error_log("Method not allowed: $method");
-            # TODO: HEAD request
-            # TODO: clean error object
+            $this->logger->warning("HTTP Method not allowed: $method");
+            
+            # TODO: Error object is only used once here. Refactor?
             $response = $this->basicResponse(
                 405,
                 [],
