@@ -12,8 +12,7 @@ use JSKOS\Item;
  *
  * @see https://gbv.github.io/jskos/jskos.html#concept-types
  */
-class ConceptType extends Item {
+class ConceptType extends Item
+{
     // TODO: narrower, broader, ancestors, related?
 }
-
-?>

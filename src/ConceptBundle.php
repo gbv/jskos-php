@@ -14,7 +14,8 @@ use JSKOS\PrettyJsonSerializable;
  *
  * @see https://gbv.github.io/jskos/jskos.html#concept-bundles
  */
-class ConceptBundle extends PrettyJsonSerializable {
+class ConceptBundle extends PrettyJsonSerializable
+{
 
     /**
      * %Set of concepts in this bundle.
@@ -27,27 +28,30 @@ class ConceptBundle extends PrettyJsonSerializable {
      * Whether the concepts in this bundle are ordered (list) or not (set).
      * @var boolean $ordered
      */
-    public $ordered = FALSE;
+    public $ordered = false;
 
     /**
      * Whether the concepts in this bundle are combined by OR instead of AND.
      * @var boolean $disjunction
      */
-    public $disjunction = FALSE;
+    public $disjunction = false;
 
     /**
      * Returns data which should be serialized to JSON.
      */
-    public function jsonSerializeRoot($root=TRUE) {
+    public function jsonSerializeRoot($root=true)
+    {
         $members = [];
         foreach ($this->members as $m) {
-            $members[] = $m->jsonSerializeRoot(FALSE);
+            $members[] = $m->jsonSerializeRoot(false);
         }
         $json = [ 'members' => $members ];
-        if ($this->ordered) $json['ordered'] = TRUE;
-        if ($this->disjunction) $json['disjunction'] = TRUE;
+        if ($this->ordered) {
+            $json['ordered'] = true;
+        }
+        if ($this->disjunction) {
+            $json['disjunction'] = true;
+        }
         return $json;
     }
 }
-
-?>

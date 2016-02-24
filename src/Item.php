@@ -10,7 +10,8 @@ use JSKOS\Object;
 /**
  * JSKOS Concept, ConceptScheme, ConceptType, Registry, or Concordance.
  */
-abstract class Item extends Object {
+abstract class Item extends Object
+{
     /**
      * URL of a page about the item.
      * @var date $created
@@ -100,7 +101,4 @@ abstract class Item extends Object {
      * @var Set $depiction
      */
     public $depiction;
-
 }
-
-?>

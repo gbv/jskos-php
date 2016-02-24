@@ -21,14 +21,16 @@ use JSKOS\PrettyJsonSerializable;
  *
  * @see https://gbv.github.io/jskos/jskos.html#jskos-objects
  */
-abstract class Object extends PrettyJsonSerializable {
+abstract class Object extends PrettyJsonSerializable
+{
  
     /**
      * Create a new JSKOS object.
      *
      * @param String|Array|Object JSON data to copy
      */
-    public function __construct( $data = NULL ) {
+    public function __construct($data = null)
+    {
         if (is_string($data)) {
             $data = json_decode($data);
         }
@@ -36,12 +38,12 @@ abstract class Object extends PrettyJsonSerializable {
             foreach ($data as $key => $value) {
                 if ($key == '@context') {
                     // ignore
-               } else {
+                } else {
                     # TODO: deep copy?
                     $this->$key = $value;
                 }
             }
-        } elseif ( $data !== NULL ) {
+        } elseif ($data !== null) {
             throw new \InvalidArgumentException('argument passed to Item constructor must be string, array, or object');
         }
     }
@@ -110,5 +112,3 @@ abstract class Object extends PrettyJsonSerializable {
      */
     public $partOf;
 }
-
-?>

@@ -12,30 +12,31 @@ use JSKOS\Item;
  *
  * @see https://gbv.github.io/jskos/jskos.html#concepts
  */
-class Concept extends Item {
+class Concept extends Item
+{
 
     /**
      * Default type URI of all concepts.
      */
-    const TYPE_URI = 'http://www.w3.org/2004/02/skos/core#Concept'; 
+    const TYPE_URI = 'http://www.w3.org/2004/02/skos/core#Concept';
 
     /**
      * Narrower concepts.
      * @var Set $narrower
      */
-    public $narrower; 
+    public $narrower;
 
     /**
      * Broader concepts.
      * @var Set $broader
      */
-    public $broader; 
+    public $broader;
 
     /**
      * Generally related concepts.
      * @var Set $related
      */
-    public $related; 
+    public $related;
 
     /**
      * Related concepts ordered somehow before the concept.
@@ -84,7 +85,4 @@ class Concept extends Item {
      * @var Set $topConceptOf
      */
     public $topConceptOf;
-
 }
-
-?>

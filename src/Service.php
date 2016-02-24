@@ -40,7 +40,8 @@ const QueryModifiers = [
  *
  * @see Server
  */
-class Service {
+class Service
+{
     private $queryFunction; /**< callable */
 
     /**
@@ -52,9 +53,10 @@ class Service {
     /**
      * Create a new service.
      */
-    function __construct($queryFunction=NULL) {
+    public function __construct($queryFunction=null)
+    {
         if (!isset($queryFunction)) {
-            $queryFunction = function() {
+            $queryFunction = function () {
                 return new Page();
             };
         } elseif (!is_callable($queryFunction)) {
@@ -69,7 +71,8 @@ class Service {
      *
      * @return Page|Error
      */
-    public function query($request) {
+    public function query($request)
+    {
         $method = $this->queryFunction;
         # TODO: check whether result is actually a Page or Error
         return $method($request);
@@ -79,7 +82,8 @@ class Service {
      * Enable support of a query parameter.
      * @param string $name
      */
-    public function supportParameter($name) {
+    public function supportParameter($name)
+    {
         if (in_array($name, QueryModifiers)) {
             throw new \DomainException("parameter $name not allowed");
         }
@@ -91,7 +95,8 @@ class Service {
      *
      * @return string
      */
-    public function uriTemplate($template='') {
+    public function uriTemplate($template='')
+    {
         foreach ($this->supportedParameters as $name) {
             $template .= "{?$name}";
         }

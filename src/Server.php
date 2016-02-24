@@ -19,7 +19,8 @@ use JSKOS\Service;
  * $server->run();
  * @endcode
  */
-class Server {
+class Server
+{
 
     /**
      * @var string $API_VERSION JSKOS-API Version of this implementation
@@ -35,15 +36,17 @@ class Server {
      * Create a new Server.
      * @param Service $service
      */
-    function __construct(Service $service = NULL) {
+    public function __construct(Service $service = null)
+    {
         $this->service = is_null($service) ? new Service() : $service;
     }
 
     /**
      * Receive request and send Response.
      */
-    public function run() {
-       $this->response()->send();
+    public function run()
+    {
+        $this->response()->send();
     }
 
     /**
@@ -57,7 +60,8 @@ class Server {
      *
      * @return Response
      */
-    public function response() {
+    public function response()
+    {
         $method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
         $params = $_GET;
 
@@ -77,7 +81,7 @@ class Server {
         if (isset($params['language'])) {
             $language = $params['language'];
             unset($params['language']);
-        } elseif(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        } elseif (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             $language = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
             # TODO: parse and map q's to preference list
         }
@@ -99,7 +103,7 @@ class Server {
             $response->headers['X-Total-Count'] = $page->totalCount;
 
             if ($method == 'HEAD') {
-                $response->emptyBody = TRUE;
+                $response->emptyBody = true;
             }
         } else {
             error_log("Method not allowed: $method");
@@ -108,7 +112,7 @@ class Server {
             $response = $this->basicResponse(
                 405,
                 [],
-                new Error(405,'','Method not allowed')
+                new Error(405, '', 'Method not allowed')
             );
         }
 
@@ -123,7 +127,8 @@ class Server {
      * @param integer $code HTTP Status code
      * @return Response
      */
-    protected function basicResponse($code=200, $content=NULL) {
+    protected function basicResponse($code=200, $content=null)
+    {
         return new Response(
             $code,
             [
@@ -138,11 +143,12 @@ class Server {
      * Respond to a HTTP OPTIONS request.
      * @return Response
      */
-    protected function optionsResponse() {
+    protected function optionsResponse()
+    {
         $response = $this->basicResponse();
 
         $response->headers['Access-Control-Allow-Methods'] = 'GET, HEAD, OPTIONS';
-        if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) && 
+        if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) &&
             $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'GET') {
             $response->headers['Access-Control-Allow-Origin'] = '*';
             $response->headers['Acess-Control-Expose-Headers'] = 'Link X-Total-Count';
@@ -151,5 +157,3 @@ class Server {
         return $response;
     }
 }
-
-?>

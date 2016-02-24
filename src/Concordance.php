@@ -12,7 +12,8 @@ use JSKOS\Item;
  *
  * @see https://gbv.github.io/jskos/jskos.html#concordances
  */
-class Concordance extends Item {
+class Concordance extends Item
+{
 
     /**
      * Set of mappings in this concordance or JSKOS API endpoint.
@@ -41,7 +42,4 @@ class Concordance extends Item {
      * @var URI $license
      */
     public $license;
-
 }
-
-?>

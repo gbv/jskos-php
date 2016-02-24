@@ -12,7 +12,8 @@ use JSKOS\Item;
  *
  * @see https://gbv.github.io/jskos/jskos.html#registries
  */
-class Registry extends Item {
+class Registry extends Item
+{
 
     /**
      * Set of concepts in this registry or JSKOS API endpoint.
@@ -69,7 +70,4 @@ class Registry extends Item {
      * @var URI $license
      */
     public $license;
-
 }
-
-?>

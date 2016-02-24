@@ -10,7 +10,6 @@ namespace JSKOS;
  *
  * @todo not implemented yet!
  */
-class Client {
+class Client
+{
 }
-
-?>

@@ -54,6 +54,11 @@ To also check code coverage you may need to enable PHP extension xdebug:
 
     $ sudo apt-get install php5-xdebug
 
+The tests include a check for conformance to [PSR-2 Coding
+Style](http://www.php-fig.org/psr/psr-2/). To clean up the code, run:
+
+    $ ./vendor/bin/php-cs-fixer fix --level=psr2 src/
+
 ### Generate documentation
 
 Code documentation can be generated into `doc/` if Doxygen is installed:

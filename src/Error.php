@@ -13,7 +13,8 @@ use JSKOS\PrettyJsonSerializable;
  *
  * @see https://gbv.github.io/jskos-api/jskos-api.html#error-responses
  */
-class Error extends PrettyJsonSerializable {
+class Error extends PrettyJsonSerializable
+{
     public $code;
     public $error;
     public $message;
@@ -31,13 +32,12 @@ class Error extends PrettyJsonSerializable {
      *
      * @todo check member constraints: code and error must be set properly
      */
-     public function __construct($code, $error, $message, $description=NULL, $uri=NULL) {
-        $this->code        = $code;
-        $this->error       = $error;
-        $this->message     = $message;
-        $this->description = $description;
-        $this->uri         = $uri;
-    }
+     public function __construct($code, $error, $message, $description=null, $uri=null)
+     {
+         $this->code        = $code;
+         $this->error       = $error;
+         $this->message     = $message;
+         $this->description = $description;
+         $this->uri         = $uri;
+     }
 }
-
-?>

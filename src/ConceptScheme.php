@@ -12,12 +12,13 @@ use JSKOS\Item;
  *
  * @see https://gbv.github.io/jskos/jskos.html#concept-schemes
  */
-class ConceptScheme extends Item {
+class ConceptScheme extends Item
+{
 
     /**
      * Default type URI of all concept schemes.
      */
-    const TYPE_URI = 'http://www.w3.org/2004/02/skos/core#ConceptScheme'; 
+    const TYPE_URI = 'http://www.w3.org/2004/02/skos/core#ConceptScheme';
 
     /**
      * Top concepts of the concept scheme.
@@ -58,5 +59,3 @@ class ConceptScheme extends Item {
      */
     public $license;
 }
-
-?>
