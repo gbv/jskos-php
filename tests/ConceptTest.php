@@ -5,9 +5,11 @@ namespace JSKOS;
 /**
  * @covers \JSKOS\Concept
  */
-class ConceptTest extends \PHPUnit_Framework_TestCase {
+class ConceptTest extends \PHPUnit_Framework_TestCase
+{
 
-    public function testCreate() {
+    public function testCreate()
+    {
         $concept = new Concept();
 
         $this->assertEquals($concept, new Concept($concept));
@@ -17,7 +19,8 @@ class ConceptTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($concept, new Concept("$concept"));
     }
 
-    public function testJson() {
+    public function testJson()
+    {
         $concept = new Concept(['uri'=>'x:1']);
         $concept->prefLabel['en'] = 'test';
         $concept->narrower[] = new Concept(['uri'=>'x:2']);
@@ -33,5 +36,3 @@ class ConceptTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(json_encode($expect), json_encode($concept));
     }
 }
-
-?>

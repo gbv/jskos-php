@@ -5,9 +5,11 @@ namespace JSKOS;
 /**
  * @covers \JSKOS\ConceptScheme
  */
-class ConceptSchemeTest extends \PHPUnit_Framework_TestCase {
+class ConceptSchemeTest extends \PHPUnit_Framework_TestCase
+{
 
-    public function testEmptyScheme() {
+    public function testEmptyScheme()
+    {
         $scheme = new ConceptScheme();
         $scheme->types = 'http://example.org/types';
         $expect = [
@@ -15,8 +17,6 @@ class ConceptSchemeTest extends \PHPUnit_Framework_TestCase {
             'type'     => ['http://www.w3.org/2004/02/skos/core#ConceptScheme'],
             'types'    => 'http://example.org/types',
         ];
-        $this->assertEquals(json_encode($expect, JSON_UNESCAPED_SLASHES),"$scheme");
+        $this->assertEquals(json_encode($expect, JSON_UNESCAPED_SLASHES), "$scheme");
     }
 }
-
-?>

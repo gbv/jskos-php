@@ -5,9 +5,11 @@ namespace JSKOS;
 /**
  * @covers \JSKOS\Mapping
  */
-class MappingTest extends \PHPUnit_Framework_TestCase {
+class MappingTest extends \PHPUnit_Framework_TestCase
+{
 
-    public function testJsonEncode() {
+    public function testJsonEncode()
+    {
         $mapping = new Mapping();
         $expect = [
             '@context' => 'https://gbv.github.io/jskos/context.json',
@@ -15,11 +17,11 @@ class MappingTest extends \PHPUnit_Framework_TestCase {
             'to' => [ 'members' => [], ],
             'type' => ['http://www.w3.org/2004/02/skos/core#mappingRelation'],
         ];
-        $this->assertEquals(json_encode($expect),json_encode($mapping));
+        $this->assertEquals(json_encode($expect), json_encode($mapping));
 
         $mapping->to->members[] = new Concept(['uri'=>'x:1']);
         $expect['to']['members'][] = ['uri'=>'x:1'];
-        $this->assertEquals(json_encode($expect),json_encode($mapping));
+        $this->assertEquals(json_encode($expect), json_encode($mapping));
         
         $validTypes = [
             'mappingRelation','closeMatch','exactMatch','broadMatch','narrowMatch','relatedMatch'
@@ -28,9 +30,7 @@ class MappingTest extends \PHPUnit_Framework_TestCase {
             $type = "http://www.w3.org/2004/02/skos/core#$type";
             $mapping->type  = [$type];
             $expect['type'] = [$type];
-            $this->assertEquals(json_encode($expect),json_encode($mapping));
+            $this->assertEquals(json_encode($expect), json_encode($mapping));
         }
     }
 }
-
-?>
