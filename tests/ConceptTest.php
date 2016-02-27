@@ -7,6 +7,13 @@ namespace JSKOS;
  */
 class ConceptTest extends \PHPUnit_Framework_TestCase
 {
+    const TYPE_URI = 'http://www.w3.org/2004/02/skos/core#Concept';
+
+    public function testTypes() 
+    {
+        $this->assertEquals( Concept::primaryTypes(), [TYPE_URI] );
+        $this->assertEquals( Concept::defaultType(), TYPE_URI );
+    }
 
     public function testCreate()
     {

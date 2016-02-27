@@ -15,14 +15,19 @@ use JSKOS\Item;
 class Mapping extends Object
 {
     
-    const TYPE_URI = 'http://www.w3.org/2004/02/skos/core#mappingRelation';
-
     /**
-     * Check whether a given list of types is valid for this class.
+     * Returns an array with primary type URIs of all mappings.
      */
-    public static function validType($type)
+    public static function primaryTypes()
     {
-        return preg_match('/^http:\/\/www\.w3\.org\/2004\/02\/skos\/core#(mappingRelation|(close|exact|broad|narrow|related)Match)$/', $type[0]);
+        return [
+            'http://www.w3.org/2004/02/skos/core#mappingRelation',
+            'http://www.w3.org/2004/02/skos/core#closeMatch',
+            'http://www.w3.org/2004/02/skos/core#exactMatch',
+            'http://www.w3.org/2004/02/skos/core#broadMatch',
+            'http://www.w3.org/2004/02/skos/core#narrowMatch',
+            'http://www.w3.org/2004/02/skos/core#relatedMatch',
+        ];
     }
 
     public $from;

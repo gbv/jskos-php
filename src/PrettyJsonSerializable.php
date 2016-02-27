@@ -15,15 +15,23 @@ namespace JSKOS;
 abstract class PrettyJsonSerializable implements \JsonSerializable
 {
 
-    const TYPE_URI = null;
+    /**
+     * Return a list of primary types of this class.
+     */
+    public static function primaryTypes()
+    {
+        return [];
+    }
 
     /**
-     * Check whether a given list of types is valid for this class.
+     * Return the default type of this class or null.
      */
-    public static function validType($type)
+    public static function defaultType()
     {
-        return $type[0] == static::TYPE_URI;
+        $types = static::primaryTypes();
+        return $types[0];
     }
+
 
     /**
      * Returns data which should be serialized to JSON.
@@ -67,13 +75,14 @@ abstract class PrettyJsonSerializable implements \JsonSerializable
 
         if ($root) {
             $json['@context'] = 'https://gbv.github.io/jskos/context.json';
-            if (static::TYPE_URI) {
+            $types = $this->primaryTypes();
+            if (count($types)) {
                 if (isset($json['type'])) {
-                    if (!static::validType($json['type'])) {
-                        array_unshift($json['type'], static::TYPE_URI);
+                    if (empty(array_intersect($json['type'], $types))) {
+                        array_unshift($json['type'], $this->defaultType());
                     }
                 } else {
-                    $json['type'] = [static::TYPE_URI];
+                    $json['type'] = [$this->defaultType()];
                 }
             }
         }

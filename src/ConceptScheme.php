@@ -16,9 +16,12 @@ class ConceptScheme extends Item
 {
 
     /**
-     * Default type URI of all concept schemes.
+     * Returns an array with the type URI of all concept schemes.
      */
-    const TYPE_URI = 'http://www.w3.org/2004/02/skos/core#ConceptScheme';
+    public static function primaryTypes()
+    {
+        return ['http://www.w3.org/2004/02/skos/core#ConceptScheme'];
+    }
 
     /**
      * Top concepts of the concept scheme.
