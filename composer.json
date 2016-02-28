@@ -35,6 +35,9 @@
             "vendor/bin/parallel-lint --exclude vendor .",
             "vendor/bin/phpunit tests --coverage-clover build/logs/clover.xml"
         ],
+        "style": [
+            "vendor/bin/php-cs-fixer fix --level=psr2 src/"
+        ],
         "doc": [
             "rm -rf doc/*",
             "doxygen",

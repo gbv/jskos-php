@@ -57,7 +57,7 @@ To also check code coverage you may need to enable PHP extension xdebug:
 The tests include a check for conformance to [PSR-2 Coding
 Style](http://www.php-fig.org/psr/psr-2/). To clean up the code, run:
 
-    $ ./vendor/bin/php-cs-fixer fix --level=psr2 src/
+    $ composer style
 
 ### Generate documentation
 
