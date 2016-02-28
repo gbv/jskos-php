@@ -114,9 +114,25 @@ class Server implements LoggerAwareInterface
         if (isset($params['language'])) {
             $language = $params['language'];
             unset($params['language']);
+            # TODO: parse language
         } elseif (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            $language = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-            # TODO: parse and map q's to preference list
+            # parse accept-language-header
+            preg_match_all(
+                '/([a-z]+(?:-[a-z]+)?)\s*(?:;\s*q\s*=\s*(1|0?\.[0-9]+))?/i',
+                $_SERVER['HTTP_ACCEPT_LANGUAGE'],
+                $match);
+            if (count($match[1])) {
+                foreach ($match[1] as $i => $l) {
+                    if (isset($match[2][$i]) && $match[2][$i] != '') {
+                        $langs[strtolower($l)] = (float) $match[2][$i];
+                    } else {
+                        $langs[strtolower($l)] = 1;
+                    }
+                }
+                arsort($langs, SORT_NUMERIC);
+                reset($langs);
+                $language = key($langs); # most wanted language
+            }
         }
 
         # TODO: more query modifiers
