@@ -11,8 +11,8 @@ class ConceptTest extends \PHPUnit_Framework_TestCase
 
     public function testTypes() 
     {
-        $this->assertEquals( Concept::primaryTypes(), [TYPE_URI] );
-        $this->assertEquals( Concept::defaultType(), TYPE_URI );
+        $this->assertEquals( Concept::primaryTypes(), [ self::TYPE_URI ] );
+        $this->assertEquals( Concept::defaultType(), self::TYPE_URI );
     }
 
     public function testCreate()
