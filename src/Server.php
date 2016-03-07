@@ -224,49 +224,72 @@ class Server implements \Psr\Log\LoggerAwareInterface
 
         # TODO: header: Allow/Authentication
 
+        $error = null;
+
         if ($method == 'GET' or $method == 'HEAD') {
             $this->logger->info("Received $method request", $params);
 
-            # TODO: route to another service?
+            $answer = $this->queryService($params);
 
-            try {
-                $page = $this->service->query($params);
-            } catch (Exception $e) {
-                $page = new Error(500, '', 'Internal server error');
-                # TODO: log exception
-                $page->exception = $e;
-            }
+            if ($answer instanceof Page) {
 
-            if ($page instanceof Error) {
-                # TODO: log error
-                return $this->basicResponse($page->code, [], $page);
-            }
+                // TODO: if unique
 
-            // TODO: if unique
+                $response = $this->basicResponse(200, $answer);
+                
+                // TODO: Add Link header with next/last/first
 
-            $response = $this->basicResponse(200, $page);
-            
-            // TODO: Add Link header with next/last/first
+                $response->headers['X-Total-Count'] = $answer->totalCount;
 
-            $response->headers['X-Total-Count'] = $page->totalCount;
-
-            if ($method == 'HEAD') {
-                $response->emptyBody = true;
+                if ($method == 'HEAD') {
+                    $response->emptyBody = true;
+                }
+            } elseif ($answer instanceof Error) {
+                $error = $answer;
             }
         } else {
-            $this->logger->warning("HTTP Method not allowed: $method");
-            
-            # TODO: Error object is only used once here. Refactor?
-            $response = $this->basicResponse(
-                405,
-                [],
-                new Error(405, '', 'Method not allowed')
-            );
+            $error = new Error(405, '???', 'Method not allowed');
+        }
+
+        if (isset($error)) {
+            $this->logger->warning($error->message, ['error' => $error]);
+            $response = $this->basicResponse($error->code, $error);
         }
 
         if (isset($callback)) {
             $response->callback = $callback;
         }
+
+        return $response;
+    }
+
+    /**
+     * Delegate request to service.
+     *
+     * Makes sure that exceptions are catched.
+     *
+     * @return Page|Error
+     */
+    protected function queryService($params)
+    {
+        try {
+            $response = $this->service->query($params);
+        } catch (\Exception $e) {
+            $this->logger->error('Service Exception', ['exception' => $e]);
+            return new Error(500, '???', 'Internal server error');
+        }
+
+        if (is_null($response)) {
+            return new Page([]);
+        } elseif ($response instanceof Item) {
+            return new Page([$response]);
+        } elseif ($response instanceof Page or $response instanceof Error) {
+            return $response;
+        } else {
+            $this->logger->error('Service response has wrong type', ['response' => $response]);
+            return new Error(500, '???', 'Internal server error');
+        }
+
         return $response;
     }
 

@@ -16,9 +16,21 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 {
     private $server;
     private $response;
+    private $logger;
 
     private function newServer($service=null) {
         $this->server = new Server($service);
+    }
+
+    private function newLogger() {
+        $this->logger = new MockLogger();
+        $this->server->setLogger($this->logger);
+    }
+
+    private function condenseLog() {
+        return array_map(function ($m) { 
+            return "$m[0]: $m[1]"; 
+        }, $this->logger->log);
     }
 
     private function getRequest($headers=[], $params=[])
@@ -69,6 +81,36 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([
             ["info","Received GET request",[]]
         ],$logger->log);
+    }
+
+    public function testServiceException()
+    {
+        $service = new Service(function($query) { throw new \Exception("!"); });
+        $this->newServer($service);
+        $this->newLogger();
+
+        $this->getRequest();
+        $this->assertEquals([
+                "info: Received GET request",
+                "error: Service Exception",
+                "warning: Internal server error"
+            ], $this->condenseLog()
+        );
+    }
+
+    public function testServiceWrongResponse()
+    {
+        $service = new Service(function($query) { return 42; });
+        $this->newServer($service);
+        $this->newLogger();
+        $this->getRequest();
+        $this->assertEquals([
+            "info: Received GET request",
+            "error: Service response has wrong type",
+            "warning: Internal server error"
+            ], $this->condenseLog()
+        );
+        $this->assertSame(42, $this->logger->log[1][2]['response']);
     }
 
 }

@@ -20,7 +20,6 @@ class Error extends PrettyJsonSerializable
     public $message;
     public $description;
     public $uri;
-    public $exception;
 
     /**
      * Create a JSKOS API error.
