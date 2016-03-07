@@ -7,6 +7,7 @@
 [![Build Status](https://img.shields.io/travis/gbv/jskos-php.svg)](https://travis-ci.org/gbv/jskos-php)
 [![Coverage Status](https://coveralls.io/repos/gbv/jskos-php/badge.svg?branch=master)](https://coveralls.io/r/gbv/jskos-php)
 [![Coding Style](https://img.shields.io/badge/coding style-PRS--2-green.svg)](http://www.php-fig.org/psr/psr-2/)
+[![Logger Interface](https://img.shields.io/badge/logger interface-PRS--3-green.svg)](http://www.php-fig.org/psr/psr-3/)
 
 **jskos** is a PHP library for easy processing of knowledge organization systems (KOS) as classifications, thesauri, and authority files given in [JSKOS data format](http://gbv.github.io/jskos/). JSKOS is a JSON format based on [Simple Knowledge Organisation System (SKOS)](http://www.w3.org/TR/skos-reference).
 

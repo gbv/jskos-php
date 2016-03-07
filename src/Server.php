@@ -3,6 +3,75 @@
  * @file
  */
 
+namespace Psr\Log;
+
+/**
+ * Implement a minimal PRS-3 subset if Psr\Log not available.
+ */
+if (!interface_exists('Psr\Log\LoggerInterface')) {
+    interface LoggerInterface
+    {
+        public function emergency($message, array $context = []);
+        public function alert($message, array $context = []);
+        public function critical($message, array $context = []);
+        public function error($message, array $context = []);
+        public function warning($message, array $context = []);
+        public function notice($message, array $context = []);
+        public function info($message, array $context = []);
+        public function debug($message, array $context = []);
+        public function log($level, $message, array $context = []);
+    }
+
+    interface LoggerAwareInterface
+    {
+        public function setLogger(LoggerInterface $logger);
+    }
+
+    abstract class AbstractLogger implements LoggerInterface
+    {
+        public function emergency($message, array $context = [])
+        {
+            $this->log(__FUNCTION__, $message, $context);
+        }
+        public function alert($message, array $context = [])
+        {
+            $this->log(__FUNCTION__, $message, $context);
+        }
+        public function critical($message, array $context = [])
+        {
+            $this->log(__FUNCTION__, $message, $context);
+        }
+        public function error($message, array $context = [])
+        {
+            $this->log(__FUNCTION__, $message, $context);
+        }
+        public function warning($message, array $context = [])
+        {
+            $this->log(__FUNCTION__, $message, $context);
+        }
+        public function notice($message, array $context = [])
+        {
+            $this->log(__FUNCTION__, $message, $context);
+        }
+        public function info($message, array $context = [])
+        {
+            $this->log(__FUNCTION__, $message, $context);
+        }
+        public function debug($message, array $context = [])
+        {
+            $this->log(__FUNCTION__, $message, $context);
+        }
+    }
+
+    class NullLogger extends AbstractLogger
+    {
+        public function log($level, $message, array $context = [])
+        {
+        }
+    }
+}
+
+
 namespace JSKOS;
 
 use JSKOS\Service;
