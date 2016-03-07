@@ -62,19 +62,25 @@ if (!interface_exists('Psr\Log\LoggerInterface')) {
             $this->log(__FUNCTION__, $message, $context);
         }
     }
-
-    class NullLogger extends AbstractLogger
-    {
-        public function log($level, $message, array $context = [])
-        {
-        }
-    }
 }
 
 
 namespace JSKOS;
 
 use JSKOS\Service;
+
+/**
+ * Logs errors or worse events via trigger_error.
+ */
+class DefaultErrorLogger extends \Psr\Log\AbstractLogger
+{
+    public function log($level, $message, array $context = [])
+    {
+        if ($level=='error' or $level=='critical' or $level=='alert' or $level=='emergency') {
+            trigger_error("$level: $message", E_USER_ERROR);
+        }
+    }
+}
 
 /**
  * A JSKOS Server.
@@ -113,7 +119,7 @@ class Server implements \Psr\Log\LoggerAwareInterface
     public function __construct(Service $service = null)
     {
         $this->service = is_null($service) ? new Service() : $service;
-        $this->logger = new \Psr\Log\NullLogger();
+        $this->logger = new DefaultErrorLogger();
     }
 
     /**

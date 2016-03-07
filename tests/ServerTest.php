@@ -83,6 +83,16 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         ],$logger->log);
     }
 
+    /**
+     * @expectedException PHPUnit_Framework_Exception
+     * @expectedExceptionMessage error: Service Exception
+     */
+    public function testDefaultLogger() {
+        $service = new Service(function($query) { throw new \Exception("!"); });
+        $this->newServer($service);
+        $this->getRequest();
+    }
+
     public function testServiceException()
     {
         $service = new Service(function($query) { throw new \Exception("!"); });
