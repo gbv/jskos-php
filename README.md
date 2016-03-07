@@ -34,23 +34,6 @@ $concept = new JSKOS\Concept( [ "uri" => "http://example.org" ] );
 echo $concept->json();
 ~~~
 
-## Manually with autoloading
-
-Download the jskos library directory `src` and put it in a directory of your choice. Then enable autoloading for its classes by pointing to this directory: 
-
-~~~php
-spl_autoload_register(function($class) {
-    static $JSKOS = '../src/'; # location relative to this file
-    $class = explode('\\',$class);
-    if ($class[0] == 'JSKOS') {
-        require_once __DIR__."/$JSKOS$class[1].php";
-    }
-});
-
-$concept = new JSKOS\Concept( [ "uri" => "http://example.org" ] );
-echo $concept->json();
-~~~
-
 ## Manually without autoloading
 
 Download the jskos library directory `src` and put it in a directory of your choice. Then include file `JSKOS.php` which includes all library files:
