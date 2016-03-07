@@ -20,13 +20,28 @@ const QueryModifiers = [
  *
  * A %Service can be queried with a set of query parameters to return a Page
  * or Error. To actually implement JSKOS API, create a Server that passes HTTP
- * requests to the %Service. To implement a %Service, provide a query function
- * on instanciation or create a subclass that overrides the query method.
+ * requests to the %Service. To implement a %Service, either provide a query 
+ * function on instanciation:
  *
  * @code
  * $service = new Service(function($query) { ... });
  * $server = new Server($service);
  * $server->run();
+ * @endcode
+ *
+ * Or create a subclass that overrides the query method and possibly the
+ * supportedParameters member variable:
+ *
+ * @code
+ * class MyService extends \JSKOS\Service {
+ *     
+ *     protected $supportedParameters = [...];
+ *
+ *     public function query($request) {
+ *         ...
+ *     }  
+ *
+ * }
  * @endcode
  *
  * Each %Service can be configured to support specific query parameters, in 
@@ -97,6 +112,7 @@ class Service
      */
     public function uriTemplate($template='')
     {
+        asort($this->supportedParameters);
         foreach ($this->supportedParameters as $name) {
             $template .= "{?$name}";
         }
