@@ -71,13 +71,32 @@ class Server implements LoggerAwareInterface
         return $this->logger;
     }
 
-
     /**
      * Receive request and send Response.
      */
     public function run()
     {
         $this->response()->send();
+    }
+
+    /**
+     * Directly run a new server with a given Service.
+     *
+     * @code
+     * Server::runService($service);
+     * @endcode
+     *
+     * is equivalent to
+     *
+     * @code
+     * $server = new Server($service);
+     * $server->run();
+     * @endcode
+     */
+    public static function runService(Service $service)
+    {
+        $server = new Server($service);
+        $server->run();
     }
 
     /**
@@ -143,7 +162,19 @@ class Server implements LoggerAwareInterface
             $this->logger->info("Received HTTP $method request", $params);
 
             # TODO: route to another service?
-            $page = $this->service->query($params);
+
+            try {
+                $page = $this->service->query($params);
+            } catch (Exception $e) {
+                $page = new Error(500, '', 'Internal server error');
+                # TODO: log exception
+                $page->exception = $e;
+            }
+
+            if ($page instanceof Error) {
+                # TODO: log error
+                return $this->basicResponse($page->code, [], $page);
+            }
 
             // TODO: if unique
 
