@@ -6,9 +6,6 @@
 namespace JSKOS;
 
 use JSKOS\Service;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\NullLogger;
 
 /**
  * A JSKOS Server.
@@ -22,7 +19,7 @@ use Psr\Log\NullLogger;
  * $server->run();
  * @endcode
  */
-class Server implements LoggerAwareInterface
+class Server implements \Psr\Log\LoggerAwareInterface
 {
     /**
      * PRS-3 compliant LoggerInterface for logging. 
@@ -47,7 +44,7 @@ class Server implements LoggerAwareInterface
     public function __construct(Service $service = null)
     {
         $this->service = is_null($service) ? new Service() : $service;
-        $this->logger = new NullLogger();
+        $this->logger = new \Psr\Log\NullLogger();
     }
 
     /**
@@ -56,7 +53,7 @@ class Server implements LoggerAwareInterface
      * @param LoggerInterface $logger
      * @return null
      */
-    public function setLogger(LoggerInterface $logger)
+    public function setLogger(\Psr\Log\LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
@@ -116,7 +113,7 @@ class Server implements LoggerAwareInterface
         $params = $_GET;
 
         if ($method == 'OPTIONS') {
-            $this->logger->info("Received HTTP OPTIONS request");
+            $this->logger->info("Received OPTIONS request");
             return $this->optionsResponse();
         }
 
@@ -159,7 +156,7 @@ class Server implements LoggerAwareInterface
         # TODO: header: Allow/Authentication
 
         if ($method == 'GET' or $method == 'HEAD') {
-            $this->logger->info("Received HTTP $method request", $params);
+            $this->logger->info("Received $method request", $params);
 
             # TODO: route to another service?
 

@@ -2,27 +2,48 @@
 
 namespace JSKOS;
 
+class MockLogger extends \Psr\Log\AbstractLogger {
+    public $log = [];
+    public function log($level, $message, array $context = []) {
+        $this->log[]=[$level, $message, $context];
+    }
+}
+
 /**
  * @covers \JSKOS\Server
  */
 class ServerTest extends \PHPUnit_Framework_TestCase
 {
+    private $server;
+    private $response;
 
-    protected function assertResponse($response, $status, $headers, $body)
-    {
-        $this->assertEquals($status, $response->status);
-        $this->assertEquals($headers, $response->headers);
-        $this->assertEquals($body, $response->getBody());
+    private function newServer($service=null) {
+        $this->server = new Server($service);
     }
+
+    private function getRequest($headers=[], $params=[])
+    {
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        foreach ($headers as $name => $value) {
+            $_SERVER['HTTP_'.$name] = $value;
+        }
+        $_GET = $params;
+
+        $this->response = $this->server->response();
+    }
+
+    private function assertResponse($status, $headers, $body)
+    {
+        $this->assertEquals($status, $this->response->status);
+        $this->assertEquals($headers, $this->response->headers);
+        $this->assertEquals($body, $this->response->getBody());
+    }
+
 
     public function testSomeRequest()
     {
-        $server = new Server();
-
-        $_SERVER['REQUEST_METHOD'] = 'GET';
-        $_SERVER['HTTP_ACCEPT_LANGUAGE'] = '';
-        $_GET = [];
-        $response = $server->response();
+        $this->newServer();
+        $this->getRequest();
 
         $headers = [
             'X-JSKOS-API-Version' => '0.0.0',
@@ -30,11 +51,24 @@ class ServerTest extends \PHPUnit_Framework_TestCase
             'Link-Template' => '<{?uri}>; rel="search"',
             # TODO: Link: rel="collection" to concept scheme or registry
         ];
+        $this->assertResponse(200, $headers, '[]');
 
-        $this->assertResponse($response, 200, $headers, '[]');
-
-        $_GET = ['callback' => 'abc'];
-        $response = $server->response();
-        $this->assertResponse($response, 200, $headers, '/**/abc([]);');
+        $this->getRequest([],['callback' => 'abc']);
+        $this->assertResponse(200, $headers, '/**/abc([]);');
     }
+
+    public function testLogging() 
+    {
+        $logger = new MockLogger();
+
+        $this->newServer();
+        $this->server->setLogger($logger);
+        $this->assertSame($logger, $this->server->getLogger());
+
+        $this->getRequest();
+        $this->assertEquals([
+            ["info","Received GET request",[]]
+        ],$logger->log);
+    }
+
 }
