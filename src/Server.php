@@ -77,7 +77,10 @@ class DefaultErrorLogger extends \Psr\Log\AbstractLogger
     public function log($level, $message, array $context = [])
     {
         if ($level=='error' or $level=='critical' or $level=='alert' or $level=='emergency') {
-            trigger_error("$level: $message", E_USER_ERROR);
+            if (isset($context['exception'])) {
+                $message .= "\n".$context['exception'];
+            }
+            trigger_error($message, E_USER_ERROR);
         }
     }
 }
