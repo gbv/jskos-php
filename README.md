@@ -45,17 +45,16 @@ $concept = new JSKOS\Concept( [ "uri" => "http://example.org" ] );
 echo $concept->json();
 ~~~
 
-# Usage
+# Usage and examples
 
 API documentation is published at <http://gbv.github.io/jskos-php/>.
 
-The `examples/` directory contains some examples to start with. To quickly run them as server scripts call:
+The [jskos-php-examples repository](https://github.com/gbv/jskos-php-examples)
+contains several examples, including wrappers of existing terminology services
+(Wikidata, GND...) to JSKOS-API.
 
-    $ php -S localhost:8080 -t examples/
-
-## Examples
-
-* [wikidata.php](https://github.com/gbv/jskos-php/blob/master/examples/wikidata.php) - basic wrapper to Wikidata
+The examples can be tried online at <https://jskos-php-examples.herokuapp.com>
+(may be out of date).
 
 # Contributung
 
