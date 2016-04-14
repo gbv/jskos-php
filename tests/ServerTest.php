@@ -92,6 +92,15 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->getRequest();
     }
 
+    public function testService() {
+        $this->newServer();
+        $this->assertInstanceOf('\JSKOS\Service', $this->server->getService());
+
+        $service = new Service();
+        $this->server->setService($service);
+        $this->assertSame( $service, $this->server->getService() );
+    }
+
     public function testServiceException()
     {
         $service = new Service(function($query) { throw new \Exception("!"); });

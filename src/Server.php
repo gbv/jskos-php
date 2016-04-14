@@ -100,12 +100,6 @@ class DefaultErrorLogger extends \Psr\Log\AbstractLogger
 class Server implements \Psr\Log\LoggerAwareInterface
 {
     /**
-     * PRS-3 compliant LoggerInterface for logging. 
-     * @var LoggerInterface $logger
-     */
-    protected $logger;
-
-    /**
      * @var string $API_VERSION JSKOS-API Version of this implementation
      */
     public static $API_VERSION = '0.0.0';
@@ -114,6 +108,12 @@ class Server implements \Psr\Log\LoggerAwareInterface
      * @var Service $service
      */
     protected $service;
+
+    /**
+     * PRS-3 compliant LoggerInterface for logging. 
+     * @var LoggerInterface $logger
+     */
+    protected $logger;
 
     /**
      * Create a new Server.
@@ -126,7 +126,27 @@ class Server implements \Psr\Log\LoggerAwareInterface
     }
 
     /**
+     * Sets the current Service to service.
+     * @param Service $service
+     */
+    public function setService(Service $service)
+    {
+        $this->service = $service;
+    }
+
+    /**
+     * Gets the current Service.
+     * @return Service
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    /**
      * Sets a logger for the server.
+     *
+     * The default logger logs errors via trigger_error.
      *
      * @param LoggerInterface $logger
      * @return null
