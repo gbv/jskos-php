@@ -2,7 +2,7 @@
     "name": "gbv/jskos",
     "description": "PHP library to access and serve JSKOS data and services",
     "keywords": ["SKOS"],
-    "homepage": "http://github.io/gbv/jskos-php",
+    "homepage": "http://gbv.github.io/jskos-php/",
     "type": "library",
     "license": "LGPL",
     "author": [
