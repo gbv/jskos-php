@@ -4,8 +4,22 @@ namespace JSKOS;
 
 class MockLogger extends \Psr\Log\AbstractLogger {
     public $log = [];
-    public function log($level, $message, array $context = []) {
+    public function log($level, $message, array $context = []) 
+    {
         $this->log[]=[$level, $message, $context];
+    }
+}
+
+class MyConceptService extends \JSKOS\Service 
+{
+    protected $supportedTypes = ['http://www.w3.org/2004/02/skos/core#Concept'];
+    public function query($request) 
+    {
+        if ($request['uri']) {
+            return new Concept($request['uri']);
+        } else {
+            return;
+        }
     }
 }
 
@@ -18,16 +32,19 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     private $response;
     private $logger;
 
-    private function newServer($service=null) {
+    private function newServer($service=null)
+    {
         $this->server = new Server($service);
     }
 
-    private function newLogger() {
+    private function newLogger()
+    {
         $this->logger = new MockLogger();
         $this->server->setLogger($this->logger);
     }
 
-    private function condenseLog() {
+    private function condenseLog()
+    {
         return array_map(function ($m) { 
             return "$m[0]: $m[1]"; 
         }, $this->logger->log);
@@ -86,13 +103,15 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException PHPUnit_Framework_Exception
      */
-    public function testDefaultLogger() {
+    public function testDefaultLogger()
+    {
         $service = new Service(function($query) { throw new \Exception("!"); });
         $this->newServer($service);
         $this->getRequest();
     }
 
-    public function testService() {
+    public function testService()
+    {
         $this->newServer();
         $this->assertInstanceOf('\JSKOS\Service', $this->server->getService());
 
@@ -131,4 +150,28 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(42, $this->logger->log[1][2]['response']);
     }
 
+    public function testConceptService() 
+    {
+        $service = new MyConceptService();
+        $this->newServer($service);
+
+        $this->getRequest();
+        $this->assertEquals(0, $this->response->headers['X-Total-Count']);
+
+        $this->newLogger();
+        $this->getRequest([],['foo' => 'bar', 'uri' => 'http://example.org/', 'page' => 1]);
+        $this->assertEquals([
+            "info: Received GET request",
+            "notice: Unsupported query parameter {name}"
+            ], $this->condenseLog()
+        );
+        $this->assertEquals(1, $this->response->headers['X-Total-Count']);
+
+        $this->getRequest([],['uri' => 'http://example.org/', 'type' => 'x:unknown']);
+        $this->assertEquals(0, $this->response->headers['X-Total-Count']);
+
+        $this->getRequest([],['uri' => 'http://example.org/', 
+                              'type' => 'http://www.w3.org/2004/02/skos/core#Concept']);
+        $this->assertEquals(1, $this->response->headers['X-Total-Count']);
+    }
 }

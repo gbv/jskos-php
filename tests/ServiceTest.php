@@ -2,20 +2,26 @@
 
 namespace JSKOS;
 
-class MyService extends \JSKOS\Service {
+class MyService extends \JSKOS\Service 
+{
     protected $supportedParameters = ['notation'];
-    public function query($request) {
+    public function query($request) 
+    {
         return new Concept(["notation"=>$request["notation"]]);
     }  
 }
 
+class MyOtherService extends \JSKOS\Service 
+{
+    protected $supportedParameters = [];
+    protected $supportedTypes = ['http://www.w3.org/2004/02/skos/core#Concept'];
+}
 
 /**
  * @covers \JSKOS\Service
  */
 class ServiceTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testQueryFunction()
     {
         $page = new Page();
@@ -45,6 +51,8 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
         $service->supportParameter('notation');
         $this->assertEquals('{?notation}{?uri}', $service->uriTemplate());
+
+        $this->assertEquals(['notation'=>'notation','uri'=>'uri'], $service->getSupportedParameters());
     }
 
     public function testInvalidSupportParameter()
@@ -52,6 +60,12 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('DomainException');
         $service = new Service();
         $service->supportParameter('callback');
+    }
+
+    public function testSupportType() 
+    {
+        $service = new MyOtherService();
+        $this->assertEquals('{?type}{?uri}', $service->uriTemplate());
     }
 
     public function testInheritance() 

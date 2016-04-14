@@ -301,6 +301,33 @@ class Server implements \Psr\Log\LoggerAwareInterface
      */
     protected function queryService($params)
     {
+        $supportedTypes      = $this->service->getSupportedTypes();
+        $supportedParameters = $this->service->getSupportedParameters();
+        $possibleParameters  = array_merge($supportedParameters, \JSKOS\QueryModifiers);
+
+        # filter out queries for unsupported types
+        if (count($supportedTypes) and isset($params['type'])) {
+            if (!in_array($params['type'], $supportedTypes)) {
+                return new Page([]);
+            }
+        }
+
+        # remove unknown parameters
+        foreach (array_keys($params) as $name) {
+            if (!in_array($name, $possibleParameters)) {
+                $this->logger->notice('Unsupported query parameter {name}', [
+                    'name' => $name, 'value' => $params[$name] ]);
+                unset($params[$name]);
+            }
+        }
+
+        # make sure all supported query parameters exist
+        foreach ($supportedParameters as $name) {
+            if (!isset($params[$name])) {
+                $params[$name] = null;
+            }
+        }
+
         try {
             $response = $this->service->query($params);
         } catch (\Exception $e) {

@@ -4,6 +4,12 @@ This changelog tracks features and fixes of jskos PHP library.
 
 ## Unreleased
 
+### Added
+
+* Improve preprocessing of request by Server before it is passed to Service
+
+### Fixed
+
 * Fix Acess-Control-Expose-Headers header
 
 ## 0.0.8

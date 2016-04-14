@@ -66,6 +66,18 @@ class Service
     protected $supportedParameters = [];
 
     /**
+     * List of available types, given by their URIs.
+     *
+     * If left empty then all types are possible. The query parameter 'type' is 
+     * added to the list of supported query parameter otherwise, so requests can 
+     * be checked before perfoming a query and results can be checked for expected
+     * types.
+     *
+     * @var array
+     */
+    protected $supportedTypes = [];
+
+    /**
      * Create a new service.
      */
     public function __construct($queryFunction=null)
@@ -78,7 +90,11 @@ class Service
             throw new \InvalidArgumentException('queryFunction must be callable');
         }
         $this->queryFunction = $queryFunction;
+
         $this->supportParameter('uri');
+        if (count($this->supportedTypes) and !in_array('type', $this->supportedParameters)) {
+            $this->supportParameter('type');
+        }
     }
 
     /**
@@ -103,6 +119,25 @@ class Service
             throw new \DomainException("parameter $name not allowed");
         }
         $this->supportedParameters[$name] = $name;
+        asort($this->supportedParameters);
+    }
+
+    /**
+     * Get a list of supported query parameters.
+     * @return array
+     */
+    public function getSupportedParameters()
+    {
+        return $this->supportedParameters;
+    }
+
+    /**
+     * Get a list of supported type URIs.
+     * @return array
+     */
+    public function getSupportedTypes()
+    {
+        return $this->supportedTypes;
     }
 
     /**
@@ -112,7 +147,6 @@ class Service
      */
     public function uriTemplate($template='')
     {
-        asort($this->supportedParameters);
         foreach ($this->supportedParameters as $name) {
             $template .= "{?$name}";
         }
