@@ -331,7 +331,7 @@ class Server implements \Psr\Log\LoggerAwareInterface
         if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) &&
             $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'GET') {
             $response->headers['Access-Control-Allow-Origin'] = '*';
-            $response->headers['Acess-Control-Expose-Headers'] = 'Link X-Total-Count';
+            $response->headers['Acess-Control-Expose-Headers'] = 'Link, X-Total-Count';
         }
 
         return $response;

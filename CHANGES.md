@@ -4,6 +4,8 @@ This changelog tracks features and fixes of jskos PHP library.
 
 ## Unreleased
 
+* Fix Acess-Control-Expose-Headers header
+
 ## 0.0.8
 
 ### Added
