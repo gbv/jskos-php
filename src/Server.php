@@ -195,6 +195,41 @@ class Server implements \Psr\Log\LoggerAwareInterface
     }
 
     /**
+     * Extract requested languages(s) from request.
+     */
+    public function extractRequestLanguage($params)
+    {
+        $language = null;
+
+        # get query modifier: language
+        if (isset($params['language'])) {
+            $language = $params['language'];
+            unset($params['language']);
+            # TODO: parse language
+        } elseif (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            # parse accept-language-header
+            preg_match_all(
+                '/([a-z]+(?:-[a-z]+)?)\s*(?:;\s*q\s*=\s*(1|0?\.[0-9]+))?/i',
+                $_SERVER['HTTP_ACCEPT_LANGUAGE'],
+                $match);
+            if (count($match[1])) {
+                foreach ($match[1] as $i => $l) {
+                    if (isset($match[2][$i]) && $match[2][$i] != '') {
+                        $langs[strtolower($l)] = (float) $match[2][$i];
+                    } else {
+                        $langs[strtolower($l)] = 1;
+                    }
+                }
+                arsort($langs, SORT_NUMERIC);
+                reset($langs);
+                $language = key($langs); # most wanted language
+            }
+        }
+        
+        return $language;
+    }
+
+    /**
      * Receive request and create a Response.
      *
      * This is the core method implementing basic parts of JSKOS API.
@@ -224,38 +259,20 @@ class Server implements \Psr\Log\LoggerAwareInterface
             unset($params['callback']);
         }
 
-        # get query modifier: language
-        if (isset($params['language'])) {
-            $language = $params['language'];
-            unset($params['language']);
-            # TODO: parse language
-        } elseif (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            # parse accept-language-header
-            preg_match_all(
-                '/([a-z]+(?:-[a-z]+)?)\s*(?:;\s*q\s*=\s*(1|0?\.[0-9]+))?/i',
-                $_SERVER['HTTP_ACCEPT_LANGUAGE'],
-                $match);
-            if (count($match[1])) {
-                foreach ($match[1] as $i => $l) {
-                    if (isset($match[2][$i]) && $match[2][$i] != '') {
-                        $langs[strtolower($l)] = (float) $match[2][$i];
-                    } else {
-                        $langs[strtolower($l)] = 1;
-                    }
-                }
-                arsort($langs, SORT_NUMERIC);
-                reset($langs);
-                $language = key($langs); # most wanted language
-            }
-        }
+        $language = $this->extractRequestLanguage($params);
 
-        # TODO: more query modifiers
+        # TODO: extract more query modifiers
 
         # TODO: header: Allow/Authentication
 
         $error = null;
 
-        if ($method == 'GET' or $method == 'HEAD') {
+        # conflicting parameters
+        if (isset($params['uri']) and isset($params['search'])) {
+            $error = new Error('422', 'request_error', 'Conflicting request parameters uri & search');
+        }
+
+        if (!$error and ($method == 'GET' or $method == 'HEAD')) {
             $this->logger->info("Received $method request", $params);
 
             $answer = $this->queryService($params);
@@ -276,7 +293,7 @@ class Server implements \Psr\Log\LoggerAwareInterface
             } elseif ($answer instanceof Error) {
                 $error = $answer;
             }
-        } else {
+        } elseif (!$error) {
             $error = new Error(405, '???', 'Method not allowed');
         }
 

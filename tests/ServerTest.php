@@ -16,12 +16,25 @@ class MyConceptService extends \JSKOS\Service
     public function query($request) 
     {
         if ($request['uri']) {
-            return new Concept($request['uri']);
+            return new Concept(['uri'=>$request['uri']]);
         } else {
             return;
         }
     }
 }
+
+class MySearchService extends MyConceptService
+{
+    protected $supportedParameters = ['search'];
+    public function query($request)
+    {
+        if ($request['search']) {
+            $a = new Concept(['uri'=>'x:a']);
+            $b = new Concept(['uri'=>'x:b']);
+            return new Page([$a,$b],0,1,42);
+        }
+    } 
+ }
 
 /**
  * @covers \JSKOS\Server
@@ -61,11 +74,18 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->response = $this->server->response();
     }
 
-    private function assertResponse($status, $headers, $body)
-    {
+    private function assertResponse($status, $headers=[], $body=[])
+    {        
         $this->assertEquals($status, $this->response->status);
-        $this->assertEquals($headers, $this->response->headers);
-        $this->assertEquals($body, $this->response->getBody());
+
+        $this->assertArraySubset($headers, $this->response->headers);
+
+        if (is_array($body)) {
+            $json = json_decode($this->response->getBody(),true);
+            $this->assertArraySubset( $body, $json );
+        } else {
+            $this->assertEquals($body, $this->response->getBody());
+        }
     }
 
 
@@ -152,8 +172,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testConceptService() 
     {
-        $service = new MyConceptService();
-        $this->newServer($service);
+        $this->newServer(new MyConceptService());
 
         $this->getRequest();
         $this->assertEquals(0, $this->response->headers['X-Total-Count']);
@@ -173,5 +192,18 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->getRequest([],['uri' => 'http://example.org/', 
                               'type' => 'http://www.w3.org/2004/02/skos/core#Concept']);
         $this->assertEquals(1, $this->response->headers['X-Total-Count']);
+    }
+
+    public function testSearchService()
+    {
+        $this->newServer(new MySearchService());
+
+        $this->getRequest([],['search'=>'foo']);
+        $this->assertEquals(42, $this->response->headers['X-Total-Count']);
+        $this->assertResponse( 200, [], [ ['uri'=>'x:a'], ['uri'=>'x:b'] ] );
+
+        // conflicting parameters
+        $this->getRequest([],['search'=>'foo','uri'=>'x:b']);        
+        $this->assertResponse( 422, [], [ 'code' => 422 ] );
     }
 }

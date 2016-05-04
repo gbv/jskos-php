@@ -53,8 +53,7 @@ The [jskos-php-examples repository](https://github.com/gbv/jskos-php-examples)
 contains several examples, including wrappers of existing terminology services
 (Wikidata, GND...) to JSKOS-API.
 
-The examples can be tried online at <https://jskos-php-examples.herokuapp.com>
-(may be out of date).
+The examples can be tried online at <https://jskos-php-examples.herokuapp.com>.
 
 # Contributung
 
