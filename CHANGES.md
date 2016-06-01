@@ -4,7 +4,11 @@ This changelog tracks features and fixes of jskos PHP library.
 
 ## Unreleased
 
-...
+* ...
+
+## 0.0.10
+
+* Add URISpaceService
 
 ## 0.0.9
 

@@ -37,6 +37,7 @@ require_once('Error.php');
 require_once('Page.php');
 
 require_once('Service.php');
+require_once('URISpaceService.php');
 
 require_once('Response.php');
 
