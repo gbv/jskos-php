@@ -72,6 +72,12 @@ class Concept extends Item
     public $relatedDate;
 
     /**
+     * List of geographic coordinates.
+     * @var array $location
+     */
+    public $location;
+
+    /**
      * List of ancestors, possibly up to a top concept.
      * @var Set $ancestors
      */

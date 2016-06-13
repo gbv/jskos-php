@@ -58,7 +58,7 @@ class ConceptScheme extends Item
     /**
      * License which the concept scheme is published under.
      *
-     * @var URI $license
+     * @var Set $license
      */
     public $license;
 }

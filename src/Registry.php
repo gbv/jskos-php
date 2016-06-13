@@ -65,9 +65,15 @@ class Registry extends Item
     public $languages;
 
     /**
+     * Size of the registry
+     * @var string $extent
+     */
+    public $extent;
+
+    /**
      * License which the registry is published under.
      *
-     * @var URI $license
+     * @var Set $license
      */
     public $license;
 }

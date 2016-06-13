@@ -37,9 +37,15 @@ class Concordance extends Item
     public $toScheme;
 
     /**
+     * Size of the concordance.
+     * @var string $extent
+     */
+    public $extent;
+
+    /**
      * License which the concordance is published under.
      *
-     * @var URI $license
+     * @var Set $license
      */
     public $license;
 }

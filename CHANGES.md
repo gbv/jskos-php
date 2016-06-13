@@ -6,6 +6,10 @@ This changelog tracks features and fixes of jskos PHP library.
 
 * ...
 
+## 0.0.11
+
+* Align with JSKOS 0.1.2: fields extend, location, license
+
 ## 0.0.10
 
 * Add URISpaceService

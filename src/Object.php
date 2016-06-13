@@ -8,7 +8,7 @@ namespace JSKOS;
 /**
  * JSKOS Specification version aligned with.
  */
-const JSKOS_SPECIFICATION = '0.1.25';
+const JSKOS_SPECIFICATION = '0.1.2';
 
 
 use JSKOS\PrettyJsonSerializable;
