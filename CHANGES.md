@@ -2,9 +2,9 @@
 
 This changelog tracks features and fixes of jskos PHP library.
 
-## Unreleased
+## 0.0.12
 
-* ...
+* Add Access-Control-Allow-Origin header in JSKOS Server
 
 ## 0.0.11
 

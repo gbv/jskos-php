@@ -376,6 +376,7 @@ class Server implements \Psr\Log\LoggerAwareInterface
         return new Response(
             $code,
             [
+                'Access-Control-Allow-Origin' => '*',
                 'X-JSKOS-API-Version' => self::$API_VERSION,
                 'Link-Template' => '<'.$this->service->uriTemplate().'>; rel="search"',
             ],
