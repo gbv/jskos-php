@@ -50,7 +50,7 @@ abstract class Object extends PrettyJsonSerializable
 
     /**
      * URI if the Concept, ConceptScheme, ConceptType, Mapping
-     * or whatever this object refers to.  
+     * or whatever this object refers to.
      *
      * @var string $uri
      */
@@ -107,7 +107,7 @@ abstract class Object extends PrettyJsonSerializable
 
     /**
      * Resources which this object is part of.
-     * 
+     *
      * @var Set $partOf
      */
     public $partOf;

@@ -22,7 +22,7 @@
         "phpunit/phpunit": "~4.8",
         "jakub-onderka/php-parallel-lint": "~0.9",
         "jakub-onderka/php-console-highlighter": "~0.3",
-        "fabpot/php-cs-fixer": "^1.11"
+        "friendsofphp/php-cs-fixer": "^1.12"
     },
     "autoload": {
         "psr-4": {

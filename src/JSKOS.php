@@ -9,7 +9,7 @@
  * @code
  * <?php
  * require_once('src/JSKOS.php');
- * 
+ *
  * my $concept = new JSKOS\Concept();
  * $concept->uri = "http://example.org/";
  * echo json_encode($concept);

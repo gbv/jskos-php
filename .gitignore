@@ -8,6 +8,7 @@ vendor/
 phpunit.xml
 composer.phar
 composer.lock
+*.rej
 
 doc/
 build/

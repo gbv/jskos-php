@@ -110,7 +110,7 @@ class Server implements \Psr\Log\LoggerAwareInterface
     protected $service;
 
     /**
-     * PRS-3 compliant LoggerInterface for logging. 
+     * PRS-3 compliant LoggerInterface for logging.
      * @var LoggerInterface $logger
      */
     protected $logger;
@@ -233,7 +233,7 @@ class Server implements \Psr\Log\LoggerAwareInterface
      * Receive request and create a Response.
      *
      * This is the core method implementing basic parts of JSKOS API.
-     * The method handles HTTP request method, request headers and 
+     * The method handles HTTP request method, request headers and
      * [query modifiers](https://gbv.github.io/jskos-api/#query-modifiers),
      * passes valid GET and HEAD requests to the served Service and wraps
      * the result as Response.

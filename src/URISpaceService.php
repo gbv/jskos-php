@@ -5,7 +5,7 @@ namespace JSKOS;
 /**
  * This JSKOS Service can be queried by URI and (optionally) Notation. A
  * JSKOS Item of predefined type (Concept, ConceptScheme...) is returned
- * if the requested URI matches a given prefix and an optional notation 
+ * if the requested URI matches a given prefix and an optional notation
  * suffix or if the requested notation looks valid.
  */
 class URISpaceService extends Service
@@ -15,10 +15,10 @@ class URISpaceService extends Service
     protected $supportedParameters = ['notation'];
 
     /**
-     * Create a new URISpaceService based on configurations. 
+     * Create a new URISpaceService based on configurations.
      *
      * Configuration for each JSKOS class consists of the mandatory
-     * field "uriSpace" and the optional fields "notationPattern" and 
+     * field "uriSpace" and the optional fields "notationPattern" and
      * "notationNormalizer".
      */
     public function __construct(array $config)
@@ -88,7 +88,7 @@ class URISpaceService extends Service
         if (isset($query['notation']) and $query['notation'] !== "") {
             if (isset($notation)) {
                 if ($query['notation'] != $notation) {
-                    // requested notation and uri do not match 
+                    // requested notation and uri do not match
                     return;
                 }
             } else {
