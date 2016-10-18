@@ -1,0 +1,9 @@
+---
+_uriSpace:
+    Concept:
+        uriSpace: http://example.org/concept/
+        notationPattern: /^[0-9]+$/
+
+foo:
+    bar: doz
+...

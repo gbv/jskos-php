@@ -2,6 +2,10 @@
 
 This changelog tracks features and fixes of jskos PHP library.
 
+## 0.0.13
+
+* Add ConfiguredService helper class
+
 ## 0.0.12
 
 * Add Access-Control-Allow-Origin header in JSKOS Server
