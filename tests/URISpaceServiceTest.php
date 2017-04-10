@@ -3,7 +3,7 @@
 namespace JSKOS;
 
 /**
- * @covers URISpaceService
+ * @covers JSKOS\URISpaceService
  */
 class URISpaceServiceTest extends \PHPUnit\Framework\TestCase
 {
@@ -30,7 +30,7 @@ class URISpaceServiceTest extends \PHPUnit\Framework\TestCase
             $concept = $service->query(['uri' => 'http://example.org/foo']);
             $this->assertInstanceOf('JSKOS\Concept', $concept);
             $this->assertSame('http://example.org/foo', $concept->uri);
-            $this->assertSame(['foo'], $concept->notation);
+            $this->assertEquals(new Listing(['foo']), $concept->notation);
 
             $this->assertNull($service->query([
                 'uri'      => 'http://example.org/foo', 
@@ -53,7 +53,7 @@ class URISpaceServiceTest extends \PHPUnit\Framework\TestCase
         $concept = $service->query(['uri' => 'http://example.org/123']);
         $this->assertInstanceOf('JSKOS\Concept', $concept);
         $this->assertSame('http://example.org/123', $concept->uri);
-        $this->assertSame(['123'], $concept->notation);
+        $this->assertEquals(new Listing(['123']), $concept->notation);
 
         // ignore empty notation
         $this->assertNotNull($service->query([
@@ -72,7 +72,7 @@ class URISpaceServiceTest extends \PHPUnit\Framework\TestCase
         $concept = $service->query(['notation' => '123']);
         $this->assertInstanceOf('JSKOS\Concept', $concept);
         $this->assertSame('http://example.org/123', $concept->uri);
-        $this->assertSame(['123'], $concept->notation);
+        $this->assertEquals(new Listing(['123']), $concept->notation);
     }
 
     public function testNotationNormalizer() {
@@ -85,11 +85,11 @@ class URISpaceServiceTest extends \PHPUnit\Framework\TestCase
         ]);
         $concept = $service->query(['notation' => 'q42']);
         $this->assertSame('http://example.org/Q42', $concept->uri);
-        $this->assertSame(['Q42'], $concept->notation);
+        $this->assertEquals(new Listing(['Q42']), $concept->notation);
 
         $concept = $service->query(['uri' => 'http://example.org/q42']);
         $this->assertSame('http://example.org/q42', $concept->uri);
-        $this->assertSame(['Q42'], $concept->notation);
+        $this->assertEquals(new Listing(['Q42']), $concept->notation);
      }
 
     # TODO: test multiple types but Concept

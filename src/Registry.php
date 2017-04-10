@@ -11,6 +11,10 @@ use JSKOS\Item;
  */
 class Registry extends Item
 {
+    protected static $fields = [
+        'languages'     => 'Listing',
+        'license'       => ['Concept'],
+    ];
 
     /**
      * Set of concepts in this registry or JSKOS API endpoint.

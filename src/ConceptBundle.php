@@ -13,6 +13,9 @@ use JSKOS\PrettyJsonSerializable;
  */
 class ConceptBundle extends PrettyJsonSerializable
 {
+    protected static $fields = [
+        'members' => ['Concept']
+    ];
 
     /**
      * %Set of concepts in this bundle.

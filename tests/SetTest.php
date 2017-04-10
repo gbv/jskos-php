@@ -6,7 +6,7 @@ use PHPUnit\Framework\Error\Notice;
 use InvalidArgumentException;
 
 /**
- * @covers Set
+ * @covers JSKOS\Set
  */
 class SetTest extends \PHPUnit\Framework\TestCase
 {
@@ -43,7 +43,7 @@ class SetTest extends \PHPUnit\Framework\TestCase
         $set = new Set();
         $this->assertEquals(null, $set->findURI('x:y'));
 
-        $set[] = new Concept(['identifiers'=>['x:y']]);
+        $set[] = new Concept(['identifier'=>['x:y']]);
         $this->assertEquals(null, $set->findURI('x:y'));
 
         $concept = new Concept(['uri'=>'x:y']);
@@ -85,7 +85,7 @@ class SetTest extends \PHPUnit\Framework\TestCase
     public function provideSampleSet() {
         return [ [ new Set([
             new Concept(['uri'=>'a:b']),
-            new Concept(['identifiers'=>['c:d']]),
+            new Concept(['identifier'=>['c:d']]),
             new Concept(['uri'=>'x:y']),
         ]) ] ];
     }

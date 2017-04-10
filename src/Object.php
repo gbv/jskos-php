@@ -7,7 +7,7 @@ namespace JSKOS;
  */
 const JSKOS_SPECIFICATION = '0.1.2';
 
-
+use InvalidArgumentException;
 use JSKOS\PrettyJsonSerializable;
 
 /**
@@ -20,7 +20,70 @@ use JSKOS\PrettyJsonSerializable;
  */
 abstract class Object extends PrettyJsonSerializable
 {
- 
+    protected static $fields = [
+        'type'          => 'Listing',
+        'creator'       => ['Concept'],
+        'contributor'   => ['Concept'],
+        'publisher'     => ['Concept'],
+        'partOf'        => ['Concept'],
+    ];
+
+    public static function fieldType(string $field)
+    {
+        $class = get_called_class();
+        do {
+            if (isset($class::$fields[$field])) {
+                return $class::$fields[$field];
+            }
+            if ($class == Object::class) {
+                return;
+            }
+            $class = get_parent_class($class);
+        } while ($class);
+    }
+
+    public function __set($field, $value)
+    {
+        $type = static::fieldType($field);
+
+        if (!$type) {
+            $type = property_exists($this, $field) ? 'scalar' : null;
+        }
+        if (!$type) {
+            $error = 'does not exist';
+            throw new InvalidArgumentException(get_class() . "->$field $error");
+        }
+
+        if (is_array($type)) { # Set
+            if (is_array($value)) {
+                $class = 'JSKOS\\'.$type[0];
+                $value = new Set(
+                    array_map(function ($m) use ($class) {
+                        return (is_object($m) and is_a($m, $class)) ? $m : new $class($m);
+                    }, $value)
+                );
+            } else { #elseif (!is_object($value) or !is_a($value, 'JSKOS\Set')) {
+                # TODO: check member types
+            }
+        } elseif ($type == 'Listing') {
+            if (is_array($value)) {
+                $value = new Listing($value);
+            } else {
+                # TODO: check
+            }
+        } else {
+            # TODO: scalar types
+        }
+
+        $this->$field = $value;
+    }
+
+    public function __get($field)
+    {
+        $type = static::fieldType($field);
+        return $type ? $this->$field : null;
+    }
+
     /**
      * Create a new JSKOS object.
      *
@@ -33,11 +96,8 @@ abstract class Object extends PrettyJsonSerializable
         }
         if (is_array($data) or is_object($data)) {
             foreach ($data as $key => $value) {
-                if ($key == '@context') {
-                    // ignore
-                } else {
-                    # TODO: deep copy?
-                    $this->$key = $value;
+                if ($key != '@context') {
+                    $this->__set($key, $value);
                 }
             }
         } elseif ($data !== null) {
@@ -58,7 +118,7 @@ abstract class Object extends PrettyJsonSerializable
      *
      * @var array $type
      */
-    public $type;
+    protected $type;
 
     /**
      * Date of creation.

@@ -11,6 +11,9 @@ use JSKOS\Item;
  */
 class Concordance extends Item
 {
+    protected static $fields = [
+        'license' => ['Concept'],
+    ];
 
     /**
      * Set of mappings in this concordance or JSKOS API endpoint.

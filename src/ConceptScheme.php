@@ -11,6 +11,12 @@ use JSKOS\Item;
  */
 class ConceptScheme extends Item
 {
+    protected static $fields = [
+        'topConcepts'   => ['Concept'],
+        'versionOf'     => ['ConceptScheme'],
+        'languages'     => 'Listing',
+        'license'       => ['Concept'],
+    ];
 
     /**
      * Returns an array with the type URI of all concept schemes.

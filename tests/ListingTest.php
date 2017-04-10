@@ -6,7 +6,7 @@ use PHPUnit\Framework\Error\Notice;
 use InvalidArgumentException;
 
 /**
- * @covers Listing
+ * @covers JSKOS\Listing
  */
 class ListingTest extends \PHPUnit\Framework\TestCase
 {

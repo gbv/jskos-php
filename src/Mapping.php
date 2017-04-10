@@ -11,6 +11,7 @@ use JSKOS\Item;
  */
 class Mapping extends Object
 {
+    protected static $fields = [ ];
     
     /**
      * Returns an array with primary type URIs of all mappings.

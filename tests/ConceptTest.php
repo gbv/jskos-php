@@ -42,4 +42,16 @@ class ConceptTest extends \PHPUnit\Framework\TestCase
         ksort($expect);
         $this->assertEquals(json_encode($expect), json_encode($concept));
     }
+
+    public function testNested()
+    {
+        $concept = new Concept([ 'narrower' => [ ['uri' =>'a:b' ] ] ]);
+        $expect = new Concept([
+            'narrower' => new Set([ 
+                new Concept(['uri' =>'a:b' ])
+            ])
+        ]);
+
+        $this->assertEquals($expect, $concept);
+    }
 }

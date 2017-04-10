@@ -11,6 +11,16 @@ use JSKOS\Item;
  */
 class Concept extends Item
 {
+    protected static $fields = [
+        'narrower'      => ['Concept'],
+        'broader'       => ['Concept'],
+        'related'       => ['Concept'],
+        'previous'      => ['Concept'],
+        'next'          => ['Concept'],
+        'ancestors'     => ['Concept'],
+        'inScheme'      => ['ConceptScheme'],
+        'topConceptOf'  => ['ConceptScheme'],
+    ];
 
     /**
      * Returns an array with the default type URI of all concepts.

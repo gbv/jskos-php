@@ -9,6 +9,14 @@ use JSKOS\Object;
  */
 abstract class Item extends Object
 {
+    protected static $fields = [
+        'identifier'    => 'Listing',
+        'notation'      => 'Listing',
+        'subject'       => ['Concept'],
+        'subjectOf'     => ['Concept'],
+        'depiction'     => 'Listing',
+    ];
+
     /**
      * URL of a page about the item.
      * @var date $created
