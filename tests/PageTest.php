@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace JSKOS;
 
 /**
  * @covers \JSKOS\Page
  */
-class PageTest extends \PHPUnit_Framework_TestCase
+class PageTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstructor()
     {

@@ -1,7 +1,4 @@
-<?php
-/**
- * @file
- */
+<?php declare(strict_types=1);
 
 namespace JSKOS;
 
@@ -38,14 +35,19 @@ class ConceptBundle extends PrettyJsonSerializable
 
     /**
      * Returns data which should be serialized to JSON.
+     * @param string $context
      */
-    public function jsonSerializeRoot($root=true)
+    public function jsonSerializeRoot($context=JSKOS_DEFAULT_CONTEXT)
     {
         $members = [];
         foreach ($this->members as $m) {
             $members[] = $m->jsonSerializeRoot(false);
         }
-        $json = [ 'members' => $members ];
+        $json = [];
+        if ($context) {
+            $json['@context'] = $context;
+        }
+        $json['members'] = $members;
         if ($this->ordered) {
             $json['ordered'] = true;
         }

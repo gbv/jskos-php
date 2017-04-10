@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace JSKOS;
 
 /**
- * @covers \JSKOS\ConceptScheme
+ * @covers JSKOS\ConceptScheme
  */
-class ConceptSchemeTest extends \PHPUnit_Framework_TestCase
+class ConceptSchemeTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testEmptyScheme()

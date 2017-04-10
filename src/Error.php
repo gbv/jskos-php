@@ -1,8 +1,4 @@
-<?php
-/**
- * This file is part of JSKOS package.
- * @file
- */
+<?php declare(strict_types=1);
 
 namespace JSKOS;
 

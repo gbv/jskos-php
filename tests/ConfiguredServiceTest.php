@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace JSKOS;
 
@@ -11,7 +11,10 @@ class SampleService extends ConfiguredService
     }
 }
 
-class ConfiguredServiceTest extends \PHPUnit_Framework_TestCase
+/**
+ * @covers \JSKOS\ConfiguredService
+ */
+class ConfiguredServiceTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testService()        

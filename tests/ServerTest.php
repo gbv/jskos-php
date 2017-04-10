@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace JSKOS;
 
@@ -37,9 +37,9 @@ class MySearchService extends MyConceptService
  }
 
 /**
- * @covers \JSKOS\Server
+ * @covers JSKOS\Server
  */
-class ServerTest extends \PHPUnit_Framework_TestCase
+class ServerTest extends \PHPUnit\Framework\TestCase
 {
     private $server;
     private $response;
@@ -121,7 +121,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Exception
+     * @expectedException PHPUnit\Framework\Exception
      */
     public function testDefaultLogger()
     {

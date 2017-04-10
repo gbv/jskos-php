@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace JSKOS;
 
@@ -20,7 +20,7 @@ class MyOtherService extends \JSKOS\Service
 /**
  * @covers \JSKOS\Service
  */
-class ServiceTest extends \PHPUnit_Framework_TestCase
+class ServiceTest extends \PHPUnit\Framework\TestCase
 {
     public function testQueryFunction()
     {
@@ -40,7 +40,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidQueryFunction()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
         $service = new Service(42);
     }
 
@@ -57,7 +57,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidSupportParameter()
     {
-        $this->setExpectedException('DomainException');
+        $this->expectException('DomainException');
         $service = new Service();
         $service->supportParameter('callback');
     }

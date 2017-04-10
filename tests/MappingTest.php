@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace JSKOS;
 
 /**
  * @covers \JSKOS\Mapping
  */
-class MappingTest extends \PHPUnit_Framework_TestCase
+class MappingTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testJsonEncode()

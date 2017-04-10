@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * PHP library to process JSKOS data.
  *
@@ -8,6 +8,8 @@
  */
 
 namespace JSKOS;
+
+const JSKOS_DEFAULT_CONTEXT = 'https://gbv.github.io/jskos/context.json';
 
 /**
  * Adds consistent JSON serializing via `json_encode` and `->json()`.
@@ -49,9 +51,9 @@ abstract class PrettyJsonSerializable implements \JsonSerializable
      * The default data contains all non-null members and `@context`.
      * Keys are sorted by Unicode codepoint.
      *
-     * @param boolean $root
+     * @param string $context
      */
-    public function jsonSerializeRoot($root=true)
+    public function jsonSerializeRoot($context=JSKOS_DEFAULT_CONTEXT)
     {
         $json = [ ];
 
@@ -73,8 +75,8 @@ abstract class PrettyJsonSerializable implements \JsonSerializable
             }
         }
 
-        if ($root) {
-            $json['@context'] = 'https://gbv.github.io/jskos/context.json';
+        if ($context) {
+            $json['@context'] = $context;
             $types = $this->primaryTypes();
             if (count($types)) {
                 if (isset($json['type'])) {

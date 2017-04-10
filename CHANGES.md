@@ -2,6 +2,12 @@
 
 This changelog tracks features and fixes of jskos PHP library.
 
+## 0.1.0
+
+* Require PHP 7
+* Enforce autoloading
+* Add JSKOS Sets and Lists
+
 ## 0.0.13
 
 * Add ConfiguredService helper class

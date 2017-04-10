@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace JSKOS;
 
 /**
- * @covers \JSKOS\Concept
+ * @coversDefaultClass Concept
  */
-class ConceptTest extends \PHPUnit_Framework_TestCase
+class ConceptTest extends \PHPUnit\Framework\TestCase
 {
     const TYPE_URI = 'http://www.w3.org/2004/02/skos/core#Concept';
 

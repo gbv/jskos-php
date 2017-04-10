@@ -1,8 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace JSKOS;
 
-class URISpaceServiceTest extends \PHPUnit_Framework_TestCase
+/**
+ * @covers URISpaceService
+ */
+class URISpaceServiceTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testService()

@@ -13,7 +13,7 @@
 
 # Requirements
 
-JSKOS-PHP works with PHP 5.6 or above. No additional libraries are required.
+JSKOS-PHP requires at least PHP 7.0. No additional libraries are required.
 
 # Installation
 
@@ -61,6 +61,3 @@ JSKOS-PHP is licensed under the LGPL license - see `LICENSE.md` for details.
 JSKOS is created as part of project coli-conc: <https://coli-conc.gbv.de/>.
 
 The current specification of JSKOS is available at <http://gbv.github.io/jskos/>.
-
-The current specification of JSKOS API is available at <http://gbv.github.io/jskos-api/>.
-
