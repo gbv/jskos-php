@@ -2,9 +2,6 @@
 
 namespace JSKOS;
 
-// make sure include file works
-include './src/JSKOS.php';
-
 class JSKOSTest extends \PHPUnit_Framework_TestCase
 {
 

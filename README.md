@@ -34,17 +34,6 @@ $concept = new JSKOS\Concept( [ "uri" => "http://example.org" ] );
 echo $concept->json();
 ~~~
 
-## Manually without autoloading
-
-Download the jskos library directory `src` and put it in a directory of your choice. Then include file `JSKOS.php` which includes all library files:
-
-~~~php
-require_once 'src/JSKOS.php';
-
-$concept = new JSKOS\Concept( [ "uri" => "http://example.org" ] );
-echo $concept->json();
-~~~
-
 # Usage and examples
 
 API documentation is published at <http://gbv.github.io/jskos-php/>.
