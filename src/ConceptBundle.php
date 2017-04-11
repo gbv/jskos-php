@@ -13,8 +13,8 @@ use JSKOS\PrettyJsonSerializable;
  */
 class ConceptBundle extends PrettyJsonSerializable
 {
-    protected static $fields = [
-        'members' => ['Concept']
+    const FIELDS = [
+        'members' => ['Set','Concept']
     ];
 
     /**
@@ -40,7 +40,7 @@ class ConceptBundle extends PrettyJsonSerializable
      * Returns data which should be serialized to JSON.
      * @param string $context
      */
-    public function jsonSerializeRoot($context=JSKOS_DEFAULT_CONTEXT)
+    public function jsonSerializeRoot($context=self::DEFAULT_CONTEXT)
     {
         $members = [];
         foreach ($this->members as $m) {

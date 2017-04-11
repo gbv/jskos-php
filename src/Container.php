@@ -117,7 +117,7 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
     /**
      * Return a data structure to serialize this set as JSON.
      */
-    public function jsonSerializeRoot($context=JSKOS_DEFAULT_CONTEXT)
+    public function jsonSerializeRoot($context=self::DEFAULT_CONTEXT)
     {
         $set = array_map(function ($m) {
             return is_object($m) ? $m->jsonSerializeRoot(null) : $m;

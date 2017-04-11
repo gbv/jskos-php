@@ -11,94 +11,82 @@ use JSKOS\Item;
  */
 class Concept extends Item
 {
-    protected static $fields = [
-        'narrower'      => ['Concept'],
-        'broader'       => ['Concept'],
-        'related'       => ['Concept'],
-        'previous'      => ['Concept'],
-        'next'          => ['Concept'],
-        'ancestors'     => ['Concept'],
-        'inScheme'      => ['ConceptScheme'],
-        'topConceptOf'  => ['ConceptScheme'],
+    const TYPES = [
+        'http://www.w3.org/2004/02/skos/core#Concept'
+    ];
+
+    const FIELDS = [
+        'narrower'      => ['Set','Concept'],
+        'broader'       => ['Set','Concept'],
+        'related'       => ['Set','Concept'],
+        'previous'      => ['Set','Concept'],
+        'next'          => ['Set','Concept'],
+        'startDate'     => 'Date',
+        'endDate'       => 'Date',
+        'relatedDate'   => 'Date',
+        # TODO: location
+        'ancestors'     => ['Set','Concept'],
+        'inScheme'      => ['Set','ConceptScheme'],
+        'topConceptOf'  => ['Set','ConceptScheme'],
     ];
 
     /**
-     * Returns an array with the default type URI of all concepts.
-     */
-    public static function primaryTypes()
-    {
-        return ['http://www.w3.org/2004/02/skos/core#Concept'];
-    }
-
-    /**
      * Narrower concepts.
-     * @var Set $narrower
      */
-    public $narrower;
+    protected $narrower;
 
     /**
      * Broader concepts.
-     * @var Set $broader
      */
-    public $broader;
+    protected $broader;
 
     /**
      * Generally related concepts.
-     * @var Set $related
      */
-    public $related;
+    protected $related;
 
     /**
      * Related concepts ordered somehow before the concept.
-     * @var Set $previous
      */
-    public $previous;
+    protected $previous;
 
     /**
      * Related concepts ordered somehow after the concept.
-     * @var Set $next
      */
-    public $next;
+    protected $next;
 
     /**
      * Date of birth, creation, or estabishment of what the concept is about.
-     * @var string $startDate
      */
-    public $startDate;
+    protected $startDate;
 
     /**
      * Date death or resolution of what the concept is about.
-     * @var string $endDate
      */
-    public $endDate;
+    protected $endDate;
 
     /**
      * Other date somehow related to what the concept is about.
-     * @var string $relatedDate
      */
-    public $relatedDate;
+    protected $relatedDate;
 
     /**
      * List of geographic coordinates.
-     * @var array $location
      */
     public $location;
 
     /**
      * List of ancestors, possibly up to a top concept.
-     * @var Set $ancestors
      */
-    public $ancestors;
+    protected $ancestors;
 
     /**
      * [ConceptSchemes](ConceptScheme) this concept is part of.
-     * @var Set $inScheme
      */
-    public $inScheme;
+    protected $inScheme;
 
     /**
      * [ConceptSchemes](ConceptScheme) this concept is top concept of.
-     * @var Set $topConceptOf
      */
-    public $topConceptOf;
+    protected $topConceptOf;
 }

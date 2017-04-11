@@ -9,31 +9,12 @@
 
 namespace JSKOS;
 
-const JSKOS_DEFAULT_CONTEXT = 'https://gbv.github.io/jskos/context.json';
-
 /**
  * Adds consistent JSON serializing via `json_encode` and `->json()`.
  */
 abstract class PrettyJsonSerializable implements \JsonSerializable
 {
-
-    /**
-     * Return a list of primary types of this class.
-     */
-    public static function primaryTypes()
-    {
-        return [];
-    }
-
-    /**
-     * Return the default type of this class or null.
-     */
-    public static function defaultType()
-    {
-        $types = static::primaryTypes();
-        return $types[0];
-    }
-
+    const DEFAULT_CONTEXT = 'https://gbv.github.io/jskos/context.json';
 
     /**
      * Returns data which should be serialized to JSON.
@@ -53,7 +34,7 @@ abstract class PrettyJsonSerializable implements \JsonSerializable
      *
      * @param string $context
      */
-    public function jsonSerializeRoot($context=JSKOS_DEFAULT_CONTEXT)
+    public function jsonSerializeRoot($context=self::DEFAULT_CONTEXT)
     {
         $json = [ ];
 
@@ -77,14 +58,14 @@ abstract class PrettyJsonSerializable implements \JsonSerializable
 
         if ($context) {
             $json['@context'] = $context;
-            $types = $this->primaryTypes();
-            if (count($types)) {
+            $types = defined(get_called_class().'::TYPES') ? static::TYPES : [];
+            if (property_exists($this, 'type') and count($types)) {
                 if (isset($json['type'])) {
                     if (empty(array_intersect($json['type'], $types))) {
-                        array_unshift($json['type'], $this->defaultType());
+                        array_unshift($json['type'], $types[0]);
                     }
                 } else {
-                    $json['type'] = [$this->defaultType()];
+                    $json['type'] = [$types[0]];
                 }
             }
         }

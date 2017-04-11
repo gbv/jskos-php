@@ -9,101 +9,88 @@ use JSKOS\Object;
  */
 abstract class Item extends Object
 {
-    protected static $fields = [
-        'identifier'    => 'Listing',
-        'notation'      => 'Listing',
-        'subject'       => ['Concept'],
-        'subjectOf'     => ['Concept'],
-        'depiction'     => 'Listing',
+    const FIELDS = [
+        'url'           => 'URL',
+        'identifier'    => ['Listing'],
+        'notation'      => ['Listing'],
+        # TODO: labels and descriptions
+        'subject'       => ['Set','Concept'],
+        'subjectOf'     => ['Set','Concept'],
+        'depiction'     => ['Listing'],
     ];
 
     /**
      * URL of a page about the item.
-     * @var date $created
      */
-    public $url;
+    protected $url;
 
     /**
      * Additional identifiers of the item.
-     * @var array $identifier
      */
-    public $identifier;
+    protected $identifier;
 
     /**
      * Notations.
-     * @var array $notation
      */
-    public $notation;
+    protected $notation;
 
     /**
      * Preferred labels.
-     * @var array $prefLabel
      */
     public $prefLabel;
 
     /**
      * Alternative labels.
-     * @var array $altLabel
      */
     public $altLabel;
 
     /**
      * Hidden labels.
-     * @var array $hiddenLabel
      */
     public $hiddenLabel;
 
     /**
      * Scope notes.
-     * @var array $scopeNote
      */
     public $scopeNote;
 
     /**
      * Definitions.
-     * @var array $definition
      */
     public $definition;
 
     /**
      * Examples.
-     * @var array $example
      */
     public $example;
 
     /**
      * History notes.
-     * @var array $historyNote
      */
     public $historyNote;
 
     /**
      * Editorial notes.
-     * @var array $editorialNote
      */
     public $editorialNote;
 
     /**
      * Change notes.
-     * @var array $changeNote
      */
     public $changeNote;
 
     /**
      * Topics of the item.
-     * @var Set $subject
      */
-    public $subject;
+    protected $subject;
 
     /**
      * Additional resources about the item.
-     * @var Set $subjectOf
      */
-    public $subjectOf;
+    protected $subjectOf;
 
     /**
      * Image URLs depicting the item.
-     * @var Set $depiction
      */
-    public $depiction;
+    protected $depiction;
 }

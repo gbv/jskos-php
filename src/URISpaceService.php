@@ -26,8 +26,8 @@ class URISpaceService extends Service
         foreach ($config as $type => $typeConfig) {
             if (!$typeConfig['uriSpace']) {
                 throw new \Exception('Missing field uriSpace');
-            } else {
-                // TODO: syntax check (URI-look-alike)
+            } elseif (!DataType::isURI($typeConfig['uriSpace'])) {
+                throw new \Exception('uriSpace must be an URI');
             }
             if (!class_exists("JSKOS\\$type")) {
                 throw new \Exception("Class JSKOS\\$type not found!");

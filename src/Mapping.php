@@ -11,22 +11,18 @@ use JSKOS\Item;
  */
 class Mapping extends Object
 {
-    protected static $fields = [ ];
-    
-    /**
-     * Returns an array with primary type URIs of all mappings.
-     */
-    public static function primaryTypes()
-    {
-        return [
-            'http://www.w3.org/2004/02/skos/core#mappingRelation',
-            'http://www.w3.org/2004/02/skos/core#closeMatch',
-            'http://www.w3.org/2004/02/skos/core#exactMatch',
-            'http://www.w3.org/2004/02/skos/core#broadMatch',
-            'http://www.w3.org/2004/02/skos/core#narrowMatch',
-            'http://www.w3.org/2004/02/skos/core#relatedMatch',
-        ];
-    }
+    const TYPES = [
+        'http://www.w3.org/2004/02/skos/core#mappingRelation',
+        'http://www.w3.org/2004/02/skos/core#closeMatch',
+        'http://www.w3.org/2004/02/skos/core#exactMatch',
+        'http://www.w3.org/2004/02/skos/core#broadMatch',
+        'http://www.w3.org/2004/02/skos/core#narrowMatch',
+        'http://www.w3.org/2004/02/skos/core#relatedMatch',
+    ];
+
+    const FIELDS = [
+        # TODO
+    ];
 
     public $from;
     public $to;

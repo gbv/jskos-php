@@ -7,7 +7,6 @@ namespace JSKOS;
  */
 class ObjectTest extends \PHPUnit\Framework\TestCase
 {
-    
     public function testJsonEncode()
     {
         $concept = new Concept();
@@ -32,13 +31,5 @@ class ObjectTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(json_encode($expect), json_encode($concept));
         $this->assertEquals(json_encode($expect), json_encode($concept));
         $this->assertEquals(json_encode($expect, JSON_UNESCAPED_SLASHES), "$concept");
-    }
-
-    public function testFields()
-    {
-        $concept = new Concept();
-        $this->assertEquals(['Concept'], Concept::fieldType('narrower'));   // Concept
-        $this->assertEquals(['Concept'], Concept::fieldType('subject'));    // Item
-        $this->assertEquals('Listing', Concept::fieldType('type'));         // Object
     }
 }

@@ -11,41 +11,33 @@ use JSKOS\Item;
  */
 class Concordance extends Item
 {
-    protected static $fields = [
-        'license' => ['Concept'],
+    const FIELDS = [
+        # TODO: mappings, fromScheme, toScheme
+        'license' => ['Set','Concept'],
     ];
 
     /**
      * Set of mappings in this concordance or JSKOS API endpoint.
-     *
-     * @var URL|Set $mappings
      */
     public $mappings;
 
     /**
      * Source %Concept Scheme.
-     *
-     * @var ConceptScheme $fromScheme
      */
     public $fromScheme;
 
     /**
      * Target %Concept Scheme.
-     *
-     * @var ConceptScheme $toScheme
      */
     public $toScheme;
 
     /**
      * Size of the concordance.
-     * @var string $extent
      */
     public $extent;
 
     /**
      * License which the concordance is published under.
-     *
-     * @var Set $license
      */
-    public $license;
+    protected $license;
 }

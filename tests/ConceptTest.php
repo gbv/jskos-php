@@ -2,27 +2,24 @@
 
 namespace JSKOS;
 
+use InvalidArgumentException;
+
 /**
  * @coversDefaultClass Concept
  */
 class ConceptTest extends \PHPUnit\Framework\TestCase
 {
-    const TYPE_URI = 'http://www.w3.org/2004/02/skos/core#Concept';
-
-    public function testTypes() 
-    {
-        $this->assertEquals( Concept::primaryTypes(), [ self::TYPE_URI ] );
-        $this->assertEquals( Concept::defaultType(), self::TYPE_URI );
-    }
+    const TYPE = 'http://www.w3.org/2004/02/skos/core#Concept';
 
     public function testCreate()
     {
-        $concept = new Concept();
+        $this->assertEquals(new Concept(), new Concept(['foo'=>'bar']));
 
+        $concept = new Concept(); 
         $this->assertEquals($concept, new Concept($concept));
         $this->assertEquals($concept, new Concept("{}"));
 
-        $concept->type = ['http://www.w3.org/2004/02/skos/core#Concept']; # TODO: remove
+        $concept->type = [self::TYPE];
         $this->assertEquals($concept, new Concept("$concept"));
     }
 
@@ -30,11 +27,13 @@ class ConceptTest extends \PHPUnit\Framework\TestCase
     {
         $concept = new Concept(['uri'=>'x:1']);
         $concept->prefLabel['en'] = 'test';
+
+        $concept->narrower = [];
         $concept->narrower[] = new Concept(['uri'=>'x:2']);
 
         $expect = [
             '@context'  => 'https://gbv.github.io/jskos/context.json',
-            'type'      => ['http://www.w3.org/2004/02/skos/core#Concept'],
+            'type'      => [self::TYPE],
             'uri'       => 'x:1',
             'prefLabel' => [ 'en' => 'test' ],
             'narrower'  => [ [ 'uri' => 'x:2' ] ],
@@ -53,5 +52,11 @@ class ConceptTest extends \PHPUnit\Framework\TestCase
         ]);
 
         $this->assertEquals($expect, $concept);
+    }
+
+    public function testExceptions()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $concept = new Concept(['foo'=>'bar'], true);        
     }
 }
