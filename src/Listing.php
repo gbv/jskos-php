@@ -17,4 +17,13 @@ class Listing extends Container
             throw new InvalidArgumentException('JSKOS\Listing may only contain strings');
         }
     }
+
+    /**
+     * Join List members with a string
+     * @param $glue string
+     */
+    public function implode(string $glue): string
+    {
+        return implode($glue, $this->members);
+    }
 }

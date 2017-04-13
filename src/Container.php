@@ -26,7 +26,7 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
     }
 
     /**
-     * Return the number of known values in this set (closed or not).
+     * Return the number of known values in this container (closed or not).
      */
     public function count(): int
     {
@@ -34,7 +34,22 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
     }
 
     /**
-     * Return whether this set is empty (no members and closed).
+     * Apply a function to each member of this container.
+     * @param $callback callable
+     */
+    public function map(callable $callback): array
+    {
+        $result = [];
+
+        foreach ($this->members as $member) {
+            $result[] = $callback($member);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Return whether this container is empty (no members and closed).
      */
     public function isEmpty(): bool
     {
@@ -42,7 +57,7 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
     }
 
     /**
-     * Return whether this set is closed.
+     * Return whether this container is closed.
      */
     public function isClosed(): bool
     {
@@ -50,7 +65,7 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
     }
 
     /**
-     * Set whether this set is closed (no unknown members) or not.
+     * Set whether this container is closed (no unknown members) or not.
      * @param Boolean $closed
      */
     public function setClosed(bool $closed = true)
@@ -115,7 +130,7 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
     # extends PrettyJsonSerializable:
 
     /**
-     * Return a data structure to serialize this set as JSON.
+     * Return a data structure to serialize this container as JSON.
      */
     public function jsonSerializeRoot($context=self::DEFAULT_CONTEXT)
     {

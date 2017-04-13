@@ -57,8 +57,14 @@ class SetTest extends \PHPUnit\Framework\TestCase
      */
     public function testSetIterator($set)    
     {
-        $uris = array_map(function($m) { return $m->uri; }, iterator_to_array($set));
-        $this->assertEquals(['a:b',null,'x:y'], $uris);
+        $callback = function($m) { return $m->uri; };
+        $expect = ['a:b',null,'x:y'];
+
+        $uris = array_map($callback, iterator_to_array($set));
+        $this->assertEquals($expect, $uris);
+
+        $uris = $set->map($callback);
+        $this->assertEquals($expect, $uris);
     }
 
     /**

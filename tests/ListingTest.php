@@ -25,6 +25,16 @@ class ListingTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($list->isEmpty());
     }
 
+    public function testImplode()
+    {
+        $list = new Listing();
+        $this->assertEquals('', $list->implode(', '));
+
+        $list[] = 'x';
+        $list[] = 'y';
+        $this->assertEquals('x, y', $list->implode(', '));
+    }
+
     public function testExceptions()
     {
         $this->expectException(InvalidArgumentException::class);
