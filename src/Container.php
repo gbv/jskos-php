@@ -5,7 +5,7 @@ namespace JSKOS;
 use InvalidArgumentException;
 
 /**
- * Common base class of JSKOS Listings and Sets
+ * Common base class of JSKOS Listing, Set, and LanguageMap
  */
 abstract class Container extends PrettyJsonSerializable implements \Countable, \ArrayAccess, \IteratorAggregate
 {
@@ -23,14 +23,6 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
                 $this->members[] = static::checkMember($m);
             }
         }
-    }
-
-    /**
-     * Return the number of known values in this container (closed or not).
-     */
-    public function count(): int
-    {
-        return count($this->members);
     }
 
     /**
@@ -71,6 +63,16 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
     public function setClosed(bool $closed = true)
     {
         $this->closed = $closed;
+    }
+
+    # implements Countable
+
+    /**
+     * Return the number of known values in this container (closed or not).
+     */
+    public function count(): int
+    {
+        return count($this->members);
     }
 
     # implements ArrayAccess:

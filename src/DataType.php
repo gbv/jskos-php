@@ -77,6 +77,14 @@ abstract class DataType extends PrettyJsonSerializable
                     # TODO: check member types
                 }
             }
+        } elseif ($type == 'LanguageMapOfStrings') {
+            if (!(is_object($value) and $value instanceof LanguageMapOfStrings)) {
+                $value = new LanguageMapOfStrings($value);
+            }
+        } elseif ($type == 'LanguageMapOfLists') {
+            if (!(is_object($value) and $value instanceof LanguageMapOfLists)) {
+                $value = new LanguageMapOfLists($value);
+            }
         } elseif (!DataType::hasType($value, $type)) {
             $msg = get_called_class()."->$field must match JSKOS\DataType::is$type";
             throw new InvalidArgumentException($msg);
@@ -90,11 +98,16 @@ abstract class DataType extends PrettyJsonSerializable
         $this->setField($field, $value);
     }
 
-    public function __get($field)
+    public function &__get($field)
     {
         $type = static::fieldType($field);
         if ($type) {
-            return $this->$field;
+            if (is_null($this->$field)) {
+                $null = null;
+                return $null;
+            } else {
+                return $this->$field;
+            }
         } else {
             trigger_error(
                 "Undefined property: ".get_called_class()."::$$field",
@@ -176,6 +189,16 @@ abstract class DataType extends PrettyJsonSerializable
     {
         return is_string($range) and
                preg_match(LANGUAGE_RANGE_PATTERN, $range) === 1;
+    }
+
+    /**
+     * Check whether a given value looks like a language or language range.
+     */
+    public static function isLanguageOrRange($language): bool
+    {
+        return is_string($language) and
+               (preg_match(LANGUAGE_PATTERN, $language) === 1 or
+               preg_match(LANGUAGE_RANGE_PATTERN, $language) === 1);
     }
 
     /**

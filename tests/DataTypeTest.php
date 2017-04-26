@@ -27,6 +27,16 @@ class DataTypeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @dataProvider validProvider
+     */
+    public function testSetNull($field, $value)
+    {
+        $entity = new SampleType();
+        $entity->$field = null;
+        $this->assertEquals(null, $entity->$field);
+    }
+
+    /**
      * @dataProvider invalidProvider
      */
     public function testConstructInvalidArgument($field, $value, $test)
@@ -63,9 +73,12 @@ class DataTypeTest extends \PHPUnit\Framework\TestCase
             [ 'uri', 'x:y' ],
             [ 'url', 'http://example.org/' ],
             [ 'date', '2017' ],
+            [ 'string', '' ],
             [ 'language', 'en-US' ],
             [ 'range', 'en-' ],
-            [ 'string', '' ]
+            [ 'range', '-' ],
+            [ 'languageorrange', '-' ],
+            [ 'languageorrange', 'de' ],
         ];
     }
 
@@ -75,9 +88,12 @@ class DataTypeTest extends \PHPUnit\Framework\TestCase
             [ 'uri', 'foo', 'isURI' ],
             [ 'url', 'x:y', 'isURL' ],
             [ 'date', 'doz', 'isDate' ],
-            [ 'language', '123', 'isLanguage' ],
-            [ 'range', 'en', 'isLanguageRange' ],
             [ 'string', [], 'isString' ],
+            [ 'language', '123', 'isLanguage' ],
+            [ 'language', 'en-', 'isLanguage' ],
+            [ 'range', 'en', 'isLanguageRange' ],
+            [ 'range', '', 'isLanguageRange' ],
+            [ 'languageorrange', '', 'isLanguageOrRange' ],            
         ];
     }
 
@@ -104,13 +120,17 @@ class SampleType extends DataType
         'uri' => 'URI',
         'url' => 'URL',
         'date' => 'Date',
+        'string' => 'String',
         'language' => 'Language',
         'range' => 'LanguageRange',
-        'string' => 'String',
+        'languageorrange' => 'LanguageOrRange',
     ];
 
     protected $uri;
     protected $url;
     protected $date;
     protected $string;
+    protected $language;
+    protected $range;
+    protected $languageorrange;
 }

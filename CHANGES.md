@@ -2,6 +2,10 @@
 
 This changelog tracks features and fixes of jskos PHP library.
 
+## 0.1.3
+
+* Add data types LanguageMapOfStrings and LanguageMapOfLists
+
 ## 0.1.2
 
 * Extent Sets and List with map and implode

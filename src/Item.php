@@ -13,7 +13,14 @@ abstract class Item extends Object
         'url'           => 'URL',
         'identifier'    => ['Listing'],
         'notation'      => ['Listing'],
-        # TODO: labels and descriptions
+        'prefLabel'     => 'LanguageMapOfStrings',
+        'altLabel'      => 'LanguageMapOfLists',
+        'hiddenLabel'   => 'LanguageMapOfLists',
+        'scopeNote'     => 'LanguageMapOfLists',
+        'definition'    => 'LanguageMapOfLists',
+        'example'       => 'LanguageMapOfLists',
+        'historyNote'   => 'LanguageMapOfLists',
+        'changeNote'    => 'LanguageMapOfLists',
         'subject'       => ['Set','Concept'],
         'subjectOf'     => ['Set','Concept'],
         'depiction'     => ['Listing'],
@@ -37,47 +44,47 @@ abstract class Item extends Object
     /**
      * Preferred labels.
      */
-    public $prefLabel;
+    protected $prefLabel;
 
     /**
      * Alternative labels.
      */
-    public $altLabel;
+    protected $altLabel;
 
     /**
      * Hidden labels.
      */
-    public $hiddenLabel;
+    protected $hiddenLabel;
 
     /**
      * Scope notes.
      */
-    public $scopeNote;
+    protected $scopeNote;
 
     /**
      * Definitions.
      */
-    public $definition;
+    protected $definition;
 
     /**
      * Examples.
      */
-    public $example;
+    protected $example;
 
     /**
      * History notes.
      */
-    public $historyNote;
+    protected $historyNote;
 
     /**
      * Editorial notes.
      */
-    public $editorialNote;
+    protected $editorialNote;
 
     /**
      * Change notes.
      */
-    public $changeNote;
+    protected $changeNote;
 
     /**
      * Topics of the item.

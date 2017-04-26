@@ -26,7 +26,7 @@ class ConceptTest extends \PHPUnit\Framework\TestCase
     public function testJson()
     {
         $concept = new Concept(['uri'=>'x:1']);
-        $concept->prefLabel['en'] = 'test';
+        $concept->prefLabel = ['en' => 'test'];
 
         $concept->narrower = [];
         $concept->narrower[] = new Concept(['uri'=>'x:2']);
