@@ -12,7 +12,7 @@ use JSKOS\Item;
 class Registry extends Item
 {
     const FIELDS = [
-        # TODO: concepts, schemes, types, extent etc.
+        # TODO: concepts, schemes, types, mappings, registries, concordances
         'extent'    => 'string',
         'languages' => ['Listing'],
         'license'   => ['Concept','Concept'],

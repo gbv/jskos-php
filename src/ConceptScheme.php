@@ -19,6 +19,7 @@ class ConceptScheme extends Item
         'topConcepts' => ['Set','Concept'],
         'versionOf'   => ['Set','ConceptScheme'],
         # TODO: concepts, types
+        'extent'      => 'string',
         'languages'   => ['Listing'],
         'license'     => ['Set','Concept'],
     ];
@@ -44,6 +45,11 @@ class ConceptScheme extends Item
      * @see Service
      */
     public $types;
+
+    /**
+     * Size of the concept scheme.
+     */
+    protected $extent;
 
     /**
      * Supported languages, given as array of language codes.

@@ -19,4 +19,11 @@ class ConceptSchemeTest extends \PHPUnit\Framework\TestCase
         ];
         $this->assertEquals(json_encode($expect, JSON_UNESCAPED_SLASHES), "$scheme");
     }
+
+    public function testFields()
+    {
+        $scheme = new ConceptScheme();
+        $scheme->extent = '123';
+        $this->assertEquals('123', $scheme->extent);
+    }
 }
