@@ -2,6 +2,11 @@
 
 This changelog tracks features and fixes of jskos PHP library.
 
+## 0.1.4
+
+* Add new JSKOS Object Access, used in Concept Schemes, Registries, and Concordances
+* Fix Registry license field
+
 ## 0.1.3
 
 * Add data types LanguageMapOfStrings and LanguageMapOfLists

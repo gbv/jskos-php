@@ -86,8 +86,12 @@ abstract class DataType extends PrettyJsonSerializable
                 $value = new LanguageMapOfLists($value);
             }
         } elseif (!DataType::hasType($value, $type)) {
-            $msg = get_called_class()."->$field must match JSKOS\DataType::is$type";
-            throw new InvalidArgumentException($msg);
+            if ($type == 'ConceptScheme') {
+                $value = new ConceptScheme($value);
+            } else {
+                $msg = get_called_class()."->$field must match JSKOS\DataType::is$type";
+                throw new InvalidArgumentException($msg);
+            }
         }
 
         $this->$field = $value;
@@ -207,6 +211,14 @@ abstract class DataType extends PrettyJsonSerializable
     public static function isString($string): bool
     {
         return is_string($string);
+    }
+
+    /**
+     * Check whether a given value is a concept scheme
+     */
+    public static function isConceptScheme($scheme): bool
+    {
+        return $scheme instanceof ConceptScheme;
     }
 
     /**

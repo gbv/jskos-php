@@ -12,41 +12,46 @@ use JSKOS\Item;
 class Registry extends Item
 {
     const FIELDS = [
-        # TODO: concepts, schemes, types, mappings, registries, concordances
-        'extent'    => 'string',
-        'languages' => ['Listing'],
-        'license'   => ['Set','Concept'],
+        'concepts'     => ['Set','Access'],
+        'schemes'      => ['Set','Access'],
+        'types'        => ['Set','Access'],
+        'mappings'     => ['Set','Access'],
+        'registries'   => ['Set','Access'],
+        'concordances' => ['Set','Access'],
+        'extent'       => 'string',
+        'languages'    => ['Listing'],
+        'license'      => ['Set','Concept'],
     ];
 
     /**
-     * Set of concepts in this registry or JSKOS API endpoint.
+     * Accesses to concepts schemes in this registry.
      */
-    public $concepts;
+    protected $concepts;
 
     /**
-     * Set of concept schemes in this registry or JSKOS API endpoint.
+     * Accesses to concept schemes in this registry.
      */
-    public $schemes;
+    protected $schemes;
 
     /**
-     * Set of concordances in this registry or JSKOS API endpoint.
+     * Accesses to types in this registry.
      */
-    public $types;
+    protected $types;
 
     /**
-     * Set of concordances in this registry or JSKOS API endpoint.
+     * Accesses to concordances in this registry.
      */
-    public $concordances;
+    protected $concordances;
 
     /**
-     * Set of mappings in this registry or JSKOS API endpoint.
+     * Accesses to mappings in this registry.
      */
-    public $mappings;
+    protected $mappings;
 
     /**
-     * Set of registries in this registry or JSKOS API endpoint.
+     * Accesses to registries in this registry.
      */
-    public $registries;
+    protected $registries;
 
     /**
      * Supported languages, given as array of language codes.

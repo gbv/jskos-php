@@ -11,30 +11,37 @@ use JSKOS\Item;
  */
 class Concordance extends Item
 {
+    const TYPES = [
+        'http://rdfs.org/ns/void#Linkset',
+    ];
+
     const FIELDS = [
-        # TODO: mappings, fromScheme, toScheme
-        'license' => ['Set','Concept'],
+        'mappings'   => ['Set','Access'],
+        'fromScheme' => 'ConceptScheme',
+        'toScheme'   => 'ConceptScheme',
+        'extent'     => 'string',
+        'license'    => ['Set','Concept'],
     ];
 
     /**
-     * Set of mappings in this concordance or JSKOS API endpoint.
+     * Access to mappings in this concordance.
      */
-    public $mappings;
+    protected $mappings;
 
     /**
      * Source %Concept Scheme.
      */
-    public $fromScheme;
+    protected $fromScheme;
 
     /**
      * Target %Concept Scheme.
      */
-    public $toScheme;
+    protected $toScheme;
 
     /**
      * Size of the concordance.
      */
-    public $extent;
+    protected $extent;
 
     /**
      * License which the concordance is published under.

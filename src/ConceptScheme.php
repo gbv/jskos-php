@@ -18,7 +18,8 @@ class ConceptScheme extends Item
     const FIELDS = [
         'topConcepts' => ['Set','Concept'],
         'versionOf'   => ['Set','ConceptScheme'],
-        # TODO: concepts, types
+        'concepts'    => ['Set','Access'],
+        'types'       => ['Set','Access'],
         'extent'      => 'string',
         'languages'   => ['Listing'],
         'license'     => ['Set','Concept'],
@@ -35,16 +36,14 @@ class ConceptScheme extends Item
     protected $versionOf;
 
     /**
-     * JSKOS API concepts endpoint returning all concepts in this scheme.
-     * @see Service
+     * Accesses to concepts in this scheme.
      */
-    public $concepts;
+    protected $concepts;
 
     /**
-     * JSKOS API concepts endpoint returning all types in this scheme.
-     * @see Service
+     * Accesses to Types in this scheme.
      */
-    public $types;
+    protected $types;
 
     /**
      * Size of the concept scheme.
