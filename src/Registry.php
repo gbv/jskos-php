@@ -15,7 +15,7 @@ class Registry extends Item
         # TODO: concepts, schemes, types, mappings, registries, concordances
         'extent'    => 'string',
         'languages' => ['Listing'],
-        'license'   => ['Concept','Concept'],
+        'license'   => ['Set','Concept'],
     ];
 
     /**
