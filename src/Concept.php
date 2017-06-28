@@ -21,10 +21,6 @@ class Concept extends Item
         'related'       => ['Set','Concept'],
         'previous'      => ['Set','Concept'],
         'next'          => ['Set','Concept'],
-        'startDate'     => 'Date',
-        'endDate'       => 'Date',
-        'relatedDate'   => 'Date',
-        # TODO: location
         'ancestors'     => ['Set','Concept'],
         'inScheme'      => ['Set','ConceptScheme'],
         'topConceptOf'  => ['Set','ConceptScheme'],
@@ -54,26 +50,6 @@ class Concept extends Item
      * Related concepts ordered somehow after the concept.
      */
     protected $next;
-
-    /**
-     * Date of birth, creation, or estabishment of what the concept is about.
-     */
-    protected $startDate;
-
-    /**
-     * Date death or resolution of what the concept is about.
-     */
-    protected $endDate;
-
-    /**
-     * Other date somehow related to what the concept is about.
-     */
-    protected $relatedDate;
-
-    /**
-     * List of geographic coordinates.
-     */
-    public $location;
 
     /**
      * List of ancestors, possibly up to a top concept.

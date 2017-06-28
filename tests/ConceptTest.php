@@ -59,4 +59,14 @@ class ConceptTest extends \PHPUnit\Framework\TestCase
         $this->expectException(InvalidArgumentException::class);
         $concept = new Concept(['foo'=>'bar'], true);        
     }
+
+    public function testFields()
+    {
+        $concept = new Concept();
+
+        foreach(['startDate','endDate','relatedDate'] as $f) {
+            $concept->$f = '1984';
+            $this->assertEquals($concept->$f, '1984');
+        }
+    }
 }

@@ -16,7 +16,7 @@
         "symfony/yaml": ">=2.8.0"
     },
     "suggest": {
-        "gbv/jskos-rdf": ">=0.1.1",
+        "gbv/jskos-rdf": ">=0.1.2",
         "psr/log": "^1.0"
     },
     "require-dev": {

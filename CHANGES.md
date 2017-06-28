@@ -2,6 +2,10 @@
 
 This changelog tracks features and fixes of jskos PHP library.
 
+## 0.1.5
+
+* Move startDate, endDate, relatedDate, and location from Concept to Item
+
 ## 0.1.4
 
 * Add new JSKOS Object Access, used in Concept Schemes, Registries, and Concordances

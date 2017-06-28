@@ -24,6 +24,10 @@ abstract class Item extends Object
         'subject'       => ['Set','Concept'],
         'subjectOf'     => ['Set','Concept'],
         'depiction'     => ['Listing'],
+        'startDate'     => 'Date',
+        'endDate'       => 'Date',
+        'relatedDate'   => 'Date',
+        # TODO: location
     ];
 
     /**
@@ -100,4 +104,24 @@ abstract class Item extends Object
      * Image URLs depicting the item.
      */
     protected $depiction;
+
+    /**
+     * Date of birth, creation, or establishment.
+     */
+    protected $startDate;
+
+    /**
+     * Date death or resolution.
+     */
+    protected $endDate;
+
+    /**
+     * Other somehow related dates.
+     */
+    protected $relatedDate;
+
+    /**
+     * List of geographic coordinates.
+     */
+    public $location;
 }
