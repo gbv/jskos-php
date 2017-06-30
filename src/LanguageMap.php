@@ -52,7 +52,6 @@ abstract class LanguageMap extends Container
     {
     }
 
-
     /**
      * Set an value at the given language or language range.
      * @param mixed $lang
@@ -72,7 +71,6 @@ abstract class LanguageMap extends Container
             );
         }
     }
-
 
     /**
      * Unset a value with given language or language range.

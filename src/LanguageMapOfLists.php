@@ -25,7 +25,6 @@ class LanguageMapOfLists extends LanguageMap
         }
     }
 
-
     /**
      * Return a data structure to serialize this container as JSON.
      */

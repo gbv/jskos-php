@@ -23,6 +23,14 @@ class Set extends Container
     }
 
     /**
+     * Check whether an equal member alredy exists in this Container.
+     */
+    protected function findMember($member)
+    {
+        return $member->uri ? !!$this->findURI($member->uri) : false;
+    }
+
+    /**
      * Return the offset of a member Object with given URI, if it exists.
      */
     public function findURI(string $uri)

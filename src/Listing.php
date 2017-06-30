@@ -19,6 +19,14 @@ class Listing extends Container
     }
 
     /**
+     * Check whether an equal member alredy exists in this Container.
+     */
+    protected function findMember($member)
+    {
+        return in_array($member, $this->members);
+    }
+
+    /**
      * Join List members with a string
      * @param $glue string
      */

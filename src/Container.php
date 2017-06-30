@@ -14,12 +14,23 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
 
     abstract protected static function checkMember($member);
 
+    /**
+     * Check whether an equal member alredy exists in this Container.
+     */
+    protected function findMember($member)
+    {
+        return false;
+    }
+
+    /**
+     * Create a new container, possibly from an array.
+     */
     public function __construct(array $members = [])
     {
         foreach ($members as $m) {
             if (is_null($m)) {
                 $this->closed = false;
-            } else {
+            } elseif (!$this->findMember($m)) {
                 $this->members[] = static::checkMember($m);
             }
         }
@@ -103,11 +114,19 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
     public function offsetSet($offset, $object)
     {
         if (is_int($offset) && $offset >= 0 && $offset < $this->count()) {
-            $this->members[$offset] = static::checkMember($object);
+            $member = static::checkMember($object);
+            # TODO: merge if duplicated
+            if (!$this->findMember($member)) {
+                $this->members[$offset] = $member;
+            }
         } elseif (is_null($object)) {
             $this->closed = false;
         } else {
-            $this->members[] = static::checkMember($object);
+            $member = static::checkMember($object);
+            # TODO: merge if duplicated
+            if (!$this->findMember($member)) {
+                $this->members[] = $member;
+            }
         }
     }
 

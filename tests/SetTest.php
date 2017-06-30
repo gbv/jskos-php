@@ -38,7 +38,22 @@ class SetTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($set, new Set([null, null]));
     }
 
-    public function testFindURI()    
+    public function testDuplicates()
+    {
+        $set = new Set([
+            new Concept(['uri'=>'x:y']),
+            new Concept(['identifier'=>'foo']),
+            new Concept(['uri'=>'x:y']),
+            new Concept(['uri'=>'a:b'])
+        ]);
+        $set[] = new Concept(['identifier'=>'foo']);
+        $set[] = new Concept(['uri'=>'a:b']);
+
+        $uris = $set->map(function($m) { return $m->uri; });
+        $this->assertEquals(['x:y',null,'a:b',null], $uris);
+    }
+
+    public function testFindURI()
     {
         $set = new Set();
         $this->assertEquals(null, $set->findURI('x:y'));
@@ -55,7 +70,7 @@ class SetTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider provideSampleSet
      */
-    public function testSetIterator($set)    
+    public function testSetIterator($set)
     {
         $callback = function($m) { return $m->uri; };
         $expect = ['a:b',null,'x:y'];
@@ -87,7 +102,7 @@ class SetTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertFalse(strpos('context',"$set"));
     }
- 
+
     public function provideSampleSet() {
         return [ [ new Set([
             new Concept(['uri'=>'a:b']),
@@ -110,16 +125,16 @@ class SetTest extends \PHPUnit\Framework\TestCase
     {
         $set = new Set();
         return [
-            [ 
-                new Set(), 
-                function($s) { $s[0]; }, 
-                Notice::class, 'Undefined offset: 0' 
-            ], [ 
-                new Set(), 
+            [
+                new Set(),
+                function($s) { $s[0]; },
+                Notice::class, 'Undefined offset: 0'
+            ], [
+                new Set(),
                 function($s) {$s[0] = 42; },
                 InvalidArgumentException::class,
                 'JSKOS\Set may only contain JSKOS Objects'
             ],
         ];
     }
-} 
+}

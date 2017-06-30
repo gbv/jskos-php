@@ -2,6 +2,10 @@
 
 This changelog tracks features and fixes of jskos PHP library.
 
+## 0.1.6
+
+* Ensure Sets and Listings don't contain duplicate values
+
 ## 0.1.5
 
 * Move startDate, endDate, relatedDate, and location from Concept to Item
