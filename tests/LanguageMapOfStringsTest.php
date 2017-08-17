@@ -41,6 +41,12 @@ class LanguageMapOfStringsTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    public function testIterator()
+    {
+        $map = new LanguageMapOfStrings(['-'=>'?','en'=>'', 'en-'=>'foo']);
+        $this->assertEquals("?foo", implode('',iterator_to_array($map)));
+    }
+
     /**
      * @dataProvider exceptionProvider
      */
