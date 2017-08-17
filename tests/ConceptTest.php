@@ -23,6 +23,16 @@ class ConceptTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($concept, new Concept("$concept"));
     }
 
+    public function testClosed()
+    {
+        $concept = new Concept(); 
+        $concept->narrower = [];
+        $this->assertEquals(true, $concept->narrower->isClosed());
+
+        $concept->narrower = [null];
+        $this->assertEquals(false, $concept->narrower->isClosed());
+    }
+
     public function testJson()
     {
         $concept = new Concept(['uri'=>'x:1']);
@@ -30,6 +40,8 @@ class ConceptTest extends \PHPUnit\Framework\TestCase
 
         $concept->narrower = [];
         $concept->narrower[] = new Concept(['uri'=>'x:2']);
+        $concept->broader = [null];
+        $concept->identifier = [null, 'y:1'];
 
         $expect = [
             '@context'  => 'https://gbv.github.io/jskos/context.json',
@@ -37,6 +49,8 @@ class ConceptTest extends \PHPUnit\Framework\TestCase
             'uri'       => 'x:1',
             'prefLabel' => [ 'en' => 'test' ],
             'narrower'  => [ [ 'uri' => 'x:2' ] ],
+            'broader'   => [ null ],
+            'identifier' => [ 'y:1', null ]
         ];
         ksort($expect);
         $this->assertEquals(json_encode($expect), json_encode($concept));

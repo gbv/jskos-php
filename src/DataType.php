@@ -61,7 +61,13 @@ abstract class DataType extends PrettyJsonSerializable
                     $class = 'JSKOS\\'.$type[1];
                     $value = new Set(
                         array_map(function ($m) use ($class) {
-                            return (is_object($m) and is_a($m, $class)) ? $m : new $class($m);
+                            if (is_null($m)) {
+                                return null;
+                            }
+                            if (is_object($m) and is_a($m, $class)) {
+                                return $m;
+                            }
+                            return new $class($m);
                         }, $value)
                     );
                 } elseif (!is_a($value, 'JSKOS\Set')) {

@@ -4,6 +4,11 @@ This changelog tracks features and fixes of jskos PHP library.
 
 ## 0.1.6
 
+* Move Client to module of its own
+* Fix initialization of non-closed sets
+
+## 0.1.6
+
 * Ensure Sets and Listings don't contain duplicate values
 
 ## 0.1.5
