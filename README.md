@@ -1,11 +1,12 @@
 # jskos - JSKOS data model in PHP
 
-[![Latest Stable Version](https://poser.pugx.org/gbv/jskos/v/stable)](https://packagist.org/packages/gbv/jskos)
-[![License](https://poser.pugx.org/gbv/jskos/license)](https://packagist.org/packages/gbv/jskos)
-[![Total Downloads](https://poser.pugx.org/gbv/jskos/downloads)](https://packagist.org/packages/gbv/jskos)
+[![Latest Version](https://img.shields.io/packagist/v/gbv/jskos.svg?style=flat-square)](https://packagist.org/packages/gbv/jskos)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+[![Build Status](https://img.shields.io/travis/gbv/jskos-php.svg?style=flat-square)](https://travis-ci.org/gbv/jskos-php)
+[![Coverage Status](https://img.shields.io/coveralls/gbv/jskos-php/master.svg?style=flat-square)](https://coveralls.io/r/gbv/jskos-php)
+[![Quality Score](https://img.shields.io/scrutinizer/g/gbv/jskos-php.svg?style=flat-square)](https://scrutinizer-ci.com/g/gbv/jskos-php)
+[![Total Downloads](https://img.shields.io/packagist/dt/gbv/jskos.svg?style=flat-square)](https://packagist.org/packages/gbv/jskos)
 
-[![Build Status](https://img.shields.io/travis/gbv/jskos-php.svg)](https://travis-ci.org/gbv/jskos-php)
-[![Coverage Status](https://coveralls.io/repos/gbv/jskos-php/badge.svg?branch=master)](https://coveralls.io/r/gbv/jskos-php)
 
 **jskos** is a PHP library for easy processing of knowledge organization systems (KOS) as classifications, thesauri, and authority files given in [JSKOS data format](http://gbv.github.io/jskos/). JSKOS is a JSON format based on [Simple Knowledge Organisation System (SKOS)](http://www.w3.org/TR/skos-reference).
 
@@ -60,5 +61,5 @@ The current specification of JSKOS is available at <http://gbv.github.io/jskos/>
 
 Additional PHP packages for JSKOS processing:
 
-* [jskos-http](https://packagist.org/packages/gbv/jskos-http)
-* [jskos-rdf](https://packagist.org/packages/gbv/jskos-rdf)
+* [jskos-http](https://packagist.org/packages/gbv/jskos-http) - JSKOS API server and client
+* [jskos-rdf](https://packagist.org/packages/gbv/jskos-rdf) - JSKOS RDF conversion
