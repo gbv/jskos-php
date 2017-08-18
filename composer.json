@@ -41,13 +41,6 @@
         ],
         "style": [
             "vendor/bin/php-cs-fixer fix --level=psr2 src/"
-        ],
-        "doc": [
-            "rm -rf doc/*",
-            "doxygen",
-            "mkdir -p gh-pages",
-            "rm -rf gh-pages/*",
-            "cp -r doc/html/* gh-pages"
         ]
     }
 }

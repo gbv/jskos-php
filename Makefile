@@ -1,5 +1,5 @@
 info:
-	@echo "Usage: make install|test|debug|style"
+	@echo "Usage: make test|style|install"
 
 # pass any target to composer
 $(MAKECMDGOALS):

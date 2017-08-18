@@ -34,12 +34,6 @@ You may need to enable PHP extension curl:
 
     $ sudo apt-get install php5-curl
 
-For optional generation of code documentation and releases and you further
-need [doxygen](http://doxygen.org/). Please install as usual to your operating
-system, for instance on Ubuntu:
-
-    $ sudo apt-get install doxygen
-
 ### Run static tests
 
 The code is checked with [PHP Parallel Lint](https://github.com/JakubOnderka/PHP-Parallel-Lint) before unit testing.
@@ -59,22 +53,6 @@ Style](http://www.php-fig.org/psr/psr-2/). To clean up the code, run:
 
     $ composer style
 
-### Generate documentation
-
-Code documentation can be generated into `doc/` if Doxygen is installed:
-
-    $ composer doc
-
-The result will in HTML for preview and in XML for further processing. To
-publish the HTML documentation at GitHub pages, create an additional worktree:
-
-    $ rm -rf gh-pages
-    $ git worktree add -f gh-pages gh-pages
-
-To commit changes to the `gh-pages` branch:
-
-    $ cd gh-pages && git add -A && git commit -m "Update documentation" && cd ..
-
 ### Create examples
 
 Sample JSKOS servers can be placed in `examples/`. You can directly serve the
@@ -84,7 +62,4 @@ directory for testing:
 
 ### Releases
 
-Change the version numbers in `Doxyfile` and tag a commit like this:
-
-    git tag `grep ^PROJECT_NUMBER Doxyfile | sed 's/.*=\s*//'`
-
+Just use git tags.

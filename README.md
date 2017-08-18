@@ -36,8 +36,6 @@ echo $concept->json();
 
 # Usage and examples
 
-API documentation is published at <http://gbv.github.io/jskos-php/>.
-
 The [jskos-php-examples repository](https://github.com/gbv/jskos-php-examples)
 contains several examples, including wrappers of existing terminology services
 (Wikidata, GND...) to JSKOS-API.
