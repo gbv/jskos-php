@@ -12,7 +12,7 @@ class LanguageMapOfLists extends LanguageMap
 {
     protected static function checkMember($value)
     {
-        if (is_object($value) and $value instanceof Listing) {
+        if ($value instanceof Listing) {
             return $value;
         } else {
             try {

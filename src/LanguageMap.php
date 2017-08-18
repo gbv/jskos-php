@@ -9,25 +9,7 @@ use InvalidArgumentException;
  */
 abstract class LanguageMap extends Container
 {
-
-    /**
-     * Create a new Language Map
-     *
-     * @param Array|Object JSON data to copy
-     */
-    public function __construct($data=null, bool $strict=false)
-    {
-        if (is_array($data) or is_object($data)) {
-            foreach ($data as $key => $value) {
-                $this->setField($key, $value, $strict);
-            }
-        } elseif ($data !== null) {
-            throw new InvalidArgumentException(
-                get_called_class() .
-                ' constructor expects array, object, or JSON string'
-            );
-        }
-    }
+    use ObjectConstructor;
 
     protected function setField($key, $value, $strict)
     {

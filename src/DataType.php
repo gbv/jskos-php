@@ -21,6 +21,8 @@ const LANGUAGE_RANGE_PATTERN = '/^([a-z]{2,3}(?:-[A-Z]{2,3}(?:-[a-zA-Z]{4})?)?)?
 
 abstract class DataType extends PrettyJsonSerializable
 {
+    use ObjectConstructor;
+
     const FIELDS = [];
 
     /**
@@ -29,7 +31,7 @@ abstract class DataType extends PrettyJsonSerializable
     protected static function fieldType(string $field)
     {
         $class = get_called_class();
-        while ($class and $class != self::class) {
+        while ($class && $class != self::class) {
             if (isset($class::FIELDS[$field])) {
                 return $class::FIELDS[$field];
             }
@@ -84,11 +86,11 @@ abstract class DataType extends PrettyJsonSerializable
                 }
             }
         } elseif ($type == 'LanguageMapOfStrings') {
-            if (!(is_object($value) and $value instanceof LanguageMapOfStrings)) {
+            if (!($value instanceof LanguageMapOfStrings)) {
                 $value = new LanguageMapOfStrings($value);
             }
         } elseif ($type == 'LanguageMapOfLists') {
-            if (!(is_object($value) and $value instanceof LanguageMapOfLists)) {
+            if (!($value instanceof LanguageMapOfLists)) {
                 $value = new LanguageMapOfLists($value);
             }
         } elseif (!DataType::hasType($value, $type)) {
@@ -131,26 +133,6 @@ abstract class DataType extends PrettyJsonSerializable
     {
         return !!static::fieldType($field);
     }
-
-    /**
-     * Create a new JSKOS object.
-     *
-     * @param Array|Object JSON data to copy
-     */
-    public function __construct($data=null, bool $strict=false)
-    {
-        if (is_array($data) or is_object($data)) {
-            foreach ($data as $key => $value) {
-                $this->setField($key, $value, $strict);
-            }
-        } elseif ($data !== null) {
-            throw new InvalidArgumentException(
-                get_called_class() .
-                ' constructor expects array, object, or JSON string'
-            );
-        }
-    }
-
 
     /**
      * Check whether a given value looks like an URI.
