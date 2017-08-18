@@ -3,9 +3,9 @@
 namespace JSKOS;
 
 /**
- * @covers \JSKOS\Object
+ * @covers \JSKOS\Resource
  */
-class ObjectTest extends \PHPUnit\Framework\TestCase
+class ResourceTest extends \PHPUnit\Framework\TestCase
 {
     public function testJsonEncode()
     {

@@ -13,14 +13,10 @@ abstract class LanguageMap extends Container
     /**
      * Create a new Language Map
      *
-     * @param String|Array|Object JSON data to copy
+     * @param Array|Object JSON data to copy
      */
     public function __construct($data=null, bool $strict=false)
     {
-        // FIXME: this is a verbose copy of DataType::__construct
-        if (is_string($data)) {
-            $data = json_decode($data);
-        }
         if (is_array($data) or is_object($data)) {
             foreach ($data as $key => $value) {
                 $this->setField($key, $value, $strict);

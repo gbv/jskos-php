@@ -135,13 +135,10 @@ abstract class DataType extends PrettyJsonSerializable
     /**
      * Create a new JSKOS object.
      *
-     * @param String|Array|Object JSON data to copy
+     * @param Array|Object JSON data to copy
      */
     public function __construct($data=null, bool $strict=false)
     {
-        if (is_string($data)) {
-            $data = json_decode($data);
-        }
         if (is_array($data) or is_object($data)) {
             foreach ($data as $key => $value) {
                 $this->setField($key, $value, $strict);

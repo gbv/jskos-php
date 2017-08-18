@@ -10,11 +10,11 @@ const JSKOS_SPECIFICATION = '0.1.4';
 use InvalidArgumentException;
 
 /**
- * A JSKOS object with support of common fields.
+ * A JSKOS resource with support of common fields.
  *
- * @see https://gbv.github.io/jskos/jskos.html#jskos-objects
+ * @see https://gbv.github.io/jskos/jskos.html#jskos-resources
  */
-abstract class Object extends DataType
+abstract class Resource extends DataType
 {
     const TYPES = [];
 
@@ -32,12 +32,12 @@ abstract class Object extends DataType
 
     /**
      * URI if the Concept, ConceptScheme, ConceptType, Mapping
-     * or whatever this object refers to.
+     * or whatever this resource refers to.
      */
     protected $uri;
     
     /**
-     * Object types(s).
+     * Resource types(s).
      */
     protected $type;
 
@@ -57,22 +57,22 @@ abstract class Object extends DataType
     protected $modified;
 
     /**
-     * Agent primarily responsible for creation of object.
+     * Agent primarily responsible for creation of resource.
      */
     protected $creator;
 
     /**
-     * Agent responsible for making contributions to the object.
+     * Agent responsible for making contributions to the resource.
      */
     protected $contributor;
 
     /**
-     * Agent responsible for making the object available.
+     * Agent responsible for making the resource available.
      */
     protected $publisher;
 
     /**
-     * Resources which this object is part of.
+     * Resources which this resource is part of.
      */
     protected $partOf;
 }

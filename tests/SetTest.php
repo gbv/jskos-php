@@ -51,6 +51,11 @@ class SetTest extends \PHPUnit\Framework\TestCase
 
         $uris = $set->map(function($m) { return $m->uri; });
         $this->assertEquals(['x:y',null,'a:b',null], $uris);
+
+        $this->assertTrue($set->isValid());
+
+        $set[0]->uri = 'a:b';
+        $this->assertFalse($set->isValid());
     }
 
     public function testFindURI()
@@ -133,7 +138,7 @@ class SetTest extends \PHPUnit\Framework\TestCase
                 new Set(),
                 function($s) {$s[0] = 42; },
                 InvalidArgumentException::class,
-                'JSKOS\Set may only contain JSKOS Objects'
+                'JSKOS\Set may only contain JSKOS Resources'
             ],
         ];
     }

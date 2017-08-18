@@ -2,12 +2,12 @@
 
 namespace JSKOS;
 
-use JSKOS\Object;
+use JSKOS\Resource;
 
 /**
  * JSKOS Concept, ConceptScheme, ConceptType, Registry, or Concordance.
  */
-abstract class Item extends Object
+abstract class Item extends Resource
 {
     const FIELDS = [
         'url'           => 'URL',

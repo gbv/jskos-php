@@ -9,7 +9,4 @@ phpunit.xml
 composer.phar
 composer.lock
 *.rej
-
-doc/
 build/
-gh-pages/

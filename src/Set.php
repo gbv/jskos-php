@@ -7,7 +7,7 @@ use InvalidArgumentException;
 /**
  * A JSKOS Set as defined by JSKOS specification.
  *
- * A Set is a possibly empty array with all members being JSKOS Objects
+ * A Set is a possibly empty array with all members being JSKOS Resources
  * with distinct values in field `uri` (if given), expect the last member
  * optionally being null.
  */
@@ -15,10 +15,10 @@ class Set extends Container
 {
     protected static function checkMember($value)
     {
-        if (is_a($value, 'JSKOS\Object')) {
+        if (is_a($value, 'JSKOS\Resource')) {
             return $value;
         } else {
-            throw new InvalidArgumentException('JSKOS\Set may only contain JSKOS Objects');
+            throw new InvalidArgumentException('JSKOS\Set may only contain JSKOS Resources');
         }
     }
 
@@ -31,7 +31,7 @@ class Set extends Container
     }
 
     /**
-     * Return the offset of a member Object with given URI, if it exists.
+     * Return the offset of a member Resource with given URI, if it exists.
      */
     public function findURI(string $uri)
     {
@@ -43,7 +43,7 @@ class Set extends Container
     }
 
     /**
-     * Return whether this set does not contain same objects.
+     * Return whether this set does not contain same resources.
      */
     public function isValid()
     {

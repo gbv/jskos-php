@@ -8,11 +8,11 @@ matrix:
 
 install:
     - composer install
-    - composer require satooshi/php-coveralls
 
 script:
     - mkdir -p build/logs
-    - composer travis-test
+    - composer test
 
 after_script:
+    - composer require satooshi/php-coveralls
     - php vendor/bin/coveralls

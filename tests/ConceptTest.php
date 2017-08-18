@@ -17,10 +17,10 @@ class ConceptTest extends \PHPUnit\Framework\TestCase
 
         $concept = new Concept(); 
         $this->assertEquals($concept, new Concept($concept));
-        $this->assertEquals($concept, new Concept("{}"));
+        $this->assertEquals($concept, new Concept([]));
 
         $concept->type = [self::TYPE];
-        $this->assertEquals($concept, new Concept("$concept"));
+        $this->assertEquals($concept, new Concept(json_decode("$concept")));
     }
 
     public function testClosed()

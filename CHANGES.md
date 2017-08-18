@@ -2,10 +2,18 @@
 
 This changelog tracks features and fixes of jskos PHP library.
 
-## 0.1.6
+## 0.2.0
+
+* Move Service and Server to module jskos-http
+* Remove API documentation with Doxygen
+* Remove implicit json_decode
+* Rename Object to Resource
+
+## 0.1.7
 
 * Move Client to module of its own
 * Fix initialization of non-closed sets
+* Remove json_decode
 
 ## 0.1.6
 

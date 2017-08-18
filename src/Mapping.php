@@ -9,7 +9,7 @@ use JSKOS\Item;
  *
  * @see https://gbv.github.io/jskos/jskos.html#concept-mappings
  */
-class Mapping extends Object
+class Mapping extends Resource
 {
     const TYPES = [
         'http://www.w3.org/2004/02/skos/core#mappingRelation',
@@ -35,7 +35,7 @@ class Mapping extends Object
     /**
      * Create a new mapping.
      *
-     * @param String|Array|Object JSON data to copy
+     * @param String|Array|Resource JSON data to copy
      */
     public function __construct($data = null)
     {

@@ -3,7 +3,7 @@
 namespace JSKOS;
 
 
-class JSKOSTest extends \PHPUnit\Framework\TestCase
+class PackageTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
@@ -19,7 +19,7 @@ class JSKOSTest extends \PHPUnit\Framework\TestCase
      */
     public function testPSR2()
     {
-        exec("vendor/bin/php-cs-fixer fix --level=psr2 --dry-run src/", $output, $return_var);
+        exec("vendor/bin/php-cs-fixer fix --dry-run src/", $output, $return_var);
 
         if ($output) {
             array_pop($output);

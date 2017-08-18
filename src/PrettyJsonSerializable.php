@@ -79,7 +79,7 @@ abstract class PrettyJsonSerializable implements \JsonSerializable
      */
     public function __toString()
     {
-        return json_encode($this,  JSON_UNESCAPED_SLASHES);
+        return json_encode($this, JSON_UNESCAPED_SLASHES);
     }
 
     /**
