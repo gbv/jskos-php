@@ -28,7 +28,7 @@ class LanguageMapOfLists extends LanguageMap
     public function contains($member): bool
     {
         foreach ($this->members as $list) {
-            if (in_array($member, $list)) {
+            if ($list->contains($member)) {
                 return true;
             }
         }

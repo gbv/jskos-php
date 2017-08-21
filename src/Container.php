@@ -38,7 +38,7 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
     {
         foreach ($members as $m) {
             if (is_null($m)) {
-                $this->closed = false;
+                $this->setClosed(false);
             } elseif (!$this->contains($m)) {
                 $this->members[] = static::checkMember($m);
             }

@@ -128,7 +128,6 @@ abstract class DataType extends PrettyJsonSerializable
                 "Undefined property: ".get_called_class()."::$$field",
                 \E_USER_NOTICE
             );
-            return null;
         }
     }
 
@@ -142,8 +141,7 @@ abstract class DataType extends PrettyJsonSerializable
      */
     public static function isURI($uri): bool
     {
-        return is_string($uri) and
-               preg_match(IRI_PATTERN, $uri) === 1;
+        return is_string($uri) && preg_match(IRI_PATTERN, $uri) === 1;
     }
 
     /**
@@ -151,9 +149,9 @@ abstract class DataType extends PrettyJsonSerializable
      */
     public static function isURL($url): bool
     {
-        return is_string($url) and
-               preg_match(IRI_PATTERN, $url, $match) and
-               ($match[2] == 'http' or $match[2] == 'https');
+        return is_string($url) &&
+               preg_match(IRI_PATTERN, $url, $match) &&
+               ($match[2] == 'http' || $match[2] == 'https');
     }
 
     /**
@@ -161,8 +159,7 @@ abstract class DataType extends PrettyJsonSerializable
      */
     public static function isDate($date): bool
     {
-        return is_string($date) and
-               preg_match(DATE_PATTERN, $date) === 1;
+        return is_string($date) && preg_match(DATE_PATTERN, $date) === 1;
     }
 
     /**
@@ -170,8 +167,7 @@ abstract class DataType extends PrettyJsonSerializable
      */
     public static function isLanguage($language): bool
     {
-        return is_string($language) and
-               preg_match(LANGUAGE_PATTERN, $language) === 1;
+        return is_string($language) && preg_match(LANGUAGE_PATTERN, $language) === 1;
     }
 
     /**
@@ -179,8 +175,7 @@ abstract class DataType extends PrettyJsonSerializable
      */
     public static function isLanguageRange($range): bool
     {
-        return is_string($range) and
-               preg_match(LANGUAGE_RANGE_PATTERN, $range) === 1;
+        return is_string($range) && preg_match(LANGUAGE_RANGE_PATTERN, $range) === 1;
     }
 
     /**
@@ -188,8 +183,8 @@ abstract class DataType extends PrettyJsonSerializable
      */
     public static function isLanguageOrRange($language): bool
     {
-        return is_string($language) and
-               (preg_match(LANGUAGE_PATTERN, $language) === 1 or
+        return is_string($language) &&
+               (preg_match(LANGUAGE_PATTERN, $language) === 1 ||
                preg_match(LANGUAGE_RANGE_PATTERN, $language) === 1);
     }
 

@@ -2,6 +2,11 @@
 
 This changelog tracks features and fixes of jskos PHP library.
 
+## 0.3.1
+
+* Fix method LanguageMapOfLists->contains
+* Add unit tests
+
 ## 0.3.0
 
 * Rename method jsonSerializeRoot to jsonLDSerialize

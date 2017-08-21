@@ -9,25 +9,7 @@ use InvalidArgumentException;
  */
 class Listing extends Container
 {
-    /**
-     * Stringify if value is a scalar, throw an expection otherwise.
-     */
-    protected static function checkMember($value)
-    {
-        if (is_scalar($value)) {
-            return "$value";
-        } else {
-            throw new InvalidArgumentException('JSKOS\Listing may only contain strings');
-        }
-    }
-
-    /**
-     * Check whether an equal member alredy exists in this Listing.
-     */
-    public function contains($member): bool
-    {
-        return in_array($member, $this->members);
-    }
+    use StringContainer;
 
     /**
      * Join List members with a string

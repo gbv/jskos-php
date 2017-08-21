@@ -9,21 +9,7 @@ use InvalidArgumentException;
  */
 class LanguageMapOfStrings extends LanguageMap
 {
-    protected static function checkMember($value)
-    {
-        if (is_scalar($value)) {
-            return "$value";
-        } else {
-            throw new InvalidArgumentException(
-                'JSKOS\LanguageMapOfStrings may only contain strings'
-            );
-        }
-    }
-    
-    public function contains($member): bool
-    {
-        return in_array($member, $this->members);
-    }
+    use StringContainer;
 
     /**
      * Return a data structure to serialize this container as JSON.

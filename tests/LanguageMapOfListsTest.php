@@ -12,6 +12,10 @@ class LanguageMapOfListsTest extends \PHPUnit\Framework\TestCase
         $map = new LanguageMapOfLists();
         $this->assertEquals(0, count($map));
         $this->assertEquals('{}', "$map");
+
+        $this->assertFalse($map->contains("foo"));
+        $map = new LanguageMapOfLists(['en'=>['foo','bar']]);
+        $this->assertTrue($map->contains("foo"));
     }
 
     public function testValid()

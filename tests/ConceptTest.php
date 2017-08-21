@@ -68,12 +68,6 @@ class ConceptTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expect, $concept);
     }
 
-    public function testExceptions()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $concept = new Concept(['foo'=>'bar'], true);        
-    }
-
     public function testFields()
     {
         $concept = new Concept();
@@ -82,5 +76,22 @@ class ConceptTest extends \PHPUnit\Framework\TestCase
             $concept->$f = '1984';
             $this->assertEquals($concept->$f, '1984');
         }
+    }
+
+    /**
+     * @dataProvider provideExceptionTests
+     */
+    public function testExceptions($data)
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $concept = new Concept($data, true);
+    }
+
+    public function provideExceptionTests()
+    {
+        return [
+            ['foo'=>'bar'],
+            ['narrower'=>'yes'],
+        ];
     }
 }

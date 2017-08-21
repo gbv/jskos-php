@@ -8,7 +8,7 @@ use InvalidArgumentException;
  * A JSKOS Set as defined by JSKOS specification.
  *
  * A Set is a possibly empty array with all members being JSKOS Resources
- * with distinct values in field `uri` (if given), expect the last member
+ * with distinct values in field `uri` (if given), except the last member
  * optionally being null.
  */
 class Set extends Container
