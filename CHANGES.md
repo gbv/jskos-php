@@ -8,6 +8,7 @@ This changelog tracks features and fixes of jskos PHP library.
 * Remove ConceptType
 * Move Page to package jskos-http
 * Add missing Item field editorialNote
+* Rename method findMember to contains and make public
 
 ## 0.2.0
 

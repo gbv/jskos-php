@@ -14,9 +14,9 @@ use InvalidArgumentException;
 class Set extends Container
 {
     /**
-     * Check whether an equal member alredy exists in this Container.
+     * Check whether an equal member alredy exists in this Set.
      */
-    protected function findMember($member)
+    public function contains($member): bool
     {
         return $member->uri ? !!$this->findURI($member->uri) : false;
     }

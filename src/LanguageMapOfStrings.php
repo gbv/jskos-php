@@ -19,6 +19,11 @@ class LanguageMapOfStrings extends LanguageMap
             );
         }
     }
+    
+    public function contains($member): bool
+    {
+        return in_array($member, $this->members);
+    }
 
     /**
      * Return a data structure to serialize this container as JSON.

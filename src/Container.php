@@ -29,10 +29,7 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
     /**
      * Check whether an equal member alredy exists in this Container.
      */
-    protected function findMember($member)
-    {
-        return false;
-    }
+    abstract public function contains($member): bool;
 
     /**
      * Create a new container, possibly from an array.
@@ -42,7 +39,7 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
         foreach ($members as $m) {
             if (is_null($m)) {
                 $this->closed = false;
-            } elseif (!$this->findMember($m)) {
+            } elseif (!$this->contains($m)) {
                 $this->members[] = static::checkMember($m);
             }
         }
@@ -128,7 +125,7 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
         if (is_int($offset) && $offset >= 0 && $offset < $this->count()) {
             $member = static::checkMember($object);
             # TODO: merge if duplicated
-            if (!$this->findMember($member)) {
+            if (!$this->contains($member)) {
                 $this->members[$offset] = $member;
             }
         } elseif (is_null($object)) {
@@ -145,7 +142,7 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
     {
         $member = static::checkMember($object);
         # TODO: merge if duplicated
-        if (!$this->findMember($member)) {
+        if (!$this->contains($member)) {
             $this->members[] = $member;
         }
     }

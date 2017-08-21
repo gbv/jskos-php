@@ -22,9 +22,9 @@ class Listing extends Container
     }
 
     /**
-     * Check whether an equal member alredy exists in this Container.
+     * Check whether an equal member alredy exists in this Listing.
      */
-    protected function findMember($member)  # TODO: why not 'find' and public?
+    public function contains($member): bool
     {
         return in_array($member, $this->members);
     }
