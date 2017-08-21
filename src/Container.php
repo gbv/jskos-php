@@ -1,18 +1,30 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace JSKOS;
 
 use InvalidArgumentException;
 
 /**
- * Common base class of JSKOS Listing, Set, and LanguageMap
+ * Common base class of JSKOS Listing, Set, and LanguageMap.
  */
 abstract class Container extends PrettyJsonSerializable implements \Countable, \ArrayAccess, \IteratorAggregate
 {
     protected $members = [];
     protected $closed  = true;
 
-    abstract protected static function checkMember($member);
+    /**
+     * Check whether value can be added as member.
+     *
+     * @throws InvalidArgumentException if value is no JSKOS Resource
+     */
+    protected static function checkMember($value)
+    {
+        if ($value instanceof Resource) {
+            return $value;
+        } else {
+            throw new InvalidArgumentException(get_called_class() . ' may only contain JSKOS Resources');
+        }
+    }
 
     /**
      * Check whether an equal member alredy exists in this Container.
@@ -122,11 +134,19 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
         } elseif (is_null($object)) {
             $this->closed = false;
         } else {
-            $member = static::checkMember($object);
-            # TODO: merge if duplicated
-            if (!$this->findMember($member)) {
-                $this->members[] = $member;
-            }
+            $this->append($object);
+        }
+    }
+
+    /**
+     * Append an object at the end.
+     */
+    public function append($object)
+    {
+        $member = static::checkMember($object);
+        # TODO: merge if duplicated
+        if (!$this->findMember($member)) {
+            $this->members[] = $member;
         }
     }
 
@@ -153,10 +173,10 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
     /**
      * Return a data structure to serialize this container as JSON.
      */
-    public function jsonSerializeRoot($context=self::DEFAULT_CONTEXT)
+    public function jsonLDSerialize(string $context = self::DEFAULT_CONTEXT)
     {
         $set = array_map(function ($m) {
-            return is_object($m) ? $m->jsonSerializeRoot(null) : $m;
+            return is_object($m) ? $m->jsonLDSerialize('') : $m;
         }, $this->members);
 
         if (!$this->closed) {

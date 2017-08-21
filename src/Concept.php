@@ -1,11 +1,11 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace JSKOS;
 
 use JSKOS\Item;
 
 /**
- * A JSKOS %Concept.
+ * A JSKOS Concept.
  *
  * @see https://gbv.github.io/jskos/jskos.html#concepts
  */

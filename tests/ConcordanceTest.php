@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace JSKOS;
 
@@ -21,7 +21,7 @@ class ConcordanceTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('JSKOS\ConceptScheme', $conc->toScheme);
         
         $conc->extent = '42 mappings';
-        $conc->mappings[1] = new Access(['download'=>'http://example.org']);
+        $conc->mappings[1] = new AccessPoint(['download'=>'http://example.org']);
 
         $expect = [            
             '@context' => 'https://gbv.github.io/jskos/context.json',

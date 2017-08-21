@@ -1,11 +1,11 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace JSKOS;
 
 use JSKOS\Item;
 
 /**
- * A JSKOS %Concept Scheme
+ * A JSKOS Concept Scheme.
  *
  * @see https://gbv.github.io/jskos/jskos.html#concept-schemes
  */
@@ -16,13 +16,13 @@ class ConceptScheme extends Item
     ];
 
     const FIELDS = [
-        'topConcepts' => ['Set','Concept'],
-        'versionOf'   => ['Set','ConceptScheme'],
-        'concepts'    => ['Set','Access'],
-        'types'       => ['Set','Access'],
+        'topConcepts' => ['Set', 'Concept'],
+        'versionOf'   => ['Set', 'ConceptScheme'],
+        'concepts'    => ['Set', 'AccessPoint'],
+        'types'       => ['Set', 'AccessPoint'],
         'extent'      => 'string',
         'languages'   => ['Listing'],
-        'license'     => ['Set','Concept'],
+        'license'     => ['Set', 'Concept'],
     ];
 
     /**
@@ -36,12 +36,12 @@ class ConceptScheme extends Item
     protected $versionOf;
 
     /**
-     * Accesses to concepts in this scheme.
+     * AccessPoints to concepts in this scheme.
      */
     protected $concepts;
 
     /**
-     * Accesses to Types in this scheme.
+     * AccessPoints to Types in this scheme.
      */
     protected $types;
 

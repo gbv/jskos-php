@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace JSKOS;
 
@@ -6,7 +6,7 @@ use InvalidArgumentException;
 use TypeError;
 
 /**
- * Language map of strings.
+ * Language map of lists for labels and notes.
  */
 class LanguageMapOfLists extends LanguageMap
 {
@@ -28,11 +28,11 @@ class LanguageMapOfLists extends LanguageMap
     /**
      * Return a data structure to serialize this container as JSON.
      */
-    public function jsonSerializeRoot($context=self::DEFAULT_CONTEXT)
+    public function jsonLDSerialize(string $context = self::DEFAULT_CONTEXT)
     {
         $map = new \stdClass();
         foreach ($this->members as $lang => $list) {
-            $map->$lang = $list->jsonSerializeRoot(null);
+            $map->$lang = $list->jsonLDSerialize('');
         }
         return $map;
     }

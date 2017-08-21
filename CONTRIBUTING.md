@@ -34,10 +34,6 @@ You may need to enable PHP extension curl:
 
     $ sudo apt-get install php5-curl
 
-### Run static tests
-
-The code is checked with [PHP Parallel Lint](https://github.com/JakubOnderka/PHP-Parallel-Lint) before unit testing.
-
 ### Run unit tests
 
 Unit tests are located in `tests/`, based on [PHPUnit](https://phpunit.de/). Run via:
@@ -52,6 +48,30 @@ The tests include a check for conformance to [PSR-2 Coding
 Style](http://www.php-fig.org/psr/psr-2/). To clean up the code, run:
 
     $ composer style
+
+### Build API documentation
+
+    $ composer doc
+
+### Class hierarchy
+
+* Constructor
+* PrettyJsonSerializable
+    * DataType
+        * Resource
+            * Item
+                * Concept
+                * ConceptScheme
+                * Concordance
+                * Access
+                * Registry
+            * Mapping
+    * Container
+        * Listing
+        * Set
+        * LanguageMap
+            * LanguageMapOfStrings
+            * LanguageMapOfLists
 
 ### Create examples
 

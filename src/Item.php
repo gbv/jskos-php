@@ -1,11 +1,11 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace JSKOS;
 
 use JSKOS\Resource;
 
 /**
- * JSKOS Concept, ConceptScheme, ConceptType, Registry, or Concordance.
+ * Base class of Concept, ConceptScheme, Concordance, Registry, and AccessPoint.
  */
 abstract class Item extends Resource
 {
@@ -21,8 +21,9 @@ abstract class Item extends Resource
         'example'       => 'LanguageMapOfLists',
         'historyNote'   => 'LanguageMapOfLists',
         'changeNote'    => 'LanguageMapOfLists',
-        'subject'       => ['Set','Concept'],
-        'subjectOf'     => ['Set','Concept'],
+        'editorialNote' => 'LanguageMapOfLists',
+        'subject'       => ['Set', 'Concept'],
+        'subjectOf'     => ['Set', 'Concept'],
         'depiction'     => ['Listing'],
         'startDate'     => 'Date',
         'endDate'       => 'Date',

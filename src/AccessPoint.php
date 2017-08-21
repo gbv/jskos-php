@@ -1,18 +1,18 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace JSKOS;
 
 use JSKOS\Item;
 
 /**
- * A JSKOS %Access.
+ * A JSKOS AccessPoint.
  *
- * @see https://gbv.github.io/jskos/jskos.html#accesses
+ * @see https://gbv.github.io/jskos/jskos.html#accesspoints
  */
-class Access extends Item
+class AccessPoint extends Item
 {
     const FIELDS = [
-        'set' => ['Set','Concept'],
+        'set'      => ['Set', 'Concept'],
         'download' => 'URL',
     ];
 

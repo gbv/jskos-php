@@ -1,11 +1,9 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace JSKOS;
 
-use JSKOS\Item;
-
 /**
- * A JSKOS %Concordance.
+ * A JSKOS Concordance.
  *
  * @see https://gbv.github.io/jskos/jskos.html#concordances
  */
@@ -16,25 +14,25 @@ class Concordance extends Item
     ];
 
     const FIELDS = [
-        'mappings'   => ['Set','Access'],
+        'mappings'   => ['Set', 'AccessPoint'],
         'fromScheme' => 'ConceptScheme',
         'toScheme'   => 'ConceptScheme',
         'extent'     => 'string',
-        'license'    => ['Set','Concept'],
+        'license'    => ['Set', 'Concept'],
     ];
 
     /**
-     * Access to mappings in this concordance.
+     * AccessPoint to mappings in this concordance.
      */
     protected $mappings;
 
     /**
-     * Source %Concept Scheme.
+     * Source ConceptScheme.
      */
     protected $fromScheme;
 
     /**
-     * Target %Concept Scheme.
+     * Target ConceptScheme.
      */
     protected $toScheme;
 

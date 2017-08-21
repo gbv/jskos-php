@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace JSKOS;
 
@@ -19,9 +19,12 @@ const LANGUAGE_PATTERN = '/^[a-z]{2,3}(?:-[A-Z]{2,3}(?:-[a-zA-Z]{4})?)?$/';
 
 const LANGUAGE_RANGE_PATTERN = '/^([a-z]{2,3}(?:-[A-Z]{2,3}(?:-[a-zA-Z]{4})?)?)?-$/';
 
+/**
+ * Base class of JSKOS Resources and fields.
+ */
 abstract class DataType extends PrettyJsonSerializable
 {
-    use ObjectConstructor;
+    use Constructor;
 
     const FIELDS = [];
 
@@ -66,7 +69,7 @@ abstract class DataType extends PrettyJsonSerializable
                             if (is_null($m)) {
                                 return null;
                             }
-                            if (is_object($m) and is_a($m, $class)) {
+                            if ($m instanceof $class) {
                                 return $m;
                             }
                             return new $class($m);

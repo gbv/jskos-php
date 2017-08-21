@@ -1,15 +1,15 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace JSKOS;
 
 use InvalidArgumentException;
 
 /**
- * Language map of strings or lists.
+ * Abstract base class of language maps.
  */
 abstract class LanguageMap extends Container
 {
-    use ObjectConstructor;
+    use Constructor;
 
     protected function setField($key, $value, $strict)
     {

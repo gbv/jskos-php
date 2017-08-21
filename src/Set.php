@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace JSKOS;
 
@@ -13,15 +13,6 @@ use InvalidArgumentException;
  */
 class Set extends Container
 {
-    protected static function checkMember($value)
-    {
-        if (is_a($value, 'JSKOS\Resource')) {
-            return $value;
-        } else {
-            throw new InvalidArgumentException('JSKOS\Set may only contain JSKOS Resources');
-        }
-    }
-
     /**
      * Check whether an equal member alredy exists in this Container.
      */

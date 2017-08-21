@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace JSKOS;
 
@@ -9,6 +9,9 @@ use InvalidArgumentException;
  */
 class Listing extends Container
 {
+    /**
+     * Stringify if value is a scalar, throw an expection otherwise.
+     */
     protected static function checkMember($value)
     {
         if (is_scalar($value)) {
@@ -21,7 +24,7 @@ class Listing extends Container
     /**
      * Check whether an equal member alredy exists in this Container.
      */
-    protected function findMember($member)
+    protected function findMember($member)  # TODO: why not 'find' and public?
     {
         return in_array($member, $this->members);
     }

@@ -2,6 +2,13 @@
 
 This changelog tracks features and fixes of jskos PHP library.
 
+## 0.3.0
+
+* Rename method jsonSerializeRoot to jsonLDSerialize
+* Remove ConceptType
+* Move Page to package jskos-http
+* Add missing Item field editorialNote
+
 ## 0.2.0
 
 * Move Service and Server to module jskos-http

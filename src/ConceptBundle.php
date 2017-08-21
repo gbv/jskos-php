@@ -1,24 +1,22 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace JSKOS;
 
 use JSKOS\PrettyJsonSerializable;
 
 /**
- * A JSKOS %Concept Bundle.
- *
- * %Concept bundles are used as part of Mappings.
+ * A JSKOS Concept Bundle to be used as part of Mappings.
  *
  * @see https://gbv.github.io/jskos/jskos.html#concept-bundles
  */
 class ConceptBundle extends PrettyJsonSerializable
 {
     const FIELDS = [
-        'members' => ['Set','Concept']
+        'members' => ['Set', 'Concept']
     ];
 
     /**
-     * %Set of concepts in this bundle.
+     * Set of concepts in this bundle.
      *
      * @var Set $members
      */
@@ -40,11 +38,11 @@ class ConceptBundle extends PrettyJsonSerializable
      * Returns data which should be serialized to JSON.
      * @param string $context
      */
-    public function jsonSerializeRoot($context=self::DEFAULT_CONTEXT)
+    public function jsonLDSerialize(string $context = self::DEFAULT_CONTEXT)
     {
         $members = [];
         foreach ($this->members as $m) {
-            $members[] = $m->jsonSerializeRoot(false);
+            $members[] = $m->jsonLDSerialize('');
         }
         $json = [];
         if ($context) {

@@ -1,16 +1,9 @@
-<?php declare(strict_types=1);
-/**
- * PHP library to process JSKOS data.
- *
- * @see https://gbv.github.io/jskos/
- *
- * @file
- */
+<?php declare(strict_types = 1);
 
 namespace JSKOS;
 
 /**
- * Adds consistent JSON serializing via `json_encode` and `->json()`.
+ * Provide consistent JSON(-LD) serializing.
  */
 abstract class PrettyJsonSerializable implements \JsonSerializable
 {
@@ -19,34 +12,34 @@ abstract class PrettyJsonSerializable implements \JsonSerializable
     /**
      * Returns data which should be serialized to JSON.
      *
-     * Internally delegates to jsonSerializeRoot.
+     * Delegates to jsonLDSerialize which can be called with a JSON-LD context URL.
      */
     public function jsonSerialize()
     {
-        return $this->jsonSerializeRoot();
+        return $this->jsonLDSerialize();
     }
 
     /**
      * Returns data which should be serialized to JSON.
      *
-     * The default data contains all non-null members and `@context`.
-     * Keys are sorted by Unicode codepoint.
+     * Include all non-null members and the JSON-LD context (`@context`).
+     * Keys are sorted by Unicode codepoint for stable output.
      *
-     * @param string $context
+     * @param string $context optional JSON-LD context URL. Use empty string to omit.
      */
-    public function jsonSerializeRoot($context=self::DEFAULT_CONTEXT)
+    public function jsonLDSerialize(string $context = self::DEFAULT_CONTEXT)
     {
-        $json = [ ];
+        $json = [];
 
         foreach ($this as $key => $value) {
             if (isset($value)) {
-                if (is_a($value, 'JSKOS\PrettyJsonSerializable')) {
-                    $value = $value->jsonSerializeRoot(false);
+                if ($value instanceof PrettyJsonSerializable) {
+                    $value = $value->jsonLDSerialize('');
                 } elseif (is_array($value) and !count(array_filter(array_keys($value), 'is_string'))) {
                     $a = [];
                     foreach ($value as $m) {
-                        if (is_a($m, 'JSKOS\PrettyJsonSerializable')) {
-                            $m = $m->jsonSerializeRoot(false);
+                        if ($m instanceof PrettyJsonSerializable) {
+                            $m = $m->jsonLDSerialize('');
                         }
                         $a[] = $m;
                     }
@@ -58,7 +51,7 @@ abstract class PrettyJsonSerializable implements \JsonSerializable
 
         if ($context) {
             $json['@context'] = $context;
-            $types = defined(get_called_class().'::TYPES') ? static::TYPES : [];
+            $types = defined(get_called_class() . '::TYPES') ? static::TYPES : [];
             if (property_exists($this, 'type') and count($types)) {
                 if (isset($json['type'])) {
                     if (empty(array_intersect($json['type'], $types))) {

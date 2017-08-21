@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace JSKOS;
 
@@ -50,7 +50,7 @@ class DataTypeTest extends \PHPUnit\Framework\TestCase
     public function testConstructInvalid()
     {
         $this->expectException('InvalidArgumentException');
-        $msg = "JSKOS\SampleType constructor expects array, object, or JSON string";
+        $msg = "JSKOS\SampleType constructor expects array, object, or null";
         $this->expectExceptionMessage($msg);
         $entity = new SampleType(42);
     }
