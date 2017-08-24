@@ -32,4 +32,22 @@ class ResourceTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(json_encode($expect), json_encode($concept));
         $this->assertEquals(json_encode($expect, JSON_UNESCAPED_SLASHES), "$concept");
     }
+
+
+    /**
+     * @dataProvider provideTypesToGuess
+     */ 
+    public function testGuessClass($types, $class) {
+ 	    $this->assertEquals($class, Resource::guessClassFromTypes($types));
+    }
+
+    public function provideTypesToGuess() {
+        return [
+            [[], null],
+            [['http://www.w3.org/2004/02/skos/core#Concept'], Concept::class],
+            [['http://www.w3.org/2004/02/skos/core#ConceptScheme'], ConceptScheme::class],
+            [['http://www.w3.org/2004/02/skos/core#closeMatch'], Mapping::class],
+            [['http://rdfs.org/ns/void#Linkset'], Concordance::class],
+        ];
+    }
 }

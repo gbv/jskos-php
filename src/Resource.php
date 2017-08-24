@@ -75,4 +75,21 @@ abstract class Resource extends DataType
      * Resources which this resource is part of.
      */
     protected $partOf;
+
+
+	/**
+	 * Guess subclass from list of type URIs.
+	 */
+   	static public function guessClassFromTypes(array $types) {
+        if (count($types)) {
+            foreach (['ConceptScheme', 'Concordance', 'Mapping', 'Concept'] as $class) {
+                $class = "JSKOS\\$class";
+                foreach ($class::TYPES as $uri) {
+                    if (in_array($uri, $types)) {
+                        return $class;
+                    }
+                }            
+            } 
+        }
+    }
 }
