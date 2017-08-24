@@ -55,9 +55,11 @@ Style](http://www.php-fig.org/psr/psr-2/). To clean up the code, run:
 
 ### Class hierarchy
 
-* Constructor
-* PrettyJsonSerializable
-    * DataType
+* trait Constructor
+* trait StringContainer
+
+* class PrettyJsonSerializable
+    * DataType (uses Constructor)
         * Resource
             * Item
                 * Concept
@@ -67,10 +69,10 @@ Style](http://www.php-fig.org/psr/psr-2/). To clean up the code, run:
                 * Registry
             * Mapping
     * Container
-        * Listing
+        * Listing (uses StringContainer)
         * Set
-        * LanguageMap
-            * LanguageMapOfStrings
+        * LanguageMap (uses Constructor)
+            * LanguageMapOfStrings (uses StringContainer)
             * LanguageMapOfLists
 
 ### Create examples

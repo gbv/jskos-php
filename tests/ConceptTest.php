@@ -9,8 +9,6 @@ use InvalidArgumentException;
  */
 class ConceptTest extends \PHPUnit\Framework\TestCase
 {
-    const TYPE = 'http://www.w3.org/2004/02/skos/core#Concept';
-
     public function testCreate()
     {
         $this->assertEquals(new Concept(), new Concept(['foo'=>'bar']));
@@ -19,7 +17,7 @@ class ConceptTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($concept, new Concept($concept));
         $this->assertEquals($concept, new Concept([]));
 
-        $concept->type = [self::TYPE];
+        $concept->type = [Concept::TYPES[0]];
         $this->assertEquals($concept, new Concept(json_decode("$concept")));
     }
 
@@ -45,7 +43,7 @@ class ConceptTest extends \PHPUnit\Framework\TestCase
 
         $expect = [
             '@context'  => 'https://gbv.github.io/jskos/context.json',
-            'type'      => [self::TYPE],
+            'type'      => [Concept::TYPES[0]],
             'uri'       => 'x:1',
             'prefLabel' => [ 'en' => 'test' ],
             'narrower'  => [ [ 'uri' => 'x:2' ] ],

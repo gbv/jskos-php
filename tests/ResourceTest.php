@@ -16,8 +16,10 @@ class ResourceTest extends \PHPUnit\Framework\TestCase
         ];
         $this->assertEquals(json_encode($expect), json_encode($concept));
 
-        $options = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES;
-        $this->assertEquals(json_encode($expect, $options), $concept->json());
+        $this->assertEquals(
+            json_encode($expect, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT),
+            $concept->json()
+        );
 
         $concept->uri = $expect['uri'] = 'http://example.org/';
         $this->assertEquals(json_encode($expect), json_encode($concept));
@@ -29,14 +31,21 @@ class ResourceTest extends \PHPUnit\Framework\TestCase
         $concept->modified = $expect['modified'] = '2017-01-01';
         ksort($expect);
         $this->assertEquals(json_encode($expect), json_encode($concept));
-        $this->assertEquals(json_encode($expect), json_encode($concept));
         $this->assertEquals(json_encode($expect, JSON_UNESCAPED_SLASHES), "$concept");
     }
 
+    public function testTypeField() {
+        foreach (['Concept', 'ConceptScheme', 'Mapping', 'Concordance'] as $class) {
+            $class = "JSKOS\\$class";
+            $a = new $class();
+            $b = new $class(['type'=>[$class::TYPES[0]]]);
+            $this->assertEquals($a, $b);
+        }
+    }
 
     /**
      * @dataProvider provideTypesToGuess
-     */ 
+     */
     public function testGuessClass($types, $class) {
  	    $this->assertEquals($class, Resource::guessClassFromTypes($types));
     }

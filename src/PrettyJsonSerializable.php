@@ -51,15 +51,10 @@ abstract class PrettyJsonSerializable implements \JsonSerializable
 
         if ($context) {
             $json['@context'] = $context;
-            $types = defined(get_called_class() . '::TYPES') ? static::TYPES : [];
-            if (property_exists($this, 'type') and count($types)) {
-                if (isset($json['type'])) {
-                    if (empty(array_intersect($json['type'], $types))) {
-                        array_unshift($json['type'], $types[0]);
-                    }
-                } else {
-                    $json['type'] = [$types[0]];
-                }
+        } elseif (count($json['type'] ?? []) == 1) {
+            # don't serialize implicitly deriveable types for brevity
+            if ($json['type'][0] == static::TYPES[0]) {
+                unset($json['type']);
             }
         }
 

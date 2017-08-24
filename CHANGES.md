@@ -2,6 +2,11 @@
 
 This changelog tracks features and fixes of jskos PHP library.
 
+## 0.3.2
+
+* Add helper method Resource::guessClassFromTypes
+* Include default type URI for resources
+
 ## 0.3.1
 
 * Fix method LanguageMapOfLists->contains

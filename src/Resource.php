@@ -77,10 +77,11 @@ abstract class Resource extends DataType
     protected $partOf;
 
 
-	/**
-	 * Guess subclass from list of type URIs.
-	 */
-   	static public function guessClassFromTypes(array $types) {
+    /**
+     * Guess subclass from list of type URIs.
+     */
+    public static function guessClassFromTypes(array $types)
+    {
         if (count($types)) {
             foreach (['ConceptScheme', 'Concordance', 'Mapping', 'Concept'] as $class) {
                 $class = "JSKOS\\$class";
@@ -88,8 +89,8 @@ abstract class Resource extends DataType
                     if (in_array($uri, $types)) {
                         return $class;
                     }
-                }            
-            } 
+                }
+            }
         }
     }
 }
