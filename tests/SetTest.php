@@ -61,15 +61,15 @@ class SetTest extends \PHPUnit\Framework\TestCase
     public function testFindURI()
     {
         $set = new Set();
-        $this->assertEquals(null, $set->findURI('x:y'));
+        $this->assertEquals(-1, $set->findURI('x:y'));
 
         $set[] = new Concept(['identifier'=>['x:y']]);
-        $this->assertEquals(null, $set->findURI('x:y'));
+        $this->assertEquals(-1, $set->findURI('x:y'));
 
         $concept = new Concept(['uri'=>'x:y']);
         $set[] = $concept;
 
-        $this->assertSame($concept, $set->findURI('x:y'));
+        $this->assertSame(1, $set->findURI('x:y'));
     }
 
     /**

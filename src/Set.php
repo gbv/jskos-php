@@ -14,29 +14,31 @@ use InvalidArgumentException;
 class Set extends Container
 {
     /**
-     * Check whether an equal member alredy exists in this Set.
+     * Check whether an equal member already exists in this Set.
      */
     public function contains($member): bool
     {
-        return $member->uri ? !!$this->findURI($member->uri) : false;
+        return $member instanceof Resource && $member->uri &&
+            $this->findURI($member->uri) >= 0;
     }
 
     /**
-     * Return the offset of a member Resource with given URI, if it exists.
+     * Return the offset of a member Resource with given URI or -1.
      */
     public function findURI(string $uri)
     {
-        foreach ($this->members as $member) {
+        foreach ($this->members as $offset => $member) {
             if ($member->uri == $uri) {
-                return $member;
+                return $offset;
             }
         }
+        return -1;
     }
 
     /**
      * Return whether this set does not contain same resources.
      */
-    public function isValid()
+    public function isValid(): bool
     {
         $uris = [];
         foreach ($this->members as $member) {

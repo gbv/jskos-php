@@ -2,6 +2,10 @@
 
 This changelog tracks features and fixes of jskos PHP library.
 
+## NEXT
+
+* Fix method Set->findURI to actually return an index
+
 ## 0.3.2
 
 * Add helper method Resource::guessClassFromTypes
