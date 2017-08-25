@@ -29,6 +29,21 @@ class ItemTest extends \PHPUnit\Framework\TestCase
         $item->altLabel = [];
         $item->altLabel['en'] = ['foo',null];
         $expect = new LanguageMapOfLists(['en'=>['foo',null]]);
-        $this->assertEquals($expect, $item->altLabel);
+        $this->assertEquals($expect, $item->altLabel);        
+    }
+
+    public function testLocation()
+    {
+        $item = new Concept();
+        $location = [
+            "type" => "Point",
+            "coordinates" => [-49.946944, 41.7325, -3803]
+        ];
+
+        $item->location = $location;
+        $this->assertEquals($location, $item->location);
+
+        $item = new Concept($item);
+        $this->assertEquals($location, $item->location);
     }
 }

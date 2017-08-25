@@ -28,7 +28,7 @@ abstract class Item extends Resource
         'startDate'     => 'Date',
         'endDate'       => 'Date',
         'relatedDate'   => 'Date',
-        # TODO: location
+        'location'      => '*'
     ];
 
     /**
@@ -124,5 +124,5 @@ abstract class Item extends Resource
     /**
      * List of geographic coordinates.
      */
-    public $location;
+    protected $location;
 }

@@ -99,6 +99,8 @@ abstract class DataType extends PrettyJsonSerializable
                 }
                 # TODO: check member types
             }
+        } elseif ($type == '*') {
+            $value = $value;
         } elseif ($type == 'LanguageMapOfStrings') {
             if (!($value instanceof LanguageMapOfStrings)) {
                 $value = new LanguageMapOfStrings($value);

@@ -2,10 +2,11 @@
 
 This changelog tracks features and fixes of jskos PHP library.
 
-## NEXT
+## 0.3.3
 
 * Fix method Set->findURI to actually return an index
 * Add optional types parameter to jsonLDSerialize
+* Add support of Item field location
 
 ## 0.3.2
 

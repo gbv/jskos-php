@@ -12,7 +12,7 @@
 
 # Requirements
 
-JSKOS-PHP requires PHP 7.0 or PHP 7.1. No additional libraries are required.
+JSKOS-PHP requires PHP 7. No additional libraries are required.
 
 # Installation
 
