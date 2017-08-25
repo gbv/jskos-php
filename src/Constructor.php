@@ -33,7 +33,7 @@ trait Constructor
             );
         }
 
-        if ($this instanceof Resource && !count($this->type)) {
+        if ($this instanceof Resource && !count($this->type ?? [])) {
             $class = get_called_class();
             if (count($class::TYPES)) {
                 $this->type = new Listing([$class::TYPES[0]]);
