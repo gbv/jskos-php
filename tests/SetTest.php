@@ -42,11 +42,11 @@ class SetTest extends \PHPUnit\Framework\TestCase
     {
         $set = new Set([
             new Concept(['uri'=>'x:y']),
-            new Concept(['identifier'=>'foo']),
+            new Concept(['identifier'=>['foo']]),
             new Concept(['uri'=>'x:y']),
             new Concept(['uri'=>'a:b'])
         ]);
-        $set[] = new Concept(['identifier'=>'foo']);
+        $set[] = new Concept(['identifier'=>['foo']]);
         $set[] = new Concept(['uri'=>'a:b']);
 
         $uris = $set->map(function($m) { return $m->uri; });

@@ -31,7 +31,7 @@ abstract class DataType extends PrettyJsonSerializable
     /**
      * Get field definition from FIELDS, including parent classes.
      */
-    protected static function fieldType(string $field)
+    protected static function fieldType(string $field, bool $strict=false)
     {
         $class = get_called_class();
         while ($class && $class != self::class) {
@@ -40,6 +40,19 @@ abstract class DataType extends PrettyJsonSerializable
             }
             $class = get_parent_class($class);
         }
+
+        if ($strict) {
+            throw new InvalidArgumentException(
+                get_called_class() . "->$field does not exist"
+            );
+        }
+    }
+
+    private function fieldException($field, $message)
+    {
+        return new InvalidArgumentException(
+            get_called_class()."->$field must $message"
+        );
     }
 
     protected function setField(string $field, $value, bool $strict=true)
@@ -48,45 +61,43 @@ abstract class DataType extends PrettyJsonSerializable
             return;
         }
 
-        $type = static::fieldType($field);
-
+        $type = static::fieldType($field, $strict);
         if (!$type) {
-            if ($strict) {
-                throw new InvalidArgumentException(get_class() . "->$field does not exist");
-            } else {
-                return;
-            }
+            return;
         }
 
         if (is_null($value)) {
-            // set to null
+            $value = null;
         } elseif (is_array($type)) { # Set or Listing
             if ($type[0] == 'Set') {
-                if (is_array($value)) {
-                    $class = 'JSKOS\\'.$type[1];
-                    $value = new Set(
-                        array_map(function ($m) use ($class) {
-                            if (is_null($m)) {
-                                return null;
-                            }
-                            if ($m instanceof $class) {
-                                return $m;
-                            }
-                            return new $class($m);
-                        }, $value)
-                    );
-                } elseif (!is_a($value, 'JSKOS\Set')) {
-                    $msg = get_called_class()."->$field must be a Set";
-                    throw new InvalidArgumentException($msg);
-                } else {
-                    # TODO: check member types
+                if (!($value instanceof Set)) {
+                    if (is_array($value)) {
+                        $class = 'JSKOS\\'.$type[1];
+                        $value = new Set(
+                            array_map(function ($m) use ($class) {
+                                if (is_null($m)) {
+                                    return null;
+                                }
+                                if ($m instanceof $class) {
+                                    return $m;
+                                }
+                                return new $class($m);
+                            }, $value)
+                        );
+                    } else {
+                        throw $this->fieldException($field, "be a Set");
+                    }
                 }
+                # TODO: check member types
             } else { # Listing
-                if (is_array($value)) {
-                    $value = new Listing($value);
-                } else {
-                    # TODO: check member types
+                if (!($value instanceof Listing)) {
+                    if (is_array($value)) {
+                        $value = new Listing($value);
+                    } else {
+                        throw $this->fieldException($field, "be a Listing");
+                    }
                 }
+                # TODO: check member types
             }
         } elseif ($type == 'LanguageMapOfStrings') {
             if (!($value instanceof LanguageMapOfStrings)) {
@@ -100,8 +111,7 @@ abstract class DataType extends PrettyJsonSerializable
             if ($type == 'ConceptScheme') {
                 $value = new ConceptScheme($value);
             } else {
-                $msg = get_called_class()."->$field must match JSKOS\DataType::is$type";
-                throw new InvalidArgumentException($msg);
+                throw $this->fieldException($field, "match JSKOS\DataType::is$type");
             }
         }
 

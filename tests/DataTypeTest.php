@@ -24,49 +24,10 @@ class DataTypeTest extends \PHPUnit\Framework\TestCase
         $entity = new SampleType();
         $entity->$field = $value;
         $this->assertEquals($value, $entity->$field);
-    }
-
-    /**
-     * @dataProvider validProvider
-     */
-    public function testSetNull($field, $value)
-    {
-        $entity = new SampleType();
         $entity->$field = null;
         $this->assertEquals(null, $entity->$field);
     }
-
-    /**
-     * @dataProvider invalidProvider
-     */
-    public function testConstructInvalidArgument($field, $value, $test)
-    {
-        $this->expectException('InvalidArgumentException');
-        $msg = "JSKOS\SampleType->$field must match JSKOS\DataType::$test";
-        $this->expectExceptionMessage($msg);
-        $entity = new SampleType([$field=>$value], false);
-    }
-
-    public function testConstructInvalid()
-    {
-        $this->expectException('InvalidArgumentException');
-        $msg = "JSKOS\SampleType constructor expects array, object, or null";
-        $this->expectExceptionMessage($msg);
-        $entity = new SampleType(42);
-    }
-
-    /**
-     * @dataProvider invalidProvider
-     */
-    public function testSetInvalidArgument($field, $value, $test)
-    {
-        $this->expectException('InvalidArgumentException');
-        $msg = "JSKOS\SampleType->$field must match JSKOS\DataType::$test";
-        $this->expectExceptionMessage($msg);
-        $entity = new SampleType();
-        $entity->$field = $value;
-    }
-
+    
     public function validProvider()
     {
         return [
@@ -82,7 +43,50 @@ class DataTypeTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    public function invalidProvider()
+    public function testConstructInvalid()
+    {
+        $this->expectException('InvalidArgumentException');
+        $msg = "JSKOS\SampleType constructor expects array, object, or null";
+        $this->expectExceptionMessage($msg);
+        $entity = new SampleType(42);
+    }
+
+    public function testSetUnknownField()
+    {
+        $this->expectException('InvalidArgumentException');
+        $msg = "JSKOS\SampleType->foo does not exist";
+        $this->expectExceptionMessage($msg);
+        $entity = new SampleType(['foo'=>1], true);
+    }
+
+    /**
+     * @dataProvider invalidTypeProvider
+     */
+    public function testConstructInvalidType($field, $value, $test)
+    {
+        $this->expectInvalidType($field, $test);
+        $entity = new SampleType([$field=>$value], false);
+    }
+
+    /**
+     * @dataProvider invalidTypeProvider
+     */
+    public function testSetInvalidType($field, $value, $test)
+    {
+       $this->expectInvalidType($field, $test);
+       $entity = new SampleType();
+       $entity->$field = $value;
+    }
+
+    public function expectInvalidType($field, $test)
+    {
+        $this->expectException('InvalidArgumentException');
+        $msg = "JSKOS\SampleType->$field must "
+             . (substr($test, 0, 2)=='is' ? "match JSKOS\DataType::$test" : "be a $test");
+        $this->expectExceptionMessage($msg);
+    }
+
+    public function invalidTypeProvider()
     {
         return [
             [ 'uri', 'foo', 'isURI' ],
@@ -93,7 +97,9 @@ class DataTypeTest extends \PHPUnit\Framework\TestCase
             [ 'language', 'en-', 'isLanguage' ],
             [ 'range', 'en', 'isLanguageRange' ],
             [ 'range', '', 'isLanguageRange' ],
-            [ 'languageorrange', '', 'isLanguageOrRange' ],            
+            [ 'languageorrange', '', 'isLanguageOrRange' ],
+            [ 'urilist', 123, 'Listing' ],
+            [ 'conceptset', 123, 'Set' ],
         ];
     }
 
@@ -124,6 +130,8 @@ class SampleType extends DataType
         'language' => 'Language',
         'range' => 'LanguageRange',
         'languageorrange' => 'LanguageOrRange',
+        'urilist' => ['Listing', 'URI'],
+        'conceptset' => ['Set', 'Concept'],
     ];
 
     protected $uri;
@@ -133,4 +141,6 @@ class SampleType extends DataType
     protected $language;
     protected $range;
     protected $languageorrange;
+    protected $urilist;
+    protected $conceptset;
 }

@@ -2,7 +2,6 @@
     "name": "gbv/jskos",
     "description": "JSKOS data model in PHP",
     "keywords": ["SKOS", "Knowledge Organization"],
-    "homepage": "http://gbv.github.io/jskos-php/",
     "type": "library",
     "license": "LGPL",
     "author": [
