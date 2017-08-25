@@ -35,14 +35,11 @@ class LanguageMapOfLists extends LanguageMap
         return false;
     }
 
-    /**
-     * Return a data structure to serialize this container as JSON.
-     */
-    public function jsonLDSerialize(string $context = self::DEFAULT_CONTEXT)
+    public function jsonLDSerialize(string $context = self::DEFAULT_CONTEXT, bool $types = null)
     {
         $map = new \stdClass();
         foreach ($this->members as $lang => $list) {
-            $map->$lang = $list->jsonLDSerialize('');
+            $map->$lang = $list->jsonLDSerialize('', $types);
         }
         return $map;
     }

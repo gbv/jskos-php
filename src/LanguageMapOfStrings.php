@@ -11,10 +11,7 @@ class LanguageMapOfStrings extends LanguageMap
 {
     use StringContainer;
 
-    /**
-     * Return a data structure to serialize this container as JSON.
-     */
-    public function jsonLDSerialize(string $context = self::DEFAULT_CONTEXT)
+    public function jsonLDSerialize(string $context = self::DEFAULT_CONTEXT, bool $types = null)
     {
         return (object)$this->members;
     }

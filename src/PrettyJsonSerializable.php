@@ -26,20 +26,21 @@ abstract class PrettyJsonSerializable implements \JsonSerializable
      * Keys are sorted by Unicode codepoint for stable output.
      *
      * @param string $context optional JSON-LD context URL. Use empty string to omit.
+     * @param bool $types include default type URIs.
      */
-    public function jsonLDSerialize(string $context = self::DEFAULT_CONTEXT)
+    public function jsonLDSerialize(string $context = self::DEFAULT_CONTEXT, bool $types = null)
     {
         $json = [];
 
         foreach ($this as $key => $value) {
             if (isset($value)) {
                 if ($value instanceof PrettyJsonSerializable) {
-                    $value = $value->jsonLDSerialize('');
+                    $value = $value->jsonLDSerialize('', false);
                 } elseif (is_array($value) and !count(array_filter(array_keys($value), 'is_string'))) {
                     $a = [];
                     foreach ($value as $m) {
                         if ($m instanceof PrettyJsonSerializable) {
-                            $m = $m->jsonLDSerialize('');
+                            $m = $m->jsonLDSerialize('', false);
                         }
                         $a[] = $m;
                     }
@@ -49,10 +50,14 @@ abstract class PrettyJsonSerializable implements \JsonSerializable
             }
         }
 
+        # don't serialize implicitly deriveable types for brevity
         if ($context) {
             $json['@context'] = $context;
-        } elseif (count($json['type'] ?? []) == 1) {
-            # don't serialize implicitly deriveable types for brevity
+        }
+        if ($types === null) {
+            $types = (bool)$context;
+        }
+        if (!$types && count($json['type'] ?? []) == 1) {
             if ($json['type'][0] == static::TYPES[0]) {
                 unset($json['type']);
             }

@@ -167,13 +167,10 @@ abstract class Container extends PrettyJsonSerializable implements \Countable, \
 
     # extends PrettyJsonSerializable:
 
-    /**
-     * Return a data structure to serialize this container as JSON.
-     */
-    public function jsonLDSerialize(string $context = self::DEFAULT_CONTEXT)
+    public function jsonLDSerialize(string $context = self::DEFAULT_CONTEXT, bool $types = null)
     {
-        $set = array_map(function ($m) {
-            return is_object($m) ? $m->jsonLDSerialize('') : $m;
+        $set = array_map(function ($m) use ($types) {
+            return is_object($m) ? $m->jsonLDSerialize('', $types) : $m;
         }, $this->members);
 
         if (!$this->closed) {

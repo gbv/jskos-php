@@ -37,12 +37,13 @@ class ConceptBundle extends PrettyJsonSerializable
     /**
      * Returns data which should be serialized to JSON.
      * @param string $context
+     * @param bool $types
      */
-    public function jsonLDSerialize(string $context = self::DEFAULT_CONTEXT)
+    public function jsonLDSerialize(string $context = self::DEFAULT_CONTEXT, bool $types = null)
     {
         $members = [];
         foreach ($this->members as $m) {
-            $members[] = $m->jsonLDSerialize('');
+            $members[] = $m->jsonLDSerialize('', $types);
         }
         $json = [];
         if ($context) {

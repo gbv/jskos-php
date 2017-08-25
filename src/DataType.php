@@ -31,7 +31,7 @@ abstract class DataType extends PrettyJsonSerializable
     /**
      * Get field definition from FIELDS, including parent classes.
      */
-    protected static function fieldType(string $field, bool $strict=false)
+    protected static function fieldType(string $field, bool $strict = false)
     {
         $class = get_called_class();
         while ($class && $class != self::class) {
@@ -51,11 +51,11 @@ abstract class DataType extends PrettyJsonSerializable
     private function fieldException($field, $message)
     {
         return new InvalidArgumentException(
-            get_called_class()."->$field must $message"
+            get_called_class() . "->$field must $message"
         );
     }
 
-    protected function setField(string $field, $value, bool $strict=true)
+    protected function setField(string $field, $value, bool $strict = true)
     {
         if ($field == '@context') {
             return;
@@ -72,7 +72,7 @@ abstract class DataType extends PrettyJsonSerializable
             if ($type[0] == 'Set') {
                 if (!($value instanceof Set)) {
                     if (is_array($value)) {
-                        $class = 'JSKOS\\'.$type[1];
+                        $class = 'JSKOS\\' . $type[1];
                         $value = new Set(
                             array_map(function ($m) use ($class) {
                                 if (is_null($m)) {
@@ -135,7 +135,7 @@ abstract class DataType extends PrettyJsonSerializable
             }
         } else {
             trigger_error(
-                "Undefined property: ".get_called_class()."::$$field",
+                "Undefined property: " . get_called_class() . "::$$field",
                 \E_USER_NOTICE
             );
         }

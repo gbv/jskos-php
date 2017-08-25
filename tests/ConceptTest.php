@@ -33,25 +33,35 @@ class ConceptTest extends \PHPUnit\Framework\TestCase
 
     public function testJson()
     {
-        $concept = new Concept(['uri'=>'x:1']);
-        $concept->prefLabel = ['en' => 'test'];
+        $fields = ['uri'=>'x:1'];
 
+        $concept = new Concept($fields);
+        $this->assertEquals($fields, $concept->jsonLDSerialize(''));
+        $this->assertEquals($fields, $concept->jsonLDSerialize('', false));
+    
+        $fields['@context'] = 'e:x';
+        $this->assertEquals($fields, $concept->jsonLDSerialize('e:x', false));
+
+        $fields['type'] = [Concept::TYPES[0]];
+        $this->assertEquals($fields, $concept->jsonLDSerialize('e:x'));
+        $this->assertEquals($fields, $concept->jsonLDSerialize('e:x', true));
+
+        unset($fields['@context']);
+        $this->assertEquals($fields, $concept->jsonLDSerialize('', true));
+
+        $fields['@context'] = 'https://gbv.github.io/jskos/context.json';
+        $this->assertEquals($fields, $concept->jsonLDSerialize());
+
+
+        $concept->prefLabel = ($fields['prefLabel'] = ['en' => 'test']);
         $concept->narrower = [];
         $concept->narrower[] = new Concept(['uri'=>'x:2']);
-        $concept->broader = [null];
-        $concept->identifier = [null, 'y:1'];
-
-        $expect = [
-            '@context'  => 'https://gbv.github.io/jskos/context.json',
-            'type'      => [Concept::TYPES[0]],
-            'uri'       => 'x:1',
-            'prefLabel' => [ 'en' => 'test' ],
-            'narrower'  => [ [ 'uri' => 'x:2' ] ],
-            'broader'   => [ null ],
-            'identifier' => [ 'y:1', null ]
-        ];
-        ksort($expect);
-        $this->assertEquals(json_encode($expect), json_encode($concept));
+        $fields['narrower'] = [ [ 'uri' => 'x:2' ] ];
+        $concept->broader = ($fields['broader'] = [null]);
+        $concept->identifier =  [null, 'y:1', 'y:1'];
+        $fields['identifier'] = ['y:1', null];
+        ksort($fields);
+        $this->assertEquals(json_encode($fields), json_encode($concept));
     }
 
     public function testNested()
