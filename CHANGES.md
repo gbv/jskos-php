@@ -2,7 +2,7 @@
 
 This changelog tracks features and fixes of jskos PHP library.
 
-## ...
+## 0.3.4
 
 * Add Registry type URI
 * Normalize JSON serialization of LanguageMaps (#12)
