@@ -21,6 +21,15 @@ class LanguageMapOfStringsTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($map, $nonstrict);
     }
 
+    public function testJson()
+    {
+        $map = new LanguageMapOfStrings();
+        foreach (['fr','es','de'] as $lang) {
+            $map[$lang] = '*';
+        }
+        $this->assertEquals('{"de":"*","es":"*","fr":"*"}', "$map");
+    }
+
     public function testValid()
     {
         $valid = [

@@ -37,6 +37,7 @@ class LanguageMapOfLists extends LanguageMap
 
     public function jsonLDSerialize(string $context = self::DEFAULT_CONTEXT, bool $types = null)
     {
+        ksort($this->members);
         $map = new \stdClass();
         foreach ($this->members as $lang => $list) {
             $map->$lang = $list->jsonLDSerialize('', $types);
