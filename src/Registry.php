@@ -11,6 +11,10 @@ use JSKOS\Item;
  */
 class Registry extends Item
 {
+    const TYPES = [
+        'http://purl.org/cld/cdtype/CatalogueOrIndex'
+    ];
+
     const FIELDS = [
         'concepts'     => ['Set', 'AccessPoint'],
         'schemes'      => ['Set', 'AccessPoint'],

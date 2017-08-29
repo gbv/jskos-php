@@ -16,6 +16,8 @@ use InvalidArgumentException;
  */
 abstract class Resource extends DataType
 {
+    const CLASSES = ['ConceptScheme', 'Concordance', 'Mapping', 'Registry', 'Concept'];
+
     const TYPES = [];
 
     const FIELDS = [
@@ -83,7 +85,7 @@ abstract class Resource extends DataType
     public static function guessClassFromTypes(array $types)
     {
         if (count($types)) {
-            foreach (['ConceptScheme', 'Concordance', 'Mapping', 'Concept'] as $class) {
+            foreach (Resource::CLASSES as $class) {
                 $class = "JSKOS\\$class";
                 foreach ($class::TYPES as $uri) {
                     if (in_array($uri, $types)) {

@@ -57,6 +57,7 @@ class ResourceTest extends \PHPUnit\Framework\TestCase
             [['http://www.w3.org/2004/02/skos/core#ConceptScheme'], ConceptScheme::class],
             [['http://www.w3.org/2004/02/skos/core#closeMatch'], Mapping::class],
             [['http://rdfs.org/ns/void#Linkset'], Concordance::class],
+            [['http://purl.org/cld/cdtype/CatalogueOrIndex'], Registry::class]
         ];
     }
 }

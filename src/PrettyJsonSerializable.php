@@ -57,7 +57,7 @@ abstract class PrettyJsonSerializable implements \JsonSerializable
         if ($types === null) {
             $types = (bool)$context;
         }
-        if (!$types && count($json['type'] ?? []) == 1) {
+        if (!$types && count($json['type'] ?? []) == 1 && count(static::TYPES)) {
             if ($json['type'][0] == static::TYPES[0]) {
                 unset($json['type']);
             }

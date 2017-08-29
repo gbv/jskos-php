@@ -2,6 +2,10 @@
 
 This changelog tracks features and fixes of jskos PHP library.
 
+## ...
+
+* Add Registry type URI
+
 ## 0.3.3
 
 * Fix method Set->findURI to actually return an index
