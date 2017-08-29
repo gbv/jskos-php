@@ -26,10 +26,10 @@ abstract class Resource extends DataType
         'created'     => 'Date',
         'issued'      => 'Date',
         'modified'    => 'Date',
-        'creator'     => ['Set','Concept'],
-        'contributor' => ['Set','Concept'],
-        'publisher'   => ['Set','Concept'],
-        'partOf'      => ['Set','Concept'],
+        'creator'     => ['Set', 'Concept'],
+        'contributor' => ['Set', 'Concept'],
+        'publisher'   => ['Set', 'Concept'],
+        'partOf'      => ['Set', 'Concept'],
     ];
 
     /**

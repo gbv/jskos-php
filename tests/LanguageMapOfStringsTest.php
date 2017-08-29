@@ -19,6 +19,9 @@ class LanguageMapOfStringsTest extends \PHPUnit\Framework\TestCase
 
         $nonstrict = new LanguageMapOfStrings([0=>[], 'en'=>'hi']);
         $this->assertEquals($map, $nonstrict);
+
+        $map['en'] = null;
+        $this->assertEquals(new LanguageMapOfStrings(), $map);
     }
 
     public function testJson()

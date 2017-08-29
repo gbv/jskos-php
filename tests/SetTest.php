@@ -7,6 +7,7 @@ use InvalidArgumentException;
 
 /**
  * @covers JSKOS\Set
+ * @covers JSKOS\Container
  */
 class SetTest extends \PHPUnit\Framework\TestCase
 {

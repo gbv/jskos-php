@@ -16,14 +16,14 @@ class Concept extends Item
     ];
 
     const FIELDS = [
-        'narrower'      => ['Set','Concept'],
-        'broader'       => ['Set','Concept'],
-        'related'       => ['Set','Concept'],
-        'previous'      => ['Set','Concept'],
-        'next'          => ['Set','Concept'],
-        'ancestors'     => ['Set','Concept'],
-        'inScheme'      => ['Set','ConceptScheme'],
-        'topConceptOf'  => ['Set','ConceptScheme'],
+        'narrower'      => ['Set', 'Concept'],
+        'broader'       => ['Set', 'Concept'],
+        'related'       => ['Set', 'Concept'],
+        'previous'      => ['Set', 'Concept'],
+        'next'          => ['Set', 'Concept'],
+        'ancestors'     => ['Set', 'Concept'],
+        'inScheme'      => ['Set', 'ConceptScheme'],
+        'topConceptOf'  => ['Set', 'ConceptScheme'],
     ];
 
     /**
