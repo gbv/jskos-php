@@ -7,7 +7,7 @@ use JSKOS\Resource;
 /**
  * Base class of Concept, ConceptScheme, Concordance, Registry, and AccessPoint.
  */
-abstract class Item extends Resource
+class Item extends Resource
 {
     const FIELDS = [
         'url'           => 'URL',

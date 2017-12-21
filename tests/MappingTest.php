@@ -13,14 +13,14 @@ class MappingTest extends \PHPUnit\Framework\TestCase
         $mapping = new Mapping();
         $expect = [
             '@context' => 'https://gbv.github.io/jskos/context.json',
-            'from' => [ 'members' => [], ],
-            'to' => [ 'members' => [], ],
+            'from' => [ 'memberSet' => [], ],
+            'to' => [ 'memberSet' => [], ],
             'type' => ['http://www.w3.org/2004/02/skos/core#mappingRelation'],
         ];
         $this->assertEquals(json_encode($expect), json_encode($mapping));
 
-        $mapping->to->members[] = new Concept(['uri'=>'x:1']);
-        $expect['to']['members'][] = ['uri'=>'x:1'];
+        $mapping->to->memberSet[] = new Concept(['uri'=>'x:1']);
+        $expect['to']['memberSet'][] = ['uri'=>'x:1'];
         $this->assertEquals(json_encode($expect), json_encode($mapping));
         
         $validTypes = [

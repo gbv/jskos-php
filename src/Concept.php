@@ -11,6 +11,8 @@ use JSKOS\Item;
  */
 class Concept extends Item
 {
+    use ConceptBundleTrait;
+
     const TYPES = [
         'http://www.w3.org/2004/02/skos/core#Concept'
     ];
@@ -24,6 +26,9 @@ class Concept extends Item
         'ancestors'     => ['Set', 'Concept'],
         'inScheme'      => ['Set', 'ConceptScheme'],
         'topConceptOf'  => ['Set', 'ConceptScheme'],
+        'memberSet'     => ['Set', 'Concept'],
+        'memberList'    => ['Set', 'Concept'], // FIXME
+        'memberChoice'  => ['Set', 'Concept'],
     ];
 
     /**

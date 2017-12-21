@@ -13,17 +13,13 @@ class ConceptBundleTest extends \PHPUnit\Framework\TestCase
         $bundle = new ConceptBundle();
         $expect = [
             '@context' => 'https://gbv.github.io/jskos/context.json',
-            'members'  => [], 
+            'memberSet' => [], 
         ];
+
         $this->assertEquals(json_encode($expect), json_encode($bundle));
 
-        $bundle->ordered = true;
-        $expect['ordered'] = true;
-        ksort($expect);
+        $bundle->memberSet = new Set([new Concept(['uri'=>'x:y'])]);
+        $expect['memberSet'][] = ['uri'=>'x:y'];
         $this->assertEquals(json_encode($expect), json_encode($bundle));
-
-        $bundle->disjunction = true;
-        $expect['disjunction'] = true;
-        $this->assertEquals(json_encode($expect), json_encode($bundle));
-    }
+    }    
 }

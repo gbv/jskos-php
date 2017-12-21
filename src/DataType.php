@@ -74,7 +74,7 @@ abstract class DataType extends PrettyJsonSerializable
                     if (is_array($value)) {
                         $class = 'JSKOS\\' . $type[1];
                         $value = new Set(
-                            array_map(function($m) use ($class) {
+                            array_map(function ($m) use ($class) {
                                 if (is_null($m)) {
                                     return null;
                                 }
@@ -99,17 +99,10 @@ abstract class DataType extends PrettyJsonSerializable
                 }
                 # TODO: check member types
             }
-        } elseif ($type == 'LanguageMapOfStrings') {
-            if (!($value instanceof LanguageMapOfStrings)) {
-                $value = new LanguageMapOfStrings($value);
-            }
-        } elseif ($type == 'LanguageMapOfLists') {
-            if (!($value instanceof LanguageMapOfLists)) {
-                $value = new LanguageMapOfLists($value);
-            }
-        } elseif ($type == 'ConceptScheme') {
-            if (!($value instanceof ConceptScheme)) {
-                $value = new ConceptScheme($value);
+        } elseif (in_array($type, ['LanguageMapOfStrings', 'LanguageMapOfLists', 'ConceptScheme', 'Item'])) {
+            $type = "JSKOS\\$type";
+            if (!($value instanceof $type)) {
+                $value = new $type($value);
             }
         } elseif ($type != '*' && !DataType::hasType($value, $type)) {
             throw $this->fieldException($field, "match JSKOS\DataType::is$type");
@@ -204,6 +197,22 @@ abstract class DataType extends PrettyJsonSerializable
     public static function isString($string): bool
     {
         return is_string($string);
+    }
+
+    /**
+     * Check whether a given value is a non-negative integer
+     */
+    public static function isNonNegativeInteger($value): bool
+    {
+        return is_int($value) and $value >= 0;
+    }
+
+    /**
+     * Check whether a given value is a percentage
+     */
+    public static function isPercentage($value): bool
+    {
+        return (is_int($value) || is_float($value)) and $value >= 0.0 and $value <= 1.0;
     }
 
     /**

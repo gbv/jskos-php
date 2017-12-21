@@ -12,27 +12,12 @@ use JSKOS\PrettyJsonSerializable;
 class ConceptBundle extends PrettyJsonSerializable
 {
     const FIELDS = [
-        'members' => ['Set', 'Concept']
+        'memberSet' => ['Set', 'Concept'],
+        'memberList' => ['Set', 'Concept'], // FIXME
+        'memberChoice' => ['Set', 'Concept'],
     ];
 
-    /**
-     * Set of concepts in this bundle.
-     *
-     * @var Set $members
-     */
-    public $members = [];
-
-    /**
-     * Whether the concepts in this bundle are ordered (list) or not (set).
-     * @var boolean $ordered
-     */
-    public $ordered = false;
-
-    /**
-     * Whether the concepts in this bundle are combined by OR instead of AND.
-     * @var boolean $disjunction
-     */
-    public $disjunction = false;
+    use ConceptBundleTrait;
 
     /**
      * Returns data which should be serialized to JSON.
@@ -41,21 +26,10 @@ class ConceptBundle extends PrettyJsonSerializable
      */
     public function jsonLDSerialize(string $context = self::DEFAULT_CONTEXT, bool $types = null)
     {
-        $members = [];
-        foreach ($this->members as $m) {
-            $members[] = $m->jsonLDSerialize('', $types);
+        if (!$this->memberSet && !$this->memberList && !$this->memberChoice) {
+            $this->memberSet = new Set();
         }
-        $json = [];
-        if ($context) {
-            $json['@context'] = $context;
-        }
-        $json['members'] = $members;
-        if ($this->ordered) {
-            $json['ordered'] = true;
-        }
-        if ($this->disjunction) {
-            $json['disjunction'] = true;
-        }
-        return $json;
+
+        return parent::jsonLDSerialize($context, $types);
     }
 }
