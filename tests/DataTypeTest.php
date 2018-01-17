@@ -65,7 +65,16 @@ class DataTypeTest extends \PHPUnit\Framework\TestCase
     public function testConstructInvalidType($field, $value, $test)
     {
         $this->expectInvalidType($field, $test);
-        $entity = new SampleType([$field=>$value], false);
+        $entity = new SampleType([$field=>$value], true);
+    }
+
+    /**
+     * @dataProvider invalidTypeProvider
+     */
+    public function testConstructInvalidTypeIgnore($field, $value, $test)
+    {
+        $entity = new SampleType([$field=>$value]);
+        $this->assertTrue(true);
     }
 
     /**

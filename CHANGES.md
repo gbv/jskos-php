@@ -2,6 +2,10 @@
 
 This changelog tracks features and fixes of jskos PHP library.
 
+## 0.3.5
+
+* Make constructors non-strict by default
+
 ## 0.3.4
 
 * Add Registry type URI

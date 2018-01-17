@@ -87,19 +87,32 @@ class ConceptTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider provideExceptionTests
+     * @dataProvider provideInvalidArgumentsExceptionTests
      */
-    public function testExceptions($data)
+    public function testInvalidArgumentException($data)
     {
         $this->expectException(InvalidArgumentException::class);
         $concept = new Concept($data, true);
     }
 
-    public function provideExceptionTests()
+    /**
+     * @dataProvider provideInvalidArgumentsExceptionTests
+     */
+    public function testNoExceptions($data)
+    {
+        if (is_array($data)) {
+            $concept = new Concept($data, false);
+        }
+        $this->assertTrue(true);
+    }
+
+    public function provideInvalidArgumentsExceptionTests()
     {
         return [
             ['foo'=>'bar'],
             ['narrower'=>'yes'],
+            ['license'=>['x']],
+            ['license'=>[ ['type'=>'x'] ]],
         ];
     }
 }

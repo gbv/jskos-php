@@ -31,7 +31,7 @@ abstract class DataType extends PrettyJsonSerializable
     /**
      * Get field definition from FIELDS, including parent classes.
      */
-    protected static function fieldType(string $field, bool $strict = false)
+    protected static function fieldType(string $field)
     {
         $class = get_called_class();
         while ($class && $class != self::class) {
@@ -39,12 +39,6 @@ abstract class DataType extends PrettyJsonSerializable
                 return $class::FIELDS[$field];
             }
             $class = get_parent_class($class);
-        }
-
-        if ($strict) {
-            throw new InvalidArgumentException(
-                get_called_class() . "->$field does not exist"
-            );
         }
     }
 
@@ -55,15 +49,28 @@ abstract class DataType extends PrettyJsonSerializable
         );
     }
 
-    protected function setField(string $field, $value, bool $strict = true)
+    protected function setField($field, $value, bool $strict = true)
+    {
+        try {
+            $this->setFieldStrict("$field", $value);
+        } catch (InvalidArgumentException $e) {
+            if ($strict) {
+                throw $e;
+            }
+        }
+    }
+
+    protected function setFieldStrict(string $field, $value)
     {
         if ($field == '@context') {
             return;
         }
 
-        $type = static::fieldType($field, $strict);
+        $type = static::fieldType($field);
         if (!$type) {
-            return;
+            throw new InvalidArgumentException(
+                get_called_class() . "->$field does not exist"
+            );
         }
 
         if (is_null($value)) {
