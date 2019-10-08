@@ -13,6 +13,7 @@ class Item extends Resource
         'url'           => 'URL',
         'identifier'    => ['Listing'],
         'notation'      => ['Listing'],
+        'license'       => ['Set', 'Concept'],
         'prefLabel'     => 'LanguageMapOfStrings',
         'altLabel'      => 'LanguageMapOfLists',
         'hiddenLabel'   => 'LanguageMapOfLists',
