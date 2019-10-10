@@ -5,7 +5,7 @@ namespace JSKOS;
 /**
  * JSKOS Specification version aligned with.
  */
-const JSKOS_SPECIFICATION = '0.1.4';
+const JSKOS_SPECIFICATION = '0.4.5';
 
 use InvalidArgumentException;
 
@@ -23,6 +23,7 @@ abstract class Resource extends DataType
     const FIELDS = [
         'uri'         => 'URI',
         'type'        => ['Listing'],
+        'identifier'  => ['Listing'],
         'created'     => 'Date',
         'issued'      => 'Date',
         'modified'    => 'Date',
@@ -37,6 +38,11 @@ abstract class Resource extends DataType
      * or whatever this resource refers to.
      */
     protected $uri;
+
+    /**
+     * Additional identifiers.
+     */
+    protected $identifier;
     
     /**
      * Resource types(s).

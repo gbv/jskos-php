@@ -18,8 +18,12 @@ class ConceptScheme extends Item
     const FIELDS = [
         'topConcepts' => ['Set', 'Concept'],
         'versionOf'   => ['Set', 'ConceptScheme'],
-        'concepts'    => ['Set', 'AccessPoint'],
-        'types'       => ['Set', 'AccessPoint'],
+        'namespace'   => 'string',
+        'uriPattern'  => 'string',
+        'notationPattern' => 'string',
+        'concepts'    => ['Set', 'AccessPoint'], // TODO
+        'types'       => ['Set', 'AccessPoint'], // TODO
+        'distributions' => ['Set', 'Concept'],
         'extent'      => 'string',
         'languages'   => ['Listing'],
         'license'     => ['Set', 'Concept'],
@@ -35,6 +39,10 @@ class ConceptScheme extends Item
      */
     protected $versionOf;
 
+    protected $namespace;
+    protected $uriPattern;
+    protected $notationPattern;
+
     /**
      * AccessPoints to concepts in this scheme.
      */
@@ -44,6 +52,8 @@ class ConceptScheme extends Item
      * AccessPoints to Types in this scheme.
      */
     protected $types;
+
+    protected $distributions;
 
     /**
      * Size of the concept scheme.

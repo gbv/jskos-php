@@ -14,7 +14,8 @@ class Concordance extends Item
     ];
 
     const FIELDS = [
-        'mappings'   => ['Set', 'AccessPoint'],
+        'mappings'     => ['Set', 'AccessPoint'],
+        #'distribution' => ['Set', 'Concept'], // TODO
         'fromScheme' => 'ConceptScheme',
         'toScheme'   => 'ConceptScheme',
         'extent'     => 'string',

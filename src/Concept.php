@@ -26,6 +26,8 @@ class Concept extends Item
         'ancestors'     => ['Set', 'Concept'],
         'inScheme'      => ['Set', 'ConceptScheme'],
         'topConceptOf'  => ['Set', 'ConceptScheme'],
+        'startPlace'    => ['Set', 'Concept'],
+        'endPlace  '    => ['Set', 'Concept'],
         'memberSet'     => ['Set', 'Concept'],
         'memberList'    => ['Set', 'Concept'], // FIXME
         'memberChoice'  => ['Set', 'Concept'],
@@ -70,4 +72,14 @@ class Concept extends Item
      * [ConceptSchemes](ConceptScheme) this concept is top concept of.
      */
     protected $topConceptOf;
+
+    /**
+     * Where a concepts started (e.g. place of birth).
+     */
+    protected $startPlace;
+
+    /**
+     * Where a concepts started (e.g. place of dead).
+     */
+    protected $endPlace;
 }

@@ -11,7 +11,6 @@ class Item extends Resource
 {
     const FIELDS = [
         'url'           => 'URL',
-        'identifier'    => ['Listing'],
         'notation'      => ['Listing'],
         'prefLabel'     => 'LanguageMapOfStrings',
         'altLabel'      => 'LanguageMapOfLists',
@@ -20,26 +19,22 @@ class Item extends Resource
         'definition'    => 'LanguageMapOfLists',
         'example'       => 'LanguageMapOfLists',
         'historyNote'   => 'LanguageMapOfLists',
-        'changeNote'    => 'LanguageMapOfLists',
         'editorialNote' => 'LanguageMapOfLists',
-        'subject'       => ['Set', 'Concept'],
-        'subjectOf'     => ['Set', 'Concept'],
-        'depiction'     => ['Listing'],
+        'changeNote'    => 'LanguageMapOfLists',
+        'note'          => 'LanguageMapOfLists',
         'startDate'     => 'Date',
         'endDate'       => 'Date',
         'relatedDate'   => 'Date',
-        'location'      => '*'
+        'location'      => '*',
+        'subject'       => ['Set', 'Concept'],
+        'subjectOf'     => ['Set', 'Concept'],
+        'depiction'     => ['Listing']
     ];
 
     /**
      * URL of a page about the item.
      */
     protected $url;
-
-    /**
-     * Additional identifiers of the item.
-     */
-    protected $identifier;
 
     /**
      * Notations.
@@ -82,14 +77,19 @@ class Item extends Resource
     protected $historyNote;
 
     /**
+     * Change notes.
+     */
+    protected $changeNote;
+
+    /**
      * Editorial notes.
      */
     protected $editorialNote;
 
     /**
-     * Change notes.
+     * Generic notes.
      */
-    protected $changeNote;
+    protected $note;
 
     /**
      * Topics of the item.

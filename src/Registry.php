@@ -22,6 +22,7 @@ class Registry extends Item
         'mappings'     => ['Set', 'AccessPoint'],
         'registries'   => ['Set', 'AccessPoint'],
         'concordances' => ['Set', 'AccessPoint'],
+        'occurrences'  => ['Set', 'AccessPoint'],
         'extent'       => 'string',
         'languages'    => ['Listing'],
         'license'      => ['Set', 'Concept'],
@@ -46,6 +47,8 @@ class Registry extends Item
      * AccessPoints to concordances in this registry.
      */
     protected $concordances;
+
+    protected $occurrences;
 
     /**
      * AccessPoints to mappings in this registry.
