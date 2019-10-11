@@ -12,7 +12,7 @@
 
 # Requirements
 
-JSKOS-PHP requires PHP 7. No additional libraries are required.
+JSKOS-PHP requires PHP 7.2. No additional libraries are required.
 
 # Installation
 
@@ -24,7 +24,7 @@ Install the latest version with
 composer require gbv/jskos
 ~~~
 
-This will automatically create `composer.json` for your project (unless it already exists) and add jskos as dependency. Composer also generates `vendor/autoload.php` to get autoloading of all dependencies: 
+This will automatically create `composer.json` for your project (unless it already exists) and add jskos as dependency. Composer also generates `vendor/autoload.php` to get autoloading of all dependencies:
 
 ~~~php
 require_once __DIR__ . '/vendor/autoload.php';

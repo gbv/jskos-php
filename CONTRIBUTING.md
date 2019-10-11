@@ -11,28 +11,29 @@ a local directory, for instance like this:
 
 ### Install composer
 
-Install [composer](https://getcomposer.org/). For instance download it into
-the current directory:
+[composer](https://getcomposer.org/) may be available as system package, for
+instance:
+
+    $ sudo apt-get install composer
+
+
+Alternatively download it into the current directory:
 
     $ php -r "readfile('https://getcomposer.org/installer');" | php
 
 This way composer needs to be called via `php composer.phar`. To execute it as
 `composer`, make it executable move it to a directory included in your `PATH`.
 
-Composer may also be available as system package, for instance Ubuntu >= 15.10:
-    
-    $ sudo apt-get install composer
-
 ### Install dependencies
 
 Most development dependencies are listed in `composer.json`. Install them
-locally: 
+locally:
 
-    $ composer install 
+    $ composer install
 
 You may need to enable PHP extension curl:
 
-    $ sudo apt-get install php5-curl
+    $ sudo apt-get install php-curl
 
 ### Run unit tests
 
@@ -80,7 +81,7 @@ Style](http://www.php-fig.org/psr/psr-2/). To clean up the code, run:
 Sample JSKOS servers can be placed in `examples/`. You can directly serve the
 directory for testing:
 
-    $ php -S localhost:8080 -t examples/ 
+    $ php -S localhost:8080 -t examples/
 
 ### Releases
 
